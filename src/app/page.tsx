@@ -319,115 +319,120 @@ export default function HomePage() {
           </div>
 
           {/* Hero Graphics / Interactive Quote Calculator */}
-          <div className="lg:col-span-5 w-full">
-            <Card className="glass border-border shadow-xl">
-              <CardHeader className="bg-primary/5 border-b border-border">
-                <CardTitle className="font-serif font-bold text-xl text-primary">Shipping Cost Estimator</CardTitle>
-                <CardDescription className="text-xs">Estimate transit prices and view required documentation immediately.</CardDescription>
-              </CardHeader>
-              <CardContent className="p-6">
-                <form onSubmit={handleCalculate} className="flex flex-col gap-4">
-                  
-                  {/* Origin */}
-                  <div className="flex flex-col gap-1.5">
-                    <label className="text-xs font-semibold text-slate-600">Pickup Origin</label>
-                    <Select value={origin} onValueChange={setOrigin} required>
-                      <SelectTrigger className="w-full bg-white text-slate-800">
-                        <SelectValue placeholder="Select Pickup Location" />
+          <div className="lg:col-span-5 w-full relative">
+            {/* Background Glow behind the card */}
+            <div className="absolute -inset-1.5 rounded-[32px] bg-gradient-to-tr from-primary/20 via-accent/15 to-secondary/20 blur-xl opacity-75 -z-10 pointer-events-none" />
+            
+            <div className="bg-white/95 dark:bg-slate-950/95 backdrop-blur-xl border border-slate-200/60 dark:border-slate-800/60 rounded-3xl shadow-2xl p-8 flex flex-col gap-6">
+              
+              {/* Header */}
+              <div className="flex flex-col gap-1.5 pb-6 border-b border-dashed border-slate-200/80 dark:border-slate-800/80">
+                <span className="text-[10px] font-bold text-primary dark:text-accent uppercase tracking-widest">Rate Calculator</span>
+                <h3 className="font-serif font-black text-2xl text-slate-900 dark:text-slate-100">Shipping Cost Estimator</h3>
+                <p className="text-xs text-slate-500 font-medium leading-relaxed">Estimate transit prices and view required documentation immediately.</p>
+              </div>
+
+              <form onSubmit={handleCalculate} className="flex flex-col gap-5">
+                
+                {/* Origin */}
+                <div className="flex flex-col gap-2">
+                  <label className="text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Pickup Origin</label>
+                  <Select value={origin} onValueChange={setOrigin} required>
+                    <SelectTrigger className="w-full bg-slate-50 dark:bg-slate-900/50 border border-slate-200/60 dark:border-slate-800/60 rounded-xl h-11 text-slate-800 dark:text-slate-100 font-medium px-4 focus:ring-primary/20 focus:border-primary/50 transition-all cursor-pointer">
+                      <SelectValue placeholder="Select Pickup Location" />
+                    </SelectTrigger>
+                    <SelectContent className="bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-850">
+                      <SelectItem value="hyderabad">Hyderabad / Secunderabad</SelectItem>
+                      <SelectItem value="mumbai">Mumbai</SelectItem>
+                      <SelectItem value="bangalore">Bangalore</SelectItem>
+                      <SelectItem value="delhi">Delhi</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                {/* Destination */}
+                <div className="flex flex-col gap-2">
+                  <label className="text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Destination</label>
+                  <Select value={destination} onValueChange={setDestination} required>
+                    <SelectTrigger className="w-full bg-slate-50 dark:bg-slate-900/50 border border-slate-200/60 dark:border-slate-800/60 rounded-xl h-11 text-slate-800 dark:text-slate-100 font-medium px-4 focus:ring-primary/20 focus:border-primary/50 transition-all cursor-pointer">
+                      <SelectValue placeholder="Select Destination" />
+                    </SelectTrigger>
+                    <SelectContent className="bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-850">
+                      <SelectItem value="india">Domestic (Within India)</SelectItem>
+                      <SelectItem value="usa">United States (USA)</SelectItem>
+                      <SelectItem value="uk">United Kingdom (UK)</SelectItem>
+                      <SelectItem value="uae">United Arab Emirates (UAE)</SelectItem>
+                      <SelectItem value="canada">Canada</SelectItem>
+                      <SelectItem value="australia">Australia</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                {/* Weight & Content Type */}
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="flex flex-col gap-2">
+                    <label className="text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Weight (Est. kg)</label>
+                    <Input
+                      type="number"
+                      placeholder="e.g. 5"
+                      min="0.5"
+                      step="0.5"
+                      value={weight}
+                      onChange={(e) => setWeight(e.target.value)}
+                      className="bg-slate-50 dark:bg-slate-900/50 border-slate-200/60 dark:border-slate-800/60 rounded-xl h-11 text-slate-800 dark:text-slate-100 font-medium px-4 focus-visible:ring-primary/20 focus-visible:border-primary/50 transition-all"
+                      required
+                    />
+                  </div>
+                  <div className="flex flex-col gap-2">
+                    <label className="text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Shipment Type</label>
+                    <Select value={itemType} onValueChange={setItemType} required>
+                      <SelectTrigger className="w-full bg-slate-50 dark:bg-slate-900/50 border border-slate-200/60 dark:border-slate-800/60 rounded-xl h-11 text-slate-800 dark:text-slate-100 font-medium px-4 focus:ring-primary/20 focus:border-primary/50 transition-all cursor-pointer">
+                        <SelectValue placeholder="Select Type" />
                       </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="hyderabad">Hyderabad / Secunderabad</SelectItem>
-                        <SelectItem value="mumbai">Mumbai</SelectItem>
-                        <SelectItem value="bangalore">Bangalore</SelectItem>
-                        <SelectItem value="delhi">Delhi</SelectItem>
+                      <SelectContent className="bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-850">
+                        <SelectItem value="document">Documents / Files</SelectItem>
+                        <SelectItem value="parcel">General Parcel</SelectItem>
+                        <SelectItem value="medicine">Medicines Shipping</SelectItem>
+                        <SelectItem value="food">Homemade Foods / Sweets</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
+                </div>
 
-                  {/* Destination */}
-                  <div className="flex flex-col gap-1.5">
-                    <label className="text-xs font-semibold text-slate-600">Destination</label>
-                    <Select value={destination} onValueChange={setDestination} required>
-                      <SelectTrigger className="w-full bg-white text-slate-800">
-                        <SelectValue placeholder="Select Destination" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="india">Domestic (Within India)</SelectItem>
-                        <SelectItem value="usa">United States (USA)</SelectItem>
-                        <SelectItem value="uk">United Kingdom (UK)</SelectItem>
-                        <SelectItem value="uae">United Arab Emirates (UAE)</SelectItem>
-                        <SelectItem value="canada">Canada</SelectItem>
-                        <SelectItem value="australia">Australia</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
+                <Button type="submit" className="w-full bg-gradient-to-r from-primary to-secondary hover:opacity-95 text-white font-bold h-12 rounded-xl mt-2 cursor-pointer shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2">
+                  Calculate Estimate
+                </Button>
+              </form>
 
-                  {/* Weight & Content Type */}
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="flex flex-col gap-1.5">
-                      <label className="text-xs font-semibold text-slate-600">Weight (Est. kg)</label>
-                      <Input
-                        type="number"
-                        placeholder="e.g. 5"
-                        min="0.5"
-                        step="0.5"
-                        value={weight}
-                        onChange={(e) => setWeight(e.target.value)}
-                        className="bg-white text-slate-800"
-                        required
-                      />
+              {/* Estimate Result Display */}
+              {estimation && (
+                <div className="mt-2 pt-6 border-t border-dashed border-slate-200/80 dark:border-slate-800/80 flex flex-col gap-4 animate-in fade-in slide-in-from-top-2 duration-300">
+                  <div className="flex justify-between items-center bg-slate-50 dark:bg-slate-900/50 p-5 rounded-2xl border border-slate-100 dark:border-slate-800">
+                    <div>
+                      <span className="text-[10px] uppercase font-bold tracking-wider text-slate-500 dark:text-slate-400 block mb-0.5">Estimated Price</span>
+                      <strong className="text-3xl text-primary dark:text-accent font-black">₹{estimation.price.toLocaleString()}</strong>
+                      <span className="text-[10px] text-slate-400 block mt-1 leading-none">*Excluding customs duties</span>
                     </div>
-                    <div className="flex flex-col gap-1.5">
-                      <label className="text-xs font-semibold text-slate-600">Shipment Type</label>
-                      <Select value={itemType} onValueChange={setItemType} required>
-                        <SelectTrigger className="w-full bg-white text-slate-800">
-                          <SelectValue placeholder="Select Type" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="document">Documents / Files</SelectItem>
-                          <SelectItem value="parcel">General Parcel</SelectItem>
-                          <SelectItem value="medicine">Medicines Shipping</SelectItem>
-                          <SelectItem value="food">Homemade Foods / Sweets</SelectItem>
-                        </SelectContent>
-                      </Select>
+                    <div className="text-right">
+                      <span className="text-[10px] uppercase font-bold tracking-wider text-slate-500 dark:text-slate-400 block mb-0.5">Transit Time</span>
+                      <strong className="text-base text-slate-800 dark:text-slate-100 font-bold block">{estimation.days}</strong>
                     </div>
                   </div>
 
-                  <Button type="submit" className="w-full bg-primary hover:bg-secondary text-primary-foreground font-semibold mt-2 cursor-pointer shadow">
-                    Calculate Estimate
-                  </Button>
-                </form>
-
-                {/* Estimate Result Display */}
-                {estimation && (
-                  <div className="mt-6 pt-6 border-t border-dashed border-border flex flex-col gap-4 animate-in fade-in slide-in-from-top-2 duration-300">
-                    <div className="flex justify-between items-center bg-primary/5 p-4 rounded-lg border border-primary/10">
-                      <div>
-                        <span className="text-xs text-muted-foreground font-medium block">Estimated Price</span>
-                        <strong className="text-2xl text-primary font-black">₹{estimation.price.toLocaleString()}</strong>
-                        <span className="text-[10px] text-muted-foreground block">*Excluding customs duties at destination</span>
-                      </div>
-                      <div className="text-right">
-                        <span className="text-xs text-muted-foreground font-medium block">Transit Time</span>
-                        <strong className="text-sm text-slate-800 font-bold block">{estimation.days}</strong>
-                      </div>
-                    </div>
-
-                    {/* Docs Requirement Alert */}
-                    <div className="flex flex-col gap-2 p-3 bg-amber-50/50 rounded-lg border border-amber-200/50 text-xs">
-                      <span className="font-bold text-amber-800 flex items-center gap-1.5">
-                        <FileText className="h-4 w-4" /> Required Documentation
-                      </span>
-                      <ul className="list-disc pl-4 flex flex-col gap-1 text-amber-950 font-medium">
-                        {estimation.docs.map((doc, idx) => (
-                          <li key={idx}>{doc}</li>
-                        ))}
-                      </ul>
-                    </div>
+                  {/* Docs Requirement Alert */}
+                  <div className="flex flex-col gap-2.5 p-4 bg-amber-50/40 dark:bg-amber-950/10 rounded-2xl border border-amber-250/20 dark:border-amber-900/20 text-xs">
+                    <span className="font-bold text-amber-800 dark:text-amber-400 flex items-center gap-1.5">
+                      <FileText className="h-4.5 w-4.5 text-amber-600 dark:text-amber-500" /> Required Documentation
+                    </span>
+                    <ul className="list-disc pl-4 flex flex-col gap-1 text-amber-950 dark:text-amber-250 font-medium">
+                      {estimation.docs.map((doc, idx) => (
+                        <li key={idx}>{doc}</li>
+                      ))}
+                    </ul>
                   </div>
-                )}
-              </CardContent>
-            </Card>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </section>
