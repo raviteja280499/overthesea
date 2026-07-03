@@ -41,13 +41,13 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex justify-between items-center">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-3 group">
-          <div className="relative h-12 w-12 rounded-full overflow-hidden border border-primary/20 bg-white flex items-center justify-center p-0.5 shadow-sm group-hover:scale-105 transition-transform">
+          <div className="relative h-12 w-12 flex items-center justify-center group-hover:scale-105 transition-transform">
             <Image
               src="/logo.jpg.jpeg"
               alt="Over the Sea Logo"
               width={48}
               height={48}
-              className="object-cover"
+              className="object-contain"
               priority
             />
           </div>
@@ -121,13 +121,13 @@ export default function Navbar() {
             <SheetContent side="right" className="w-80 glass border-l border-border/40">
               <SheetHeader className="text-left pb-4 border-b border-border/20">
                 <SheetTitle className="flex items-center gap-2">
-                  <div className="h-9 w-9 rounded-full overflow-hidden border border-primary/20 bg-white">
+                  <div className="h-9 w-9 flex items-center justify-center">
                     <Image
                       src="/logo.jpg.jpeg"
                       alt="Over the Sea Logo"
                       width={36}
                       height={36}
-                      className="object-cover"
+                      className="object-contain"
                     />
                   </div>
                   <div className="flex flex-col">

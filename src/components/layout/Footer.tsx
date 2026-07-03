@@ -32,13 +32,13 @@ export default function Footer() {
           {/* Brand Column */}
           <div className="flex flex-col gap-6">
             <Link href="/" className="flex items-center gap-3">
-              <div className="relative h-12 w-12 rounded-full overflow-hidden border border-slate-800 bg-white flex items-center justify-center p-0.5 shadow-md">
+              <div className="relative h-12 w-12 flex items-center justify-center">
                 <Image
-                  src="/small-logo.jpeg"
+                  src="/logo.jpg.jpeg"
                   alt="Over the Sea Logo"
                   width={48}
                   height={48}
-                  className="object-cover"
+                  className="object-contain"
                 />
               </div>
               <div className="flex flex-col">

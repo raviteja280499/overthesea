@@ -475,112 +475,148 @@ export default function HomePage() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           
           {/* Card 1: Medicine shipping */}
-          <Card className="hover:shadow-xl transition-all border border-border group overflow-hidden">
-            <CardHeader className="relative pb-0">
-              <div className="h-12 w-12 rounded-lg bg-red-50 text-red-600 flex items-center justify-center shadow-sm mb-4 group-hover:scale-110 transition-transform">
-                <Compass className="h-6 w-6" />
+          <div className="group relative bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-3xl p-8 flex flex-col justify-between h-full transition-all duration-305 hover:shadow-xl hover:shadow-red-500/5 hover:border-red-200/80 dark:hover:border-red-500/30 overflow-hidden">
+            {/* Corner Decorative Blur Effect */}
+            <div className="absolute -top-12 -right-12 w-28 h-28 rounded-full bg-red-500/5 blur-xl group-hover:scale-150 transition-transform duration-500 pointer-events-none" />
+            
+            <div>
+              <div className="h-14 w-14 rounded-2xl bg-red-50 dark:bg-red-950/30 text-red-600 dark:text-red-400 flex items-center justify-center shadow-sm mb-6 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
+                <Compass className="h-7 w-7" />
               </div>
-              <CardTitle className="text-slate-900 font-bold group-hover:text-primary transition-colors">Specialized Medicine Shipping</CardTitle>
-              <CardDescription className="text-xs mt-1">Global logistics for critical personal medications.</CardDescription>
-            </CardHeader>
-            <CardContent className="pt-4 text-sm text-slate-600 leading-relaxed">
-              We safely courier critical healthcare medications from Hyderabad globally (USA, UK, Canada, UAE) with certified temperature-controlled and accelerated logistics. Complete documentation guidance provided.
-            </CardContent>
-            <CardFooter className="border-t border-border mt-4 py-3.5 bg-slate-50/50 flex justify-between items-center text-xs font-semibold text-primary">
+              <h3 className="text-slate-900 dark:text-slate-100 font-bold text-xl group-hover:text-primary transition-colors">Specialized Medicine Shipping</h3>
+              <p className="text-xs font-semibold text-red-500 dark:text-red-400 mt-1 uppercase tracking-wide">Global Medical Logistics</p>
+              <p className="pt-4 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                We safely courier critical healthcare medications from Hyderabad globally (USA, UK, Canada, UAE) with certified temperature-controlled and accelerated logistics. Complete documentation guidance provided.
+              </p>
+            </div>
+            
+            <div className="mt-8 pt-4 border-t border-slate-100 dark:border-slate-800 flex justify-between items-center text-xs font-semibold text-slate-500 group-hover:text-red-600 transition-colors">
               <span>Doctor-Prescription courier loop</span>
-              <ChevronRight className="h-4 w-4 transform group-hover:translate-x-1 transition-transform" />
-            </CardFooter>
-          </Card>
+              <div className="p-1.5 rounded-full bg-slate-50 dark:bg-slate-800 group-hover:bg-red-50 dark:group-hover:bg-red-950/50 group-hover:text-red-600 transition-colors duration-300">
+                <ChevronRight className="h-4 w-4 transform group-hover:translate-x-1 transition-transform duration-300" />
+              </div>
+            </div>
+          </div>
 
           {/* Card 2: Student Express */}
-          <Card className="hover:shadow-xl transition-all border border-border group overflow-hidden">
-            <CardHeader className="relative pb-0">
-              <div className="h-12 w-12 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center shadow-sm mb-4 group-hover:scale-110 transition-transform">
-                <Plane className="h-6 w-6" />
+          <div className="group relative bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-3xl p-8 flex flex-col justify-between h-full transition-all duration-305 hover:shadow-xl hover:shadow-blue-500/5 hover:border-blue-200/80 dark:hover:border-blue-500/30 overflow-hidden">
+            {/* Corner Decorative Blur Effect */}
+            <div className="absolute -top-12 -right-12 w-28 h-28 rounded-full bg-blue-500/5 blur-xl group-hover:scale-150 transition-transform duration-500 pointer-events-none" />
+            
+            <div>
+              <div className="h-14 w-14 rounded-2xl bg-blue-50 dark:bg-blue-950/30 text-blue-600 dark:text-blue-400 flex items-center justify-center shadow-sm mb-6 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
+                <Plane className="h-7 w-7" />
               </div>
-              <CardTitle className="text-slate-900 font-bold group-hover:text-primary transition-colors">Student Express Baggage</CardTitle>
-              <CardDescription className="text-xs mt-1">Discounted shipping for students going abroad.</CardDescription>
-            </CardHeader>
-            <CardContent className="pt-4 text-sm text-slate-600 leading-relaxed">
-              Moving for education? Send university documentation, excess luggage, textbooks, and personal items at highly subsidized rates. Includes door-to-door tracking and remote custom assistance.
-            </CardContent>
-            <CardFooter className="border-t border-border mt-4 py-3.5 bg-slate-50/50 flex justify-between items-center text-xs font-semibold text-primary">
+              <h3 className="text-slate-900 dark:text-slate-100 font-bold text-xl group-hover:text-primary transition-colors">Student Express Baggage</h3>
+              <p className="text-xs font-semibold text-blue-500 dark:text-blue-400 mt-1 uppercase tracking-wide">Subsidized Student Cargo</p>
+              <p className="pt-4 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                Moving for education? Send university documentation, excess luggage, textbooks, and personal items at highly subsidized rates. Includes door-to-door tracking and remote custom assistance.
+              </p>
+            </div>
+            
+            <div className="mt-8 pt-4 border-t border-slate-100 dark:border-slate-800 flex justify-between items-center text-xs font-semibold text-slate-500 group-hover:text-blue-600 transition-colors">
               <span>Subsidized student rates</span>
-              <ChevronRight className="h-4 w-4 transform group-hover:translate-x-1 transition-transform" />
-            </CardFooter>
-          </Card>
+              <div className="p-1.5 rounded-full bg-slate-50 dark:bg-slate-800 group-hover:bg-blue-50 dark:group-hover:bg-blue-950/50 group-hover:text-blue-600 transition-colors duration-300">
+                <ChevronRight className="h-4 w-4 transform group-hover:translate-x-1 transition-transform duration-300" />
+              </div>
+            </div>
+          </div>
 
           {/* Card 3: Homemade Delicacies */}
-          <Card className="hover:shadow-xl transition-all border border-border group overflow-hidden">
-            <CardHeader className="relative pb-0">
-              <div className="h-12 w-12 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center shadow-sm mb-4 group-hover:scale-110 transition-transform">
-                <Ship className="h-6 w-6" />
+          <div className="group relative bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-3xl p-8 flex flex-col justify-between h-full transition-all duration-305 hover:shadow-xl hover:shadow-amber-500/5 hover:border-amber-200/80 dark:hover:border-amber-500/30 overflow-hidden">
+            {/* Corner Decorative Blur Effect */}
+            <div className="absolute -top-12 -right-12 w-28 h-28 rounded-full bg-amber-500/5 blur-xl group-hover:scale-150 transition-transform duration-500 pointer-events-none" />
+            
+            <div>
+              <div className="h-14 w-14 rounded-2xl bg-amber-50 dark:bg-amber-950/30 text-amber-600 dark:text-amber-400 flex items-center justify-center shadow-sm mb-6 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
+                <Ship className="h-7 w-7" />
               </div>
-              <CardTitle className="text-slate-900 font-bold group-hover:text-primary transition-colors">Household Foods & Sweets</CardTitle>
-              <CardDescription className="text-xs mt-1">Send a taste of home to relatives abroad.</CardDescription>
-            </CardHeader>
-            <CardContent className="pt-4 text-sm text-slate-600 leading-relaxed">
-              Ship authentic homemade foods, pickles, snacks, spices, and traditional sweets safely. We employ vacuum-packing, sanitization, and accelerated delivery paths to guarantee freshness on arrival.
-            </CardContent>
-            <CardFooter className="border-t border-border mt-4 py-3.5 bg-slate-50/50 flex justify-between items-center text-xs font-semibold text-primary">
+              <h3 className="text-slate-900 dark:text-slate-100 font-bold text-xl group-hover:text-primary transition-colors">Household Foods & Sweets</h3>
+              <p className="text-xs font-semibold text-amber-500 dark:text-amber-400 mt-1 uppercase tracking-wide">Fresh Vacuum Packaging</p>
+              <p className="pt-4 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                Ship authentic homemade foods, pickles, snacks, spices, and traditional sweets safely. We employ vacuum-packing, sanitization, and accelerated delivery paths to guarantee freshness on arrival.
+              </p>
+            </div>
+            
+            <div className="mt-8 pt-4 border-t border-slate-100 dark:border-slate-800 flex justify-between items-center text-xs font-semibold text-slate-500 group-hover:text-amber-600 transition-colors">
               <span>Vacuum-sealed freshness path</span>
-              <ChevronRight className="h-4 w-4 transform group-hover:translate-x-1 transition-transform" />
-            </CardFooter>
-          </Card>
+              <div className="p-1.5 rounded-full bg-slate-50 dark:bg-slate-800 group-hover:bg-amber-50 dark:group-hover:bg-amber-950/50 group-hover:text-amber-600 transition-colors duration-300">
+                <ChevronRight className="h-4 w-4 transform group-hover:translate-x-1 transition-transform duration-300" />
+              </div>
+            </div>
+          </div>
 
           {/* Card 4: Domestic Express */}
-          <Card className="hover:shadow-xl transition-all border border-border group overflow-hidden">
-            <CardHeader className="relative pb-0">
-              <div className="h-12 w-12 rounded-lg bg-slate-50 text-slate-700 flex items-center justify-center shadow-sm mb-4 group-hover:scale-110 transition-transform">
-                <Truck className="h-6 w-6" />
+          <div className="group relative bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-3xl p-8 flex flex-col justify-between h-full transition-all duration-305 hover:shadow-xl hover:shadow-primary-500/5 hover:border-primary-200/80 dark:hover:border-primary-500/30 overflow-hidden">
+            {/* Corner Decorative Blur Effect */}
+            <div className="absolute -top-12 -right-12 w-28 h-28 rounded-full bg-primary/5 blur-xl group-hover:scale-150 transition-transform duration-500 pointer-events-none" />
+            
+            <div>
+              <div className="h-14 w-14 rounded-2xl bg-slate-50 dark:bg-slate-850 text-slate-700 dark:text-slate-300 flex items-center justify-center shadow-sm mb-6 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
+                <Truck className="h-7 w-7" />
               </div>
-              <CardTitle className="text-slate-900 font-bold group-hover:text-primary transition-colors">Domestic Document & Cargo</CardTitle>
-              <CardDescription className="text-xs mt-1">Connecting states and metros within India.</CardDescription>
-            </CardHeader>
-            <CardContent className="pt-4 text-sm text-slate-600 leading-relaxed">
-              Express domestic courier for urgent documents, business letters, and parcels. Our cargo network (surface and air) covers almost every zip code in India, backed by rapid schedules.
-            </CardContent>
-            <CardFooter className="border-t border-border mt-4 py-3.5 bg-slate-50/50 flex justify-between items-center text-xs font-semibold text-primary">
+              <h3 className="text-slate-900 dark:text-slate-100 font-bold text-xl group-hover:text-primary transition-colors">Domestic Document & Cargo</h3>
+              <p className="text-xs font-semibold text-primary mt-1 uppercase tracking-wide">Nationwide Express Delivery</p>
+              <p className="pt-4 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                Express domestic courier for urgent documents, business letters, and parcels. Our cargo network (surface and air) covers almost every zip code in India, backed by rapid schedules.
+              </p>
+            </div>
+            
+            <div className="mt-8 pt-4 border-t border-slate-100 dark:border-slate-800 flex justify-between items-center text-xs font-semibold text-slate-500 group-hover:text-primary transition-colors">
               <span>India-wide express reach</span>
-              <ChevronRight className="h-4 w-4 transform group-hover:translate-x-1 transition-transform" />
-            </CardFooter>
-          </Card>
+              <div className="p-1.5 rounded-full bg-slate-50 dark:bg-slate-800 group-hover:bg-primary/10 dark:group-hover:bg-primary/20 group-hover:text-primary transition-colors duration-300">
+                <ChevronRight className="h-4 w-4 transform group-hover:translate-x-1 transition-transform duration-300" />
+              </div>
+            </div>
+          </div>
 
           {/* Card 5: Air & Sea Cargo */}
-          <Card className="hover:shadow-xl transition-all border border-border group overflow-hidden">
-            <CardHeader className="relative pb-0">
-              <div className="h-12 w-12 rounded-lg bg-teal-50 text-teal-600 flex items-center justify-center shadow-sm mb-4 group-hover:scale-110 transition-transform">
-                <Globe className="h-6 w-6" />
+          <div className="group relative bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-3xl p-8 flex flex-col justify-between h-full transition-all duration-305 hover:shadow-xl hover:shadow-teal-500/5 hover:border-teal-200/80 dark:hover:border-teal-500/30 overflow-hidden">
+            {/* Corner Decorative Blur Effect */}
+            <div className="absolute -top-12 -right-12 w-28 h-28 rounded-full bg-teal-500/5 blur-xl group-hover:scale-150 transition-transform duration-500 pointer-events-none" />
+            
+            <div>
+              <div className="h-14 w-14 rounded-2xl bg-teal-50 dark:bg-teal-950/30 text-teal-600 dark:text-teal-400 flex items-center justify-center shadow-sm mb-6 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
+                <Globe className="h-7 w-7" />
               </div>
-              <CardTitle className="text-slate-900 font-bold group-hover:text-primary transition-colors">Global Freight Air & Sea Cargo</CardTitle>
-              <CardDescription className="text-xs mt-1">Bulk shipments for business scaling.</CardDescription>
-            </CardHeader>
-            <CardContent className="pt-4 text-sm text-slate-600 leading-relaxed">
-              Custom-tailored warehousing and bulk cargo transport. Perfect for businesses needing LCL/FCL ocean shipping or scheduled international air cargo freights, backed by customs clearance brokers.
-            </CardContent>
-            <CardFooter className="border-t border-border mt-4 py-3.5 bg-slate-50/50 flex justify-between items-center text-xs font-semibold text-primary">
+              <h3 className="text-slate-900 dark:text-slate-100 font-bold text-xl group-hover:text-primary transition-colors">Global Freight Air & Sea Cargo</h3>
+              <p className="text-xs font-semibold text-teal-500 dark:text-teal-400 mt-1 uppercase tracking-wide">Enterprise Freight Logistics</p>
+              <p className="pt-4 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                Custom-tailored warehousing and bulk cargo transport. Perfect for businesses needing LCL/FCL ocean shipping or scheduled international air cargo freights, backed by customs clearance brokers.
+              </p>
+            </div>
+            
+            <div className="mt-8 pt-4 border-t border-slate-100 dark:border-slate-800 flex justify-between items-center text-xs font-semibold text-slate-500 group-hover:text-teal-600 transition-colors">
               <span>LCL/FCL shipping solutions</span>
-              <ChevronRight className="h-4 w-4 transform group-hover:translate-x-1 transition-transform" />
-            </CardFooter>
-          </Card>
+              <div className="p-1.5 rounded-full bg-slate-50 dark:bg-slate-800 group-hover:bg-teal-50 dark:group-hover:bg-teal-950/50 group-hover:text-teal-600 transition-colors duration-300">
+                <ChevronRight className="h-4 w-4 transform group-hover:translate-x-1 transition-transform duration-300" />
+              </div>
+            </div>
+          </div>
 
           {/* Card 6: Secure Protection */}
-          <Card className="hover:shadow-xl transition-all border border-border group overflow-hidden">
-            <CardHeader className="relative pb-0">
-              <div className="h-12 w-12 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center shadow-sm mb-4 group-hover:scale-110 transition-transform">
-                <Shield className="h-6 w-6" />
+          <div className="group relative bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-3xl p-8 flex flex-col justify-between h-full transition-all duration-305 hover:shadow-xl hover:shadow-emerald-500/5 hover:border-emerald-200/80 dark:hover:border-emerald-500/30 overflow-hidden">
+            {/* Corner Decorative Blur Effect */}
+            <div className="absolute -top-12 -right-12 w-28 h-28 rounded-full bg-emerald-500/5 blur-xl group-hover:scale-150 transition-transform duration-500 pointer-events-none" />
+            
+            <div>
+              <div className="h-14 w-14 rounded-2xl bg-emerald-50 dark:bg-emerald-950/30 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shadow-sm mb-6 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
+                <Shield className="h-7 w-7" />
               </div>
-              <CardTitle className="text-slate-900 font-bold group-hover:text-primary transition-colors">Transit Safety & Insurance</CardTitle>
-              <CardDescription className="text-xs mt-1">Protecting high-value shipments.</CardDescription>
-            </CardHeader>
-            <CardContent className="pt-4 text-sm text-slate-600 leading-relaxed">
-              We treat your consignments with meticulous care. Get optional transit cargo insurance options for expensive goods, computers, documents, and heavy machinery, guaranteeing total financial peace of mind.
-            </CardContent>
-            <CardFooter className="border-t border-border mt-4 py-3.5 bg-slate-50/50 flex justify-between items-center text-xs font-semibold text-primary">
+              <h3 className="text-slate-900 dark:text-slate-100 font-bold text-xl group-hover:text-primary transition-colors">Transit Safety & Insurance</h3>
+              <p className="text-xs font-semibold text-emerald-500 dark:text-emerald-400 mt-1 uppercase tracking-wide">Transit Cargo protection</p>
+              <p className="pt-4 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                We treat your consignments with meticulous care. Get optional transit cargo insurance options for expensive goods, computers, documents, and heavy machinery, guaranteeing total financial peace of mind.
+              </p>
+            </div>
+            
+            <div className="mt-8 pt-4 border-t border-slate-100 dark:border-slate-800 flex justify-between items-center text-xs font-semibold text-slate-500 group-hover:text-emerald-600 transition-colors">
               <span>Full value insurance options</span>
-              <ChevronRight className="h-4 w-4 transform group-hover:translate-x-1 transition-transform" />
-            </CardFooter>
-          </Card>
+              <div className="p-1.5 rounded-full bg-slate-50 dark:bg-slate-800 group-hover:bg-emerald-50 dark:group-hover:bg-emerald-950/50 group-hover:text-emerald-600 transition-colors duration-300">
+                <ChevronRight className="h-4 w-4 transform group-hover:translate-x-1 transition-transform duration-300" />
+              </div>
+            </div>
+          </div>
 
         </div>
       </section>
