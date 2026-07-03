@@ -37,35 +37,13 @@ export default function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 glass">
-      {/* Top Banner */}
-      <div className="bg-primary text-primary-foreground py-2 px-4 text-xs font-semibold tracking-wide">
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
-          <div className="flex items-center gap-4">
-            <span className="flex items-center gap-1">
-              <Phone className="h-3 w-3" />
-              Domestic Support: +91 77027 70288
-            </span>
-            <span className="flex items-center gap-1">
-              <Globe className="h-3 w-3" />
-              Intl Support: +91 77997 71387
-            </span>
-          </div>
-          <div className="flex items-center gap-4">
-            <span>Hours: Mon - Sat 9:00 AM - 8:00 PM</span>
-            <Link href="/contact" className="underline hover:text-accent transition-colors">
-              Request Callback
-            </Link>
-          </div>
-        </div>
-      </div>
-
       {/* Main Header */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex justify-between items-center">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-3 group">
           <div className="relative h-12 w-12 rounded-full overflow-hidden border border-primary/20 bg-white flex items-center justify-center p-0.5 shadow-sm group-hover:scale-105 transition-transform">
             <Image
-              src="/small-logo.jpeg"
+              src="/logo.jpg.jpeg"
               alt="Over the Sea Logo"
               width={48}
               height={48}
@@ -145,7 +123,7 @@ export default function Navbar() {
                 <SheetTitle className="flex items-center gap-2">
                   <div className="h-9 w-9 rounded-full overflow-hidden border border-primary/20 bg-white">
                     <Image
-                      src="/small-logo.jpeg"
+                      src="/logo.jpg.jpeg"
                       alt="Over the Sea Logo"
                       width={36}
                       height={36}
