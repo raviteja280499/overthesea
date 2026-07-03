@@ -34,7 +34,7 @@ export default function Footer() {
             <Link href="/" className="flex items-center gap-3">
               <div className="relative h-12 w-12 flex items-center justify-center">
                 <Image
-                  src="/logo.jpg.jpeg"
+                  src="/logo.png"
                   alt="Over the Sea Logo"
                   width={48}
                   height={48}

@@ -43,7 +43,7 @@ export default function Navbar() {
         <Link href="/" className="flex items-center gap-3 group">
           <div className="relative h-12 w-12 flex items-center justify-center group-hover:scale-105 transition-transform">
             <Image
-              src="/logo.jpg.jpeg"
+              src="/logo.png"
               alt="Over the Sea Logo"
               width={48}
               height={48}
@@ -123,7 +123,7 @@ export default function Navbar() {
                 <SheetTitle className="flex items-center gap-2">
                   <div className="h-9 w-9 flex items-center justify-center">
                     <Image
-                      src="/logo.jpg.jpeg"
+                      src="/logo.png"
                       alt="Over the Sea Logo"
                       width={36}
                       height={36}
