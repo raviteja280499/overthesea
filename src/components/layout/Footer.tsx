@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Ship, Mail, Phone, MapPin, Clock } from "lucide-react";
+import { Ship, Mail, Phone, MapPin, Clock, GraduationCap, Package, Globe } from "lucide-react";
 
 const FacebookIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
@@ -16,10 +16,11 @@ const InstagramIcon = (props: React.SVGProps<SVGSVGElement>) => (
   </svg>
 );
 
-const YoutubeIcon = (props: React.SVGProps<SVGSVGElement>) => (
+const LinkedinIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
-    <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z" />
-    <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" />
+    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+    <rect x="2" y="9" width="4" height="12" />
+    <circle cx="4" cy="4" r="2" />
   </svg>
 );
 
@@ -43,92 +44,92 @@ export default function Footer() {
               </div>
               <div className="flex flex-col">
                 <span className="font-serif font-black text-xl tracking-tight text-white leading-none">
-                  Over the sea
+                  OVER THE SEA
                 </span>
-                <span className="font-sans text-[10px] tracking-[0.18em] uppercase text-primary font-semibold">
-                  Global Courier
+                <span className="font-sans text-[10px] tracking-[0.14em] uppercase text-primary font-semibold mt-0.5">
+                  Courier & Foreign Consultancy
                 </span>
               </div>
             </Link>
             <p className="text-sm text-slate-400 leading-relaxed">
-              Delivering Beyond Borders. Over the sea is a leading cargo and international courier service provider, bringing reliability, safety, and efficiency to every shipment globally.
+              Over the sea provides worldwide express courier logistics alongside premier foreign education consultancy, student admissions, and visa guidance.
             </p>
             <div className="flex items-center gap-3">
-              <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer" className="p-2.5 rounded-full bg-slate-900 hover:bg-primary hover:text-white transition-all text-slate-400" aria-label="Facebook">
+              <a href="https://www.facebook.com/share/18eHnTG3RA/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" className="p-2.5 rounded-full bg-slate-900 hover:bg-primary hover:text-white transition-all text-slate-400" aria-label="Facebook">
                 <FacebookIcon className="h-4 w-4" />
               </a>
-              <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" className="p-2.5 rounded-full bg-slate-900 hover:bg-primary hover:text-white transition-all text-slate-400" aria-label="Instagram">
+              <a href="https://www.instagram.com/overthesea_consultancy" target="_blank" rel="noopener noreferrer" className="p-2.5 rounded-full bg-slate-900 hover:bg-primary hover:text-white transition-all text-slate-400" aria-label="Instagram">
                 <InstagramIcon className="h-4 w-4" />
               </a>
-              <a href="https://www.youtube.com" target="_blank" rel="noopener noreferrer" className="p-2.5 rounded-full bg-slate-900 hover:bg-primary hover:text-white transition-all text-slate-400" aria-label="Youtube">
-                <YoutubeIcon className="h-4 w-4" />
+              <a href="https://www.linkedin.com/in/over-the-sea-educational-consultancy-services-a76741424" target="_blank" rel="noopener noreferrer" className="p-2.5 rounded-full bg-slate-900 hover:bg-primary hover:text-white transition-all text-slate-400" aria-label="LinkedIn">
+                <LinkedinIcon className="h-4 w-4" />
               </a>
             </div>
           </div>
 
-          {/* Quick Links */}
+          {/* Courier Services Links */}
           <div className="flex flex-col gap-6">
-            <h3 className="text-white font-bold text-base tracking-wide relative after:content-[''] after:absolute after:bottom-[-8px] after:left-0 after:w-12 after:h-0.5 after:bg-primary">
-              Our Services
+            <h3 className="text-white font-bold text-base tracking-wide relative after:content-[''] after:absolute after:bottom-[-8px] after:left-0 after:w-12 after:h-0.5 after:bg-amber-500 flex items-center gap-2">
+              <Package className="h-4 w-4 text-amber-500" /> Courier Services
             </h3>
             <ul className="flex flex-col gap-3 text-sm">
               <li>
-                <Link href="/services#domestic" className="hover:text-primary transition-colors text-slate-400">
-                  Domestic Express Delivery
+                <Link href="/courier#international" className="hover:text-amber-400 transition-colors text-slate-400">
+                  International Express Courier
                 </Link>
               </li>
               <li>
-                <Link href="/services#international" className="hover:text-primary transition-colors text-slate-400">
-                  International Courier & Parcel
+                <Link href="/courier#medicine" className="hover:text-amber-400 transition-colors text-slate-400">
+                  Medicine & Doctor Prescription Courier
                 </Link>
               </li>
               <li>
-                <Link href="/services#specialized" className="hover:text-primary transition-colors text-slate-400">
-                  Specialized Medicine Shipping
+                <Link href="/courier#baggage" className="hover:text-amber-400 transition-colors text-slate-400">
+                  Student Baggage Express Shipping
                 </Link>
               </li>
               <li>
-                <Link href="/services#specialized" className="hover:text-primary transition-colors text-slate-400">
-                  Student Express Services
+                <Link href="/courier#food" className="hover:text-amber-400 transition-colors text-slate-400">
+                  Household Foods & Sweets Shipping
                 </Link>
               </li>
               <li>
-                <Link href="/services#cargo" className="hover:text-primary transition-colors text-slate-400">
-                  Air & Surface Cargo Services
+                <Link href="/tracking" className="hover:text-amber-400 transition-colors text-slate-400">
+                  Live AWB Consignment Tracking
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Support Links */}
+          {/* Educational Consultancy Links */}
           <div className="flex flex-col gap-6">
-            <h3 className="text-white font-bold text-base tracking-wide relative after:content-[''] after:absolute after:bottom-[-8px] after:left-0 after:w-12 after:h-0.5 after:bg-primary">
-              Useful Resources
+            <h3 className="text-white font-bold text-base tracking-wide relative after:content-[''] after:absolute after:bottom-[-8px] after:left-0 after:w-12 after:h-0.5 after:bg-sky-500 flex items-center gap-2">
+              <GraduationCap className="h-4 w-4 text-sky-500" /> Overseas Consultancy
             </h3>
             <ul className="flex flex-col gap-3 text-sm">
               <li>
-                <Link href="/about" className="hover:text-primary transition-colors text-slate-400">
-                  About Our Company
+                <Link href="/education#counselling" className="hover:text-sky-400 transition-colors text-slate-400">
+                  Study Abroad Counselling
                 </Link>
               </li>
               <li>
-                <Link href="/tracking" className="hover:text-primary transition-colors text-slate-400">
-                  Consignment Tracking
+                <Link href="/education#destinations" className="hover:text-sky-400 transition-colors text-slate-400">
+                  University & Course Admissions
                 </Link>
               </li>
               <li>
-                <Link href="/contact" className="hover:text-primary transition-colors text-slate-400">
-                  Contact Support Team
+                <Link href="/education#visa" className="hover:text-sky-400 transition-colors text-slate-400">
+                  Student Visa Filing Assistance
                 </Link>
               </li>
               <li>
-                <Link href="/services#prohibited" className="hover:text-primary transition-colors text-slate-400">
-                  Prohibited Shipping Items
+                <Link href="/education#coaching" className="hover:text-sky-400 transition-colors text-slate-400">
+                  IELTS / TOEFL / GRE Coaching
                 </Link>
               </li>
               <li>
-                <Link href="/services#documents" className="hover:text-primary transition-colors text-slate-400">
-                  Required Documentation
+                <Link href="/education#eligibility" className="hover:text-sky-400 transition-colors text-slate-400">
+                  Free Study Eligibility Assessment
                 </Link>
               </li>
             </ul>
@@ -137,40 +138,63 @@ export default function Footer() {
           {/* Contact Details */}
           <div className="flex flex-col gap-6">
             <h3 className="text-white font-bold text-base tracking-wide relative after:content-[''] after:absolute after:bottom-[-8px] after:left-0 after:w-12 after:h-0.5 after:bg-primary">
-              Contact Information
+              Contact & Head Office
             </h3>
-            <div className="flex flex-col gap-4 text-sm text-slate-400">
-              <div className="flex items-start gap-3">
-                <MapPin className="h-5 w-5 text-primary shrink-0 mt-0.5" />
+            <div className="flex flex-col gap-3 text-xs text-slate-400">
+              <div className="flex items-start gap-2.5">
+                <MapPin className="h-4 w-4 text-primary shrink-0 mt-0.5" />
                 <span>
-                  <strong>Head Office:</strong> H.No.1-8-308, E N Plaza, Patigadda Lane, Begumpet, Secunderabad – 500003
+                  <strong>Head Office:</strong> S1 Kavitha Apartment, Vengal Rao Nagar, A Block Rd, S.R Nagar Metro Station, Hyderabad, Telangana – 500038
                 </span>
               </div>
-              <div className="flex items-start gap-3">
-                <Phone className="h-4 w-4 text-primary shrink-0 mt-0.5" />
-                <div className="flex flex-col gap-0.5">
-                  <span className="font-semibold text-slate-200">+91 9052703561 (Hotline)</span>
-                  <span>+91 77027 70288 / 89</span>
-                </div>
+              <div className="flex items-center gap-2.5">
+                <Phone className="h-4 w-4 text-sky-400 shrink-0" />
+                <a href="tel:+919052703560" className="hover:text-white transition-colors">
+                  Call: +91 90527 03560
+                </a>
               </div>
-              <div className="flex items-center gap-3">
-                <Mail className="h-4 w-4 text-primary shrink-0" />
-                <span>info@worldfirst.in</span>
+              <div className="flex items-center gap-2.5">
+                <span className="text-emerald-400 text-sm font-bold">💬</span>
+                <a href="https://wa.me/919052703561" target="_blank" rel="noopener noreferrer" className="hover:text-emerald-300 transition-colors">
+                  WhatsApp: +91 90527 03561
+                </a>
               </div>
-              <div className="flex items-center gap-3">
-                <Clock className="h-4 w-4 text-primary shrink-0" />
-                <span>Mon - Sat: 9:00 AM - 8:00 PM</span>
+              <div className="flex items-center gap-2.5">
+                <Mail className="h-4 w-4 text-sky-400 shrink-0" />
+                <a href="mailto:overtheseaconsultancy@gmail.com" className="hover:text-white transition-colors truncate">
+                  overtheseaconsultancy@gmail.com
+                </a>
+              </div>
+              <div className="flex items-center gap-2.5">
+                <Globe className="h-4 w-4 text-sky-400 shrink-0" />
+                <a href="https://www.overthesea.in" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
+                  www.overthesea.in
+                </a>
               </div>
             </div>
           </div>
-          
+
         </div>
 
+        {/* Bottom Bar */}
         <div className="pt-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-slate-500">
-          <p>© {new Date().getFullYear()} Over the Sea Global Courier Services. All rights reserved.</p>
-          <div className="flex gap-6">
-            <Link href="/privacy" className="hover:text-primary transition-colors">Privacy Policy</Link>
-            <Link href="/terms" className="hover:text-primary transition-colors">Terms of Service</Link>
+          <p>© {new Date().getFullYear()} Over the Sea Courier & Educational Consultancy. All rights reserved.</p>
+          <div className="flex items-center gap-6">
+            <Link href="/about" className="hover:text-slate-300 transition-colors">
+              About Us
+            </Link>
+            <span>•</span>
+            <Link href="/contact" className="hover:text-slate-300 transition-colors">
+              Contact Us
+            </Link>
+            <span>•</span>
+            <Link href="/education" className="hover:text-slate-300 transition-colors">
+              Educational Consultancy
+            </Link>
+            <span>•</span>
+            <Link href="/courier" className="hover:text-slate-300 transition-colors">
+              Global Courier Services
+            </Link>
           </div>
         </div>
       </div>

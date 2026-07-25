@@ -25,8 +25,8 @@ const mono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Over the Sea | Global Courier & Cargo Services",
-  description: "Delivering Beyond Borders. Premium domestic and international courier, cargo, and specialized shipping services.",
+  title: "Over the Sea | Foreign Education Consultancy & Global Courier",
+  description: "Premium domestic and international courier, cargo, and specialized foreign education consultancy services.",
 };
 
 export default function RootLayout({
@@ -39,7 +39,7 @@ export default function RootLayout({
       lang="en"
       className={`${sans.variable} ${serif.variable} ${mono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-background text-foreground pb-16 lg:pb-0">
+      <body className="min-h-full flex flex-col bg-[rgb(1_7_34)] text-slate-100 pb-16 lg:pb-0">
         <Navbar />
         <main className="flex-grow">{children}</main>
         <Footer />
