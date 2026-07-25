@@ -19,10 +19,16 @@ import {
   Calculator,
   HeartPulse,
   Truck,
-  Sparkles
+  Sparkles,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle } from "@/components/ui/sheet";
+import {
+  Sheet,
+  SheetContent,
+  SheetTrigger,
+  SheetHeader,
+  SheetTitle,
+} from "@/components/ui/sheet";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -33,10 +39,8 @@ export default function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 w-full pt-3 pb-1 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto pointer-events-none">
-      
       {/* BORDERLESS GLASS CAPSULE NAVBAR */}
       <div className="pointer-events-auto bg-transparent backdrop-blur-md border-0 sm:border sm:border-white/10 sm:bg-[rgb(1_7_34)]/40 rounded-full px-3 sm:px-5 py-2 flex justify-between items-center transition-all duration-300">
-        
         {/* Logo */}
         <Link href="/" className="flex items-center gap-3 group">
           <div className="relative h-10 w-10 sm:h-11 sm:w-11 flex items-center justify-center group-hover:scale-105 transition-transform">
@@ -57,8 +61,8 @@ export default function Navbar() {
               {isEduPage
                 ? "Education Portal"
                 : isCourierPage
-                ? "Courier Logistics"
-                : "Services Gateway"}
+                  ? "Courier Logistics"
+                  : "Services Gateway"}
             </span>
           </div>
         </Link>
@@ -68,7 +72,9 @@ export default function Navbar() {
           <Link
             href="/"
             className={`transition-colors hover:text-sky-300 ${
-              pathname === "/" ? "text-sky-300 font-extrabold bg-sky-500/20 px-3.5 py-1.5 rounded-full" : "hover:text-white"
+              pathname === "/"
+                ? "text-sky-300 font-extrabold bg-sky-500/20 px-3.5 py-1.5 rounded-full"
+                : "hover:text-white"
             }`}
           >
             Home
@@ -155,19 +161,31 @@ export default function Navbar() {
         {/* Action Switcher Button */}
         <div className="hidden lg:flex items-center gap-3">
           {isEduPage ? (
-            <Button asChild size="sm" className="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-full px-4 h-9 shadow-md cursor-pointer text-xs">
+            <Button
+              asChild
+              size="sm"
+              className="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-full px-4 h-9 shadow-md cursor-pointer text-xs"
+            >
               <Link href="/courier" className="flex items-center gap-1.5">
                 <Package className="h-3.5 w-3.5" /> Courier Services
               </Link>
             </Button>
           ) : isCourierPage ? (
-            <Button asChild size="sm" className="bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold rounded-full px-4 h-9 shadow-md cursor-pointer text-xs">
+            <Button
+              asChild
+              size="sm"
+              className="bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold rounded-full px-4 h-9 shadow-md cursor-pointer text-xs"
+            >
               <Link href="/education" className="flex items-center gap-1.5">
                 <GraduationCap className="h-3.5 w-3.5" /> Education Portal
               </Link>
             </Button>
           ) : (
-            <Button asChild size="sm" className="bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold rounded-full px-5 h-9 shadow-md cursor-pointer text-xs">
+            <Button
+              asChild
+              size="sm"
+              className="bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold rounded-full px-5 h-9 shadow-md cursor-pointer text-xs"
+            >
               <Link href="/contact">Get In Touch</Link>
             </Button>
           )}
@@ -177,14 +195,20 @@ export default function Navbar() {
         <div className="lg:hidden">
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="text-white hover:bg-white/15 rounded-full h-10 w-10 border border-sky-400/20">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="text-white hover:bg-white/15 rounded-full h-10 w-10 border border-sky-400/20"
+              >
                 <Menu className="h-5 w-5" />
                 <span className="sr-only">Toggle menu</span>
               </Button>
             </SheetTrigger>
 
-            <SheetContent side="right" className="w-[85vw] max-w-sm bg-slate-950/95 border-l-2 border-sky-400/30 text-slate-100 p-6 overflow-y-auto backdrop-blur-2xl shadow-[-10px_0_50px_rgba(0,0,0,0.8)] rounded-l-[32px]">
-              
+            <SheetContent
+              side="right"
+              className="w-[85vw] max-w-sm bg-slate-950/95 border-l-2 border-sky-400/30 text-slate-100 p-6 overflow-y-auto backdrop-blur-2xl shadow-[-10px_0_50px_rgba(0,0,0,0.8)] rounded-l-[32px]"
+            >
               {/* Drawer Header */}
               <SheetHeader className="text-left pb-4 border-b border-sky-900/40">
                 <SheetTitle className="flex items-center justify-between gap-2">
@@ -212,7 +236,6 @@ export default function Navbar() {
 
               {/* Drawer Navigation Body */}
               <div className="flex flex-col gap-5 py-6">
-                
                 {/* Home Link */}
                 <Link
                   href="/"
@@ -247,28 +270,32 @@ export default function Navbar() {
                       onClick={() => setIsOpen(false)}
                       className="flex items-center gap-2 hover:text-cyan-300 transition-colors py-1"
                     >
-                      <Compass className="h-3.5 w-3.5 text-sky-400" /> Study Destinations
+                      <Compass className="h-3.5 w-3.5 text-sky-400" /> Study
+                      Destinations
                     </Link>
                     <Link
                       href="/education#counselling"
                       onClick={() => setIsOpen(false)}
                       className="flex items-center gap-2 hover:text-cyan-300 transition-colors py-1"
                     >
-                      <FileCheck className="h-3.5 w-3.5 text-sky-400" /> Admissions & Visa Guidance
+                      <FileCheck className="h-3.5 w-3.5 text-sky-400" />{" "}
+                      Admissions & Visa Guidance
                     </Link>
                     <Link
                       href="/education#coaching"
                       onClick={() => setIsOpen(false)}
                       className="flex items-center gap-2 hover:text-cyan-300 transition-colors py-1"
                     >
-                      <BookOpen className="h-3.5 w-3.5 text-sky-400" /> IELTS / GRE Coaching
+                      <BookOpen className="h-3.5 w-3.5 text-sky-400" /> IELTS /
+                      GRE Coaching
                     </Link>
                     <Link
                       href="/education#eligibility"
                       onClick={() => setIsOpen(false)}
                       className="flex items-center gap-2 hover:text-cyan-300 transition-colors py-1 font-bold text-cyan-300"
                     >
-                      <Sparkles className="h-3.5 w-3.5 text-cyan-400" /> Free Profile Assessment
+                      <Sparkles className="h-3.5 w-3.5 text-cyan-400" /> Free
+                      Profile Assessment
                     </Link>
                   </div>
                 </div>
@@ -293,28 +320,32 @@ export default function Navbar() {
                       onClick={() => setIsOpen(false)}
                       className="flex items-center gap-2 hover:text-amber-300 transition-colors py-1"
                     >
-                      <Calculator className="h-3.5 w-3.5 text-amber-400" /> Rate Calculator
+                      <Calculator className="h-3.5 w-3.5 text-amber-400" /> Rate
+                      Calculator
                     </Link>
                     <Link
                       href="/courier#medicine"
                       onClick={() => setIsOpen(false)}
                       className="flex items-center gap-2 hover:text-amber-300 transition-colors py-1"
                     >
-                      <HeartPulse className="h-3.5 w-3.5 text-amber-400" /> Prescription Medicine Shipping
+                      <HeartPulse className="h-3.5 w-3.5 text-amber-400" />{" "}
+                      Prescription Medicine Shipping
                     </Link>
                     <Link
                       href="/courier#baggage"
                       onClick={() => setIsOpen(false)}
                       className="flex items-center gap-2 hover:text-amber-300 transition-colors py-1"
                     >
-                      <Truck className="h-3.5 w-3.5 text-amber-400" /> Student Excess Baggage
+                      <Truck className="h-3.5 w-3.5 text-amber-400" /> Student
+                      Excess Baggage
                     </Link>
                     <Link
                       href="/tracking"
                       onClick={() => setIsOpen(false)}
                       className="flex items-center gap-2 hover:text-amber-300 transition-colors py-1 font-bold text-amber-300"
                     >
-                      <Search className="h-3.5 w-3.5 text-amber-400" /> Track AWB Shipment
+                      <Search className="h-3.5 w-3.5 text-amber-400" /> Track
+                      AWB Shipment
                     </Link>
                   </div>
                 </div>
@@ -328,17 +359,17 @@ export default function Navbar() {
                     className="flex items-center justify-between p-3.5 rounded-2xl bg-emerald-950/80 border border-emerald-500/40 text-emerald-200 font-bold hover:bg-emerald-900/90 shadow-lg"
                   >
                     <span className="flex items-center gap-2 text-sm">
-                      💬 WhatsApp Business
+                      💬 WhatsApp
                     </span>
-                    <span className="text-xs font-mono text-emerald-300">+91 90527 03561</span>
+                    <span className="text-xs font-mono text-emerald-300">
+                      +91 90527 03561
+                    </span>
                   </a>
                 </div>
-
               </div>
             </SheetContent>
           </Sheet>
         </div>
-
       </div>
     </header>
   );
