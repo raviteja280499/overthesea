@@ -34,6 +34,7 @@ const destinations = [
   {
     country: "United States (USA)",
     flag: "🇺🇸",
+    image: "/destinations/usa.png",
     intakes: "Fall (Aug/Sep), Spring (Jan/Feb)",
     workPermit: "OPT up to 3 Years (STEM), H1-B Pathway",
     popular: "Computer Science, Data Science, MBA, Biotech, Engineering",
@@ -42,6 +43,7 @@ const destinations = [
   {
     country: "United Kingdom (UK)",
     flag: "🇬🇧",
+    image: "/destinations/uk.png",
     intakes: "September, January",
     workPermit: "2-Year Graduate Route Post-Study Work Visa",
     popular: "Business Analytics, Finance, Law, AI, Healthcare",
@@ -50,6 +52,7 @@ const destinations = [
   {
     country: "Canada",
     flag: "🇨🇦",
+    image: "/destinations/canada.png",
     intakes: "Fall (September), Winter (January), Summer (May)",
     workPermit: "Post-Graduation Work Permit (PGWP) up to 3 Years",
     popular: "Information Technology, Business Admin, Engineering, Health Sciences",
@@ -58,6 +61,7 @@ const destinations = [
   {
     country: "Australia",
     flag: "🇦🇺",
+    image: "/destinations/australia.png",
     intakes: "February, July, November",
     workPermit: "2 to 4-Year Temporary Graduate Visa (Subclass 485)",
     popular: "Cybersecurity, Project Management, Nursing, Public Health",
@@ -66,6 +70,7 @@ const destinations = [
   {
     country: "Germany",
     flag: "🇩🇪",
+    image: "/destinations/germany.png",
     intakes: "Winter (October), Summer (April)",
     workPermit: "18-Month Job Seeking Visa Post Graduation",
     popular: "Automotive Engineering, Robotics, Renewable Energy, Tech",
@@ -74,10 +79,44 @@ const destinations = [
   {
     country: "Ireland",
     flag: "🇮🇪",
+    image: "/destinations/ireland.png",
     intakes: "September, January",
     workPermit: "2-Year Third Level Graduate Scheme (Stamp 1G)",
     popular: "Software Engineering, Pharmaceuticals, Cloud Computing",
     description: "European tech hub hosting global giants (Google, Apple, Meta, Pfizer) with attractive stay-back visas."
+  }
+];
+
+const coreEducationServices = [
+  {
+    title: "Application and Admission Guidance",
+    description: "Obtain assistance from our best study abroad consultants to complete an error-free application for your selected university, submit it, and keep you updated on its status.",
+    image: "/services/admission-guidance.png"
+  },
+  {
+    title: "Test Preparation",
+    description: "Our comprehensive practice program is tailored to your exam needs, whether it is IELTS, TOEFL, ACT, GMAT, GRE, SAT, or any other test you may be taking. Through practice, our foreign education consultants will assist you in enhancing your abilities.",
+    image: "/services/test-prep.png"
+  },
+  {
+    title: "Visa Application",
+    description: "With the assistance of our Visa experts, you will be able to fill out visa forms correctly and prepare your visa documentation in the correct order. Additionally, our foreign education consultants will help prepare for mock interviews and training sessions.",
+    image: "/services/visa-application.png"
+  },
+  {
+    title: "Pre-Departure Services",
+    description: "Pre-departure briefings, insurances, currency conversions, accommodations and other services are all handled by our team before you land in your dream country.",
+    image: "/services/pre-departure.png"
+  },
+  {
+    title: "Financial AID and Scholarships",
+    description: "After choosing one of the best study abroad programs, we can assist you find reliable educational loans to pursue further education abroad.",
+    image: "/services/financial-aid.png"
+  },
+  {
+    title: "Post Arrival Services",
+    description: "As part of our foreign study abroad consultancy, we will take care of all details regarding your arrival in your dream country, including airport pickups, accommodation, and local city orientation.",
+    image: "/services/post-arrival.png"
   }
 ];
 
@@ -188,6 +227,66 @@ export default function EducationalConsultancyPage() {
       </section>
 
       {/* ========================================================================= */}
+      {/* SERVICES WE ARE PROVIDING (6 CORE SERVICES GRID) */}
+      {/* ========================================================================= */}
+      <ScrollAnimate>
+        <section id="services-providing" className="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+          <div className="text-center max-w-3xl mx-auto mb-14">
+            <Badge className="bg-sky-500/20 text-sky-300 border border-sky-400/30 text-xs px-4 py-1.5 rounded-full font-bold uppercase tracking-wider">
+              Comprehensive Overseas Consultancy
+            </Badge>
+            <h2 className="text-3xl sm:text-5xl font-serif font-black text-white mt-3">
+              Services We Are Providing
+            </h2>
+            <p className="text-slate-300 text-sm sm:text-base mt-2 font-light">
+              End-to-end guidance from admission application to post-arrival support in your dream country.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {coreEducationServices.map((service, idx) => (
+              <div
+                key={idx}
+                className="glass-ocean rounded-3xl overflow-hidden border border-sky-500/20 hover:border-sky-400/60 transition-all duration-300 hover:-translate-y-1.5 flex flex-col shadow-2xl group"
+              >
+                {/* Generated Service Image */}
+                <div className="relative w-full h-56 overflow-hidden">
+                  <Image
+                    src={service.image}
+                    alt={service.title}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80" />
+                  <span className="absolute top-4 left-4 bg-sky-950/80 backdrop-blur-md text-cyan-300 font-extrabold text-xs px-3 py-1 rounded-full border border-sky-400/30 shadow-lg">
+                    Service 0{idx + 1}
+                  </span>
+                </div>
+
+                {/* Content Details */}
+                <div className="p-7 flex flex-col justify-between flex-1 gap-4">
+                  <div className="flex flex-col gap-2.5">
+                    <h3 className="text-xl font-serif font-bold text-white group-hover:text-cyan-300 transition-colors">
+                      {service.title}
+                    </h3>
+                    <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-light">
+                      {service.description}
+                    </p>
+                  </div>
+
+                  <div className="pt-4 border-t border-sky-900/40">
+                    <Button asChild size="sm" className="w-full bg-sky-500/20 hover:bg-sky-500 text-sky-300 hover:text-slate-950 font-bold rounded-full border border-sky-400/30 transition-all">
+                      <a href="#eligibility">Enquire About {service.title}</a>
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+      </ScrollAnimate>
+
+      {/* ========================================================================= */}
       {/* 5-PILLAR OVERSEAS EDUCATION PROCESS (CURVED GLASS CARDS) */}
       {/* ========================================================================= */}
       <ScrollAnimate>
@@ -281,36 +380,51 @@ export default function EducationalConsultancyPage() {
           {destinations.map((d, index) => (
             <div
               key={index}
-              className="glass-ocean p-7 rounded-[36px] border border-sky-500/20 flex flex-col justify-between hover:border-sky-400/60 transition-all hover:-translate-y-1"
+              className="glass-ocean rounded-[36px] overflow-hidden border border-sky-500/20 flex flex-col justify-between hover:border-sky-400/60 transition-all hover:-translate-y-1 shadow-2xl group"
             >
-              <div>
-                <div className="flex items-center justify-between gap-2 mb-4">
-                  <h3 className="text-2xl font-serif font-bold text-white flex items-center gap-2">
-                    <span>{d.flag}</span> {d.country}
-                  </h3>
-                </div>
-
-                <p className="text-xs text-slate-300 leading-relaxed mb-4 font-light">
-                  {d.description}
-                </p>
-
-                <div className="flex flex-col gap-2.5 text-xs text-slate-300 border-t border-sky-900/40 pt-4">
-                  <div>
-                    <strong className="text-sky-300">Intakes:</strong> {d.intakes}
-                  </div>
-                  <div>
-                    <strong className="text-sky-300">Work Permit:</strong> {d.workPermit}
-                  </div>
-                  <div>
-                    <strong className="text-sky-300">Popular Fields:</strong> {d.popular}
-                  </div>
+              {/* Destination University Image */}
+              <div className="relative w-full h-52 overflow-hidden">
+                <Image
+                  src={d.image}
+                  alt={`Study in ${d.country}`}
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80" />
+                <div className="absolute top-4 left-4 flex items-center gap-2 bg-slate-950/80 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-sky-400/30 text-white shadow-md">
+                  <span className="text-xl">{d.flag}</span>
+                  <span className="text-xs font-bold uppercase tracking-wider">{d.country}</span>
                 </div>
               </div>
 
-              <div className="pt-6 mt-6 border-t border-sky-900/40">
-                <Button asChild className="w-full bg-sky-500/20 hover:bg-sky-500 text-sky-300 hover:text-slate-950 font-bold rounded-full border border-sky-400/30 transition-all">
-                  <a href="#eligibility">Assess My Eligibility for {d.country}</a>
-                </Button>
+              <div className="p-7 flex flex-col justify-between flex-1">
+                <div>
+                  <h3 className="text-2xl font-serif font-bold text-white mb-2 group-hover:text-cyan-300 transition-colors">
+                    Study in {d.country}
+                  </h3>
+
+                  <p className="text-xs text-slate-300 leading-relaxed mb-4 font-light">
+                    {d.description}
+                  </p>
+
+                  <div className="flex flex-col gap-2.5 text-xs text-slate-300 border-t border-sky-900/40 pt-4">
+                    <div>
+                      <strong className="text-sky-300">Intakes:</strong> {d.intakes}
+                    </div>
+                    <div>
+                      <strong className="text-sky-300">Work Permit:</strong> {d.workPermit}
+                    </div>
+                    <div>
+                      <strong className="text-sky-300">Popular Fields:</strong> {d.popular}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="pt-6 mt-6 border-t border-sky-900/40">
+                  <Button asChild className="w-full bg-sky-500/20 hover:bg-sky-500 text-sky-300 hover:text-slate-950 font-bold rounded-full border border-sky-400/30 transition-all">
+                    <a href="#eligibility">Assess My Eligibility for {d.country}</a>
+                  </Button>
+                </div>
               </div>
             </div>
           ))}
