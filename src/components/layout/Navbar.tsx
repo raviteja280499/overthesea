@@ -141,7 +141,7 @@ export default function Navbar() {
             <>
               <Link
                 href="/education"
-                className="flex items-center gap-1.5 text-sky-300 bg-sky-500/20 px-4 py-1.5 rounded-full hover:bg-sky-500/30 transition-all"
+                className="flex items-center gap-1.5 text-sky-300 bg-sky-500/20 px-3.5 py-1.5 rounded-full hover:bg-sky-500/30 transition-all text-xs font-bold"
               >
                 <GraduationCap className="h-4 w-4 text-sky-400" />
                 Educational Consultancy
@@ -149,10 +149,18 @@ export default function Navbar() {
 
               <Link
                 href="/courier"
-                className="flex items-center gap-1.5 text-amber-300 bg-amber-500/20 px-4 py-1.5 rounded-full hover:bg-amber-500/30 transition-all"
+                className="flex items-center gap-1.5 text-amber-300 bg-amber-500/20 px-3.5 py-1.5 rounded-full hover:bg-amber-500/30 transition-all text-xs font-bold"
               >
                 <Package className="h-4 w-4 text-amber-400" />
-                Global Courier Services
+                Global Courier
+              </Link>
+
+              <Link
+                href="/tourism"
+                className="flex items-center gap-1.5 text-emerald-300 bg-emerald-500/20 px-3.5 py-1.5 rounded-full hover:bg-emerald-500/30 transition-all text-xs font-bold"
+              >
+                <Compass className="h-4 w-4 text-emerald-400" />
+                Tourism & Travel
               </Link>
             </>
           )}
@@ -348,6 +356,21 @@ export default function Navbar() {
                       AWB Shipment
                     </Link>
                   </div>
+                </div>
+
+                {/* Vertical 3: Tourism & Travel */}
+                <div className="flex flex-col gap-2 pt-2 border-t border-sky-900/40">
+                  <Link
+                    href="/tourism"
+                    onClick={() => setIsOpen(false)}
+                    className="flex items-center justify-between p-3.5 rounded-2xl bg-emerald-950/80 border border-emerald-500/40 text-emerald-200 font-bold hover:bg-emerald-900/90 shadow-lg"
+                  >
+                    <span className="flex items-center gap-2.5 text-sm">
+                      <Compass className="h-4 w-4 text-emerald-400" />
+                      Tourism & Travel Services
+                    </span>
+                    <ChevronRight className="h-4 w-4 text-emerald-400" />
+                  </Link>
                 </div>
 
                 {/* WhatsApp Contact Button */}

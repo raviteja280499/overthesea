@@ -30,6 +30,7 @@ const PHRASES = [
   "Worldwide Services Gateway",
   "Educational & Foreign Consultancy",
   "Global Express Courier Logistics",
+  "Tourism & Tourist Visa Services",
   "S.R Nagar & Hyderabad Hub"
 ];
 
@@ -64,20 +65,20 @@ export default function HomePage() {
     return () => clearTimeout(timer);
   }, [typedText, isDeleting, phraseIndex]);
 
-  // Auto-play carousel every 6 seconds
+  // Auto-play carousel every 6 seconds across 3 slides
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev === 0 ? 1 : 0));
+      setCurrentSlide((prev) => (prev + 1) % 3);
     }, 6000);
     return () => clearInterval(timer);
   }, []);
 
   const nextSlide = () => {
-    setCurrentSlide((prev) => (prev === 0 ? 1 : 0));
+    setCurrentSlide((prev) => (prev + 1) % 3);
   };
 
   const prevSlide = () => {
-    setCurrentSlide((prev) => (prev === 0 ? 1 : 0));
+    setCurrentSlide((prev) => (prev === 0 ? 2 : prev - 1));
   };
 
   return (
@@ -116,14 +117,14 @@ export default function HomePage() {
           </h1>
 
           <p className="hidden md:block text-slate-200 text-base sm:text-xl max-w-2xl font-light leading-relaxed drop-shadow-sm">
-            Premier Overseas Education & Foreign Consultancy alongside Global Express Courier Logistics.
+            Premier Overseas Education & Foreign Consultancy, Global Express Courier Logistics, and International Tourism & Travel Services.
           </p>
 
-          {/* Quick Dual Service Pill Shortcuts */}
-          <div className="flex items-center justify-center gap-4 pt-4 flex-wrap">
+          {/* Quick Triple Service Pill Shortcuts */}
+          <div className="flex items-center justify-center gap-3 pt-4 flex-wrap">
             <Link
               href="/education"
-              className="flex items-center gap-2 px-7 py-3.5 rounded-full bg-dodger-blue-500 hover:bg-dodger-blue-400 text-slate-950 font-bold text-xs sm:text-sm shadow-xl shadow-dodger-blue-500/30 transition-all hover:scale-105"
+              className="flex items-center gap-2 px-6 py-3 rounded-full bg-dodger-blue-500 hover:bg-dodger-blue-400 text-slate-950 font-bold text-xs sm:text-sm shadow-xl shadow-dodger-blue-500/30 transition-all hover:scale-105"
             >
               <GraduationCap className="h-4 w-4" />
               1. Educational Consultancy
@@ -131,10 +132,18 @@ export default function HomePage() {
 
             <Link
               href="/courier"
-              className="flex items-center gap-2 px-7 py-3.5 rounded-full bg-school-bus-yellow-500 hover:bg-school-bus-yellow-400 text-slate-950 font-bold text-xs sm:text-sm shadow-xl shadow-school-bus-yellow-500/30 transition-all hover:scale-105"
+              className="flex items-center gap-2 px-6 py-3 rounded-full bg-school-bus-yellow-500 hover:bg-school-bus-yellow-400 text-slate-950 font-bold text-xs sm:text-sm shadow-xl shadow-school-bus-yellow-500/30 transition-all hover:scale-105"
             >
               <Package className="h-4 w-4" />
               2. Global Courier Services
+            </Link>
+
+            <Link
+              href="/tourism"
+              className="flex items-center gap-2 px-6 py-3 rounded-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs sm:text-sm shadow-xl shadow-emerald-500/30 transition-all hover:scale-105"
+            >
+              <Compass className="h-4 w-4" />
+              3. Tourism & Travel Services
             </Link>
           </div>
         </div>
@@ -174,7 +183,7 @@ export default function HomePage() {
             {currentSlide === 0 && (
               <div className="animate-in fade-in slide-in-from-right-6 duration-500 grid grid-cols-1 lg:grid-cols-12 gap-8 p-6 sm:p-10 items-center">
                 
-                {/* Visual Stadium Frame Container (Left Column - BORDERLESS) */}
+                {/* Visual Stadium Frame Container */}
                 <div className="lg:col-span-5 relative flex justify-center">
                   <div className="relative w-full max-w-sm h-80 sm:h-96 rounded-3xl overflow-hidden shadow-2xl transition-all">
                     <Image
@@ -196,11 +205,11 @@ export default function HomePage() {
                   </div>
                 </div>
 
-                {/* Content Details (Right Column) */}
+                {/* Content Details */}
                 <div className="lg:col-span-7 flex flex-col gap-6 text-left">
                   <div className="flex items-center gap-2">
                     <Badge className="bg-dodger-blue-500/20 text-dodger-blue-300 text-xs px-3.5 py-1 rounded-full font-bold border-0">
-                      Service Vertical 1 of 2
+                      Service Vertical 1 of 3
                     </Badge>
                   </div>
 
@@ -246,7 +255,7 @@ export default function HomePage() {
             {currentSlide === 1 && (
               <div className="animate-in fade-in slide-in-from-right-6 duration-500 grid grid-cols-1 lg:grid-cols-12 gap-8 p-6 sm:p-10 items-center">
                 
-                {/* Visual Stadium Frame Container (Left Column - BORDERLESS) */}
+                {/* Visual Stadium Frame Container */}
                 <div className="lg:col-span-5 relative flex justify-center">
                   <div className="relative w-full max-w-sm h-80 sm:h-96 rounded-3xl overflow-hidden shadow-2xl transition-all">
                     <Image
@@ -268,11 +277,11 @@ export default function HomePage() {
                   </div>
                 </div>
 
-                {/* Content Details (Right Column) */}
+                {/* Content Details */}
                 <div className="lg:col-span-7 flex flex-col gap-6 text-left">
                   <div className="flex items-center gap-2">
                     <Badge className="bg-school-bus-yellow-500/20 text-school-bus-yellow-300 text-xs px-3.5 py-1 rounded-full font-bold border-0">
-                      Service Vertical 2 of 2
+                      Service Vertical 2 of 3
                     </Badge>
                   </div>
 
@@ -294,7 +303,7 @@ export default function HomePage() {
                     <span className="flex items-center gap-2 bg-slate-950/70 p-3 rounded-2xl text-school-bus-yellow-200 shadow-sm">
                       <CheckCircle2 className="h-4 w-4 text-school-bus-yellow-400 shrink-0" /> Student Excess Baggage Logistics
                     </span>
-                    <span className="flex items-center gap-2 bg-slate-950/70 p-3 rounded-2xl text-school-bus-yellow-200 shadow-sm">
+                    <span className="flex items-center gap-2 bg-slate-950/70 p-3 rounded-2xl text-slate-950/70 p-3 rounded-2xl text-school-bus-yellow-200 shadow-sm">
                       <CheckCircle2 className="h-4 w-4 text-school-bus-yellow-400 shrink-0" /> Free Doorstep Pickup (S.R Nagar, Hyd)
                     </span>
                   </div>
@@ -314,52 +323,141 @@ export default function HomePage() {
               </div>
             )}
 
+            {/* SLIDE 2: TOURISM & TRAVEL SERVICES */}
+            {currentSlide === 2 && (
+              <div className="animate-in fade-in slide-in-from-right-6 duration-500 grid grid-cols-1 lg:grid-cols-12 gap-8 p-6 sm:p-10 items-center">
+                
+                {/* Visual Stadium Frame Container */}
+                <div className="lg:col-span-5 relative flex justify-center">
+                  <div className="relative w-full max-w-sm h-80 sm:h-96 rounded-3xl overflow-hidden shadow-2xl transition-all">
+                    <Image
+                      src="/tourism/hero.png"
+                      alt="Tourism & Travel Services"
+                      fill
+                      className="object-cover"
+                      priority
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-transparent to-transparent" />
+                    
+                    {/* Floating Glass Badge inside Stadium Frame */}
+                    <div className="absolute bottom-6 left-6 right-6 bg-slate-950/80 backdrop-blur-md p-4 rounded-3xl text-center shadow-xl">
+                      <span className="text-xs font-extrabold text-emerald-300 uppercase tracking-wider block">
+                        ✈️ Worldwide Tourist Visas & Travel
+                      </span>
+                      <span className="text-[11px] text-slate-300">Thailand • Dubai • Japan • Vietnam • Singapore</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Content Details */}
+                <div className="lg:col-span-7 flex flex-col gap-6 text-left">
+                  <div className="flex items-center gap-2">
+                    <Badge className="bg-emerald-500/20 text-emerald-300 text-xs px-3.5 py-1 rounded-full font-bold border-0">
+                      Service Vertical 3 of 3
+                    </Badge>
+                  </div>
+
+                  <h2 className="text-2xl sm:text-4xl font-serif font-black text-white leading-tight">
+                    Tourism & Travel Services
+                  </h2>
+
+                  <p className="text-slate-300 text-sm sm:text-base leading-relaxed font-light">
+                    Full-service international tourist visa processing and holiday package guidance by Over the Sea. Fast-track e-Visas, sticker visas, flight booking assistance, and customized holiday itineraries for 12 top global destinations.
+                  </p>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-slate-200 font-medium">
+                    <span className="flex items-center gap-2 bg-slate-950/70 p-3 rounded-2xl text-emerald-200 shadow-sm">
+                      <CheckCircle2 className="h-4 w-4 text-emerald-400 shrink-0" /> 100% Tourist Visa Filing Assistance
+                    </span>
+                    <span className="flex items-center gap-2 bg-slate-950/70 p-3 rounded-2xl text-emerald-200 shadow-sm">
+                      <CheckCircle2 className="h-4 w-4 text-emerald-400 shrink-0" /> 12 Asian & Schengen Destinations
+                    </span>
+                    <span className="flex items-center gap-2 bg-slate-950/70 p-3 rounded-2xl text-emerald-200 shadow-sm">
+                      <CheckCircle2 className="h-4 w-4 text-emerald-400 shrink-0" /> Express EVisa & Visa on Arrival
+                    </span>
+                    <span className="flex items-center gap-2 bg-slate-950/70 p-3 rounded-2xl text-emerald-200 shadow-sm">
+                      <CheckCircle2 className="h-4 w-4 text-emerald-400 shrink-0" /> Flight & Customized Tour Packages
+                    </span>
+                  </div>
+
+                  <div className="pt-4 flex flex-wrap items-center justify-between gap-4">
+                    <span className="text-xs font-bold text-emerald-300 uppercase tracking-wider">
+                      Tap button to open Tourism Portal
+                    </span>
+                    <Button asChild size="lg" className="w-full sm:w-auto bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold rounded-full h-12 px-8 shadow-lg shadow-emerald-500/30 cursor-pointer">
+                      <Link href="/tourism" className="flex items-center justify-center gap-2">
+                        Open Tourism Portal <ArrowRight className="h-4 w-4" />
+                      </Link>
+                    </Button>
+                  </div>
+                </div>
+
+              </div>
+            )}
+
           </div>
 
           {/* Bottom Carousel Service Selection Buttons */}
-          <div className="flex justify-center items-center gap-4 mt-8 flex-wrap">
+          <div className="flex justify-center items-center gap-3 mt-8 flex-wrap">
             <button
               onClick={() => setCurrentSlide(0)}
-              className={`flex items-center gap-2.5 px-6 py-3 rounded-full text-xs sm:text-sm font-bold transition-all cursor-pointer shadow-lg ${
+              className={`px-5 py-2.5 rounded-full text-xs font-extrabold transition-all cursor-pointer flex items-center gap-2 ${
                 currentSlide === 0
-                  ? "bg-sky-500 text-slate-950 ring-4 ring-sky-400/40 scale-105"
-                  : "bg-slate-900 text-slate-300 hover:bg-slate-800 border border-slate-700"
+                  ? "bg-dodger-blue-500 text-slate-950 shadow-lg shadow-dodger-blue-500/40 scale-105"
+                  : "bg-slate-900/80 text-slate-400 hover:text-white"
               }`}
             >
-              <GraduationCap className="h-4 w-4 text-sky-400" />
-              1. Educational Consultancy
+              <GraduationCap className="h-3.5 w-3.5" /> 1. Educational Consultancy
             </button>
-            
+
             <button
               onClick={() => setCurrentSlide(1)}
-              className={`flex items-center gap-2.5 px-6 py-3 rounded-full text-xs sm:text-sm font-bold transition-all cursor-pointer shadow-lg ${
+              className={`px-5 py-2.5 rounded-full text-xs font-extrabold transition-all cursor-pointer flex items-center gap-2 ${
                 currentSlide === 1
-                  ? "bg-amber-500 text-slate-950 ring-4 ring-amber-400/40 scale-105"
-                  : "bg-slate-900 text-slate-300 hover:bg-slate-800 border border-slate-700"
+                  ? "bg-school-bus-yellow-500 text-slate-950 shadow-lg shadow-school-bus-yellow-500/40 scale-105"
+                  : "bg-slate-900/80 text-slate-400 hover:text-white"
               }`}
             >
-              <Package className="h-4 w-4 text-amber-400" />
-              2. Global Courier Services
+              <Package className="h-3.5 w-3.5" /> 2. Global Courier Services
+            </button>
+
+            <button
+              onClick={() => setCurrentSlide(2)}
+              className={`px-5 py-2.5 rounded-full text-xs font-extrabold transition-all cursor-pointer flex items-center gap-2 ${
+                currentSlide === 2
+                  ? "bg-emerald-500 text-slate-950 shadow-lg shadow-emerald-500/40 scale-105"
+                  : "bg-slate-900/80 text-slate-400 hover:text-white"
+              }`}
+            >
+              <Compass className="h-3.5 w-3.5" /> 3. Tourism & Travel
             </button>
           </div>
 
           {/* Bottom Carousel Dots */}
-          <div className="flex justify-center items-center gap-2.5 mt-5">
+          <div className="flex justify-center items-center gap-2.5 mt-6">
             <button
               onClick={() => setCurrentSlide(0)}
               className={`h-3 rounded-full transition-all cursor-pointer ${
-                currentSlide === 0 ? "w-10 bg-sky-400" : "w-3 bg-slate-700 hover:bg-slate-600"
+                currentSlide === 0 ? "w-10 bg-dodger-blue-400" : "w-3 bg-slate-700 hover:bg-slate-600"
               }`}
               aria-label="Go to Education Portal"
             />
             <button
               onClick={() => setCurrentSlide(1)}
               className={`h-3 rounded-full transition-all cursor-pointer ${
-                currentSlide === 1 ? "w-10 bg-amber-400" : "w-3 bg-slate-700 hover:bg-slate-600"
+                currentSlide === 1 ? "w-10 bg-school-bus-yellow-400" : "w-3 bg-slate-700 hover:bg-slate-600"
               }`}
               aria-label="Go to Courier Portal"
             />
+            <button
+              onClick={() => setCurrentSlide(2)}
+              className={`h-3 rounded-full transition-all cursor-pointer ${
+                currentSlide === 2 ? "w-10 bg-emerald-400" : "w-3 bg-slate-700 hover:bg-slate-600"
+              }`}
+              aria-label="Go to Tourism Portal"
+            />
           </div>
+
         </div>
       </section>
       </ScrollAnimate>

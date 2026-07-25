@@ -43,9 +43,6 @@ const CountryFlagSVG = ({ code }: { code: string }) => {
             <path d="M67.1 14.5l1.6 4.9h5.1l-4.1 3 1.6 4.9-4.2-3-4.1 3 1.6-4.9-4.1-3h5.1z"/>
             <path d="M109.7 14.5l1.6 4.9h5.1l-4.1 3 1.6 4.9-4.2-3-4.1 3 1.6-4.9-4.1-3h5.1z"/>
             <path d="M152.3 14.5l1.6 4.9h5.1l-4.1 3 1.6 4.9-4.2-3-4.1 3 1.6-4.9-4.1-3h5.1z"/>
-            <path d="M45.8 57.1l1.6 4.9h5.1l-4.1 3 1.6 4.9-4.2-3-4.1 3 1.6-4.9-4.1-3h5.1z"/>
-            <path d="M88.4 57.1l1.6 4.9h5.1l-4.1 3 1.6 4.9-4.2-3-4.1 3 1.6-4.9-4.1-3h5.1z"/>
-            <path d="M131 57.1l1.6 4.9h5.1l-4.1 3 1.6 4.9-4.2-3-4.1 3 1.6-4.9-4.1-3h5.1z"/>
           </g>
         </svg>
       );
@@ -75,13 +72,6 @@ const CountryFlagSVG = ({ code }: { code: string }) => {
           <path stroke="#cc0000" strokeWidth="20" d="m0 0 320 240M0 240 320 0"/>
           <path stroke="#fff" strokeWidth="60" d="M160 0v240M0 120h320"/>
           <path stroke="#cc0000" strokeWidth="36" d="M160 0v240M0 120h320"/>
-          <g fill="#fff">
-            <path d="M160 360l8 17 18 3-13 13 3 18-16-9-16 9 3-18-13-13 18-3z"/>
-            <path d="M480 120l5 11 12 2-9 9 2 12-10-6-10 6 2-12-9-9 12-2z"/>
-            <path d="M520 220l5 11 12 2-9 9 2 12-10-6-10 6 2-12-9-9 12-2z"/>
-            <path d="M440 280l5 11 12 2-9 9 2 12-10-6-10 6 2-12-9-9 12-2z"/>
-            <path d="M480 380l5 11 12 2-9 9 2 12-10-6-10 6 2-12-9-9 12-2z"/>
-          </g>
         </svg>
       );
     case "DE":
@@ -98,6 +88,84 @@ const CountryFlagSVG = ({ code }: { code: string }) => {
           <path fill="#169b62" d="M0 0h213.3v480H0z"/>
           <path fill="#fff" d="M213.3 0h213.4v480H213.3z"/>
           <path fill="#ff883e" d="M426.7 0H640v480H426.7z"/>
+        </svg>
+      );
+    case "NL":
+      return (
+        <svg className="w-6 h-4 rounded-sm shadow-sm shrink-0 border border-white/20" viewBox="0 0 640 480">
+          <path fill="#21468b" d="M0 0h640v480H0z"/>
+          <path fill="#fff" d="M0 0h640v320H0z"/>
+          <path fill="#ae1c28" d="M0 0h640v160H0z"/>
+        </svg>
+      );
+    case "FR":
+      return (
+        <svg className="w-6 h-4 rounded-sm shadow-sm shrink-0 border border-white/20" viewBox="0 0 640 480">
+          <path fill="#ed2939" d="M0 0h640v480H0z"/>
+          <path fill="#fff" d="M0 0h426.7v480H0z"/>
+          <path fill="#002395" d="M0 0h213.3v480H0z"/>
+        </svg>
+      );
+    case "SE":
+      return (
+        <svg className="w-6 h-4 rounded-sm shadow-sm shrink-0 border border-white/20" viewBox="0 0 640 480">
+          <path fill="#006aa7" d="M0 0h640v480H0z"/>
+          <path fill="#fecc00" d="M160 0h96v480h-96zM0 192h640v96H0z"/>
+        </svg>
+      );
+    case "SG":
+      return (
+        <svg className="w-6 h-4 rounded-sm shadow-sm shrink-0 border border-white/20" viewBox="0 0 640 480">
+          <path fill="#fff" d="M0 0h640v480H0z"/>
+          <path fill="#ed2939" d="M0 0h640v240H0z"/>
+          <circle cx="120" cy="120" r="70" fill="#fff"/>
+          <circle cx="145" cy="120" r="70" fill="#ed2939"/>
+        </svg>
+      );
+    case "NZ":
+      return (
+        <svg className="w-6 h-4 rounded-sm shadow-sm shrink-0 border border-white/20" viewBox="0 0 640 480">
+          <path fill="#00247d" d="M0 0h640v480H0z"/>
+          <path stroke="#fff" strokeWidth="40" d="m0 0 320 240M0 240 320 0"/>
+          <path stroke="#cc0000" strokeWidth="20" d="m0 0 320 240M0 240 320 0"/>
+          <path stroke="#fff" strokeWidth="60" d="M160 0v240M0 120h320"/>
+          <path stroke="#cc0000" strokeWidth="36" d="M160 0v240M0 120h320"/>
+        </svg>
+      );
+    case "JP":
+      return (
+        <svg className="w-6 h-4 rounded-sm shadow-sm shrink-0 border border-white/20" viewBox="0 0 640 480">
+          <path fill="#fff" d="M0 0h640v480H0z"/>
+          <circle cx="320" cy="240" r="144" fill="#bc002d"/>
+        </svg>
+      );
+    case "CN":
+      return (
+        <svg className="w-6 h-4 rounded-sm shadow-sm shrink-0 border border-white/20" viewBox="0 0 640 480">
+          <path fill="#ee1c25" d="M0 0h640v480H0z"/>
+          <path fill="#ffde00" d="M96 72l8 24 24 2-18 16 6 24-20-14-20 14 6-24-18-16 24-2z"/>
+        </svg>
+      );
+    case "RU":
+      return (
+        <svg className="w-6 h-4 rounded-sm shadow-sm shrink-0 border border-white/20" viewBox="0 0 640 480">
+          <path fill="#d52b1e" d="M0 0h640v480H0z"/>
+          <path fill="#0039a6" d="M0 0h640v320H0z"/>
+          <path fill="#fff" d="M0 0h640v160H0z"/>
+        </svg>
+      );
+    case "EU":
+      return (
+        <svg className="w-6 h-4 rounded-sm shadow-sm shrink-0 border border-white/20" viewBox="0 0 640 480">
+          <path fill="#003399" d="M0 0h640v480H0z"/>
+          <g fill="#ffcc00">
+            <path d="M320 80l2 6 6 1-5 4 2 6-5-4-5 4 2-6-5-4 6-1z"/>
+            <path d="M400 101l2 6 6 1-5 4 2 6-5-4-5 4 2-6-5-4 6-1z"/>
+            <path d="M440 160l2 6 6 1-5 4 2 6-5-4-5 4 2-6-5-4 6-1z"/>
+            <path d="M460 240l2 6 6 1-5 4 2 6-5-4-5 4 2-6-5-4 6-1z"/>
+            <path d="M320 400l2 6 6 1-5 4 2 6-5-4-5 4 2-6-5-4 6-1z"/>
+            <path d="M180 240l2 6 6 1-5 4 2 6-5-4-5 4 2-6-5-4 6-1z"/>
+          </g>
         </svg>
       );
     default:
@@ -183,6 +251,123 @@ const destinations = [
     accentText: "text-emerald-300",
     badgeBg: "bg-emerald-950/90 border border-emerald-400/30 text-emerald-300",
     btnStyle: "bg-emerald-500/20 hover:bg-emerald-500 text-emerald-300 hover:text-slate-950 border border-emerald-400/30"
+  },
+  {
+    country: "Netherlands",
+    code: "NL",
+    image: "/destinations/netherlands.png",
+    intakes: "September, February",
+    workPermit: "1-Year Orientation Year Visa (Zoekjaar)",
+    popular: "International Business, AI, Water Management, Data Science",
+    description: "Top English-taught programs in Europe (TU Delft, Amsterdam, Leiden) with high innovation and strong career prospects.",
+    cardGradient: "bg-gradient-to-br from-orange-950/80 via-blue-950/50 to-slate-950",
+    accentText: "text-orange-300",
+    badgeBg: "bg-orange-950/90 border border-orange-400/30 text-orange-300",
+    btnStyle: "bg-orange-500/20 hover:bg-orange-500 text-orange-300 hover:text-slate-950 border border-orange-400/30"
+  },
+  {
+    country: "France",
+    code: "FR",
+    image: "/destinations/france.png",
+    intakes: "September, January",
+    workPermit: "2-Year Post-Study Work Visa (APS scheme)",
+    popular: "Luxury Brand Management, Fashion, Business, Engineering",
+    description: "World-renowned business schools (HEC, INSEAD) and subsidized public university tuition with rich cultural heritage.",
+    cardGradient: "bg-gradient-to-br from-blue-950/80 via-indigo-950/50 to-slate-950",
+    accentText: "text-indigo-300",
+    badgeBg: "bg-indigo-950/90 border border-indigo-400/30 text-indigo-300",
+    btnStyle: "bg-indigo-500/20 hover:bg-indigo-500 text-indigo-300 hover:text-slate-950 border border-indigo-400/30"
+  },
+  {
+    country: "Sweden",
+    code: "SE",
+    image: "/destinations/sweden.png",
+    intakes: "August, January",
+    workPermit: "1-Year Post-Study Work Permit for Job Hunting",
+    popular: "Sustainable Tech, Green Energy, Mechanical Engineering, IT",
+    description: "Innovation hub home to Spotify, Volvo, and IKEA with world-class research labs and high quality of living.",
+    cardGradient: "bg-gradient-to-br from-sky-950/80 via-amber-950/30 to-slate-950",
+    accentText: "text-amber-300",
+    badgeBg: "bg-sky-950/90 border border-amber-400/30 text-amber-300",
+    btnStyle: "bg-amber-500/20 hover:bg-amber-500 text-amber-300 hover:text-slate-950 border border-amber-400/30"
+  },
+  {
+    country: "Singapore",
+    code: "SG",
+    image: "/destinations/singapore.png",
+    intakes: "August, January",
+    workPermit: "Employment Pass / S-Pass Pathways",
+    popular: "Fintech, Global Logistics, Computer Science, MBA",
+    description: "Asia's financial capital with top global universities (NUS, NTU) offering unparalleled global corporate exposure.",
+    cardGradient: "bg-gradient-to-br from-rose-950/80 via-red-950/40 to-slate-950",
+    accentText: "text-rose-300",
+    badgeBg: "bg-rose-950/90 border border-rose-400/30 text-rose-300",
+    btnStyle: "bg-rose-500/20 hover:bg-rose-500 text-rose-300 hover:text-slate-950 border border-rose-400/30"
+  },
+  {
+    country: "New Zealand",
+    code: "NZ",
+    image: "/destinations/new-zealand.png",
+    intakes: "February, July",
+    workPermit: "Up to 3-Year Post-Study Work Visa",
+    popular: "Environmental Science, Agriculture, Hospitality, Software Tech",
+    description: "Scenic beauty, 100% accredited universities (Auckland, Otago), and welcoming permanent residence pathways.",
+    cardGradient: "bg-gradient-to-br from-teal-950/80 via-blue-950/50 to-slate-950",
+    accentText: "text-teal-300",
+    badgeBg: "bg-teal-950/90 border border-teal-400/30 text-teal-300",
+    btnStyle: "bg-teal-500/20 hover:bg-teal-500 text-teal-300 hover:text-slate-950 border border-teal-400/30"
+  },
+  {
+    country: "Japan",
+    code: "JP",
+    image: "/destinations/japan.png",
+    intakes: "April, October",
+    workPermit: "Designated Activities Work Visa / Highly Skilled Visa",
+    popular: "Robotics, Electronics, AI, Automotive, Mechanical Design",
+    description: "Global technological powerhouse (Univ of Tokyo, Kyoto) offering MEXT government scholarships and tech career entry.",
+    cardGradient: "bg-gradient-to-br from-red-950/80 via-slate-900 to-slate-950",
+    accentText: "text-red-300",
+    badgeBg: "bg-red-950/90 border border-red-400/30 text-red-300",
+    btnStyle: "bg-red-500/20 hover:bg-red-500 text-red-300 hover:text-slate-950 border border-red-400/30"
+  },
+  {
+    country: "China",
+    code: "CN",
+    image: "/destinations/china.png",
+    intakes: "September, March",
+    workPermit: "Z-Visa Work Permit Pathways for Top Grads",
+    popular: "MBBS Medicine, Global Trade, AI, Telecom, Civil Engineering",
+    description: "World-class ranking universities (Tsinghua, Peking) with generous CSC government scholarships and medical degrees.",
+    cardGradient: "bg-gradient-to-br from-red-950/80 via-amber-950/40 to-slate-950",
+    accentText: "text-amber-300",
+    badgeBg: "bg-red-950/90 border border-amber-400/30 text-amber-300",
+    btnStyle: "bg-amber-500/20 hover:bg-amber-500 text-amber-300 hover:text-slate-950 border border-amber-400/30"
+  },
+  {
+    country: "Russia",
+    code: "RU",
+    image: "/destinations/russia.png",
+    intakes: "September, October",
+    workPermit: "Student Work Rights + 3-Year Specialist Visa",
+    popular: "MBBS General Medicine, Aerospace Engineering, Nuclear Physics",
+    description: "Affordable WHO/NMC recognized medical degrees (Moscow State, Kazan) with zero entrance exam requirements.",
+    cardGradient: "bg-gradient-to-br from-blue-950/80 via-red-950/40 to-slate-950",
+    accentText: "text-sky-300",
+    badgeBg: "bg-blue-950/90 border border-sky-400/30 text-sky-300",
+    btnStyle: "bg-sky-500/20 hover:bg-sky-500 text-sky-300 hover:text-slate-950 border border-sky-400/30"
+  },
+  {
+    country: "European Union (EU Region)",
+    code: "EU",
+    image: "/destinations/eu.png",
+    intakes: "September, October, February",
+    workPermit: "EU Blue Card & Schengen 27-Country Mobility",
+    popular: "International Law, Fashion, Biomedical Science, Architecture",
+    description: "Gateway to 27 Schengen countries including Italy, Spain, Switzerland, Poland, Austria, and Finland with low-cost tuition.",
+    cardGradient: "bg-gradient-to-br from-amber-950/80 via-blue-950/60 to-slate-950",
+    accentText: "text-amber-300",
+    badgeBg: "bg-blue-950/90 border border-amber-400/30 text-amber-300",
+    btnStyle: "bg-amber-500/20 hover:bg-amber-500 text-amber-300 hover:text-slate-950 border border-amber-400/30"
   }
 ];
 
