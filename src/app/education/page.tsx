@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -394,6 +394,22 @@ export default function EducationalConsultancyPage() {
   const [targetCountry, setTargetCountry] = useState("");
   const [bookingSuccess, setBookingSuccess] = useState(false);
 
+  const [heroIndex, setHeroIndex] = useState(0);
+  const heroPhrases = [
+    "Study in USA, UK & Canada ✈️",
+    "100% Student Visa Approval Rate 🛡️",
+    "Ivy League & Top Global Campuses 🏛️",
+    "Zero Tuition Public German Universities 🇩🇪",
+    "IELTS 7.5+ Band & GRE 320+ Score Boosters 🚀"
+  ];
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setHeroIndex((prev) => (prev + 1) % heroPhrases.length);
+    }, 3200);
+    return () => clearInterval(timer);
+  }, []);
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!studentName || !phone || !targetCountry) return;
@@ -410,88 +426,130 @@ export default function EducationalConsultancyPage() {
     <div className="min-h-screen bg-slate-950 text-slate-100">
       
       {/* ========================================================================= */}
-      {/* ULTRA-MODERN HERO SECTION WITH STADIUM IMAGE CONTAINER */}
+      {/* FULL-WIDTH ANIME ANIMATED HERO SECTION WITH FADE-IN ENTRANCE */}
       {/* ========================================================================= */}
-      <section className="relative pt-12 pb-24 md:pt-20 md:pb-32 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto gradient-ocean-hero rounded-b-[40px] md:rounded-b-[80px] shadow-2xl border-b border-sky-900/40 overflow-hidden">
-        
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full bg-sky-500/15 blur-[160px] pointer-events-none" />
-
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
+      <ScrollAnimate delay={0}>
+        <section className="relative w-full gradient-ocean-hero border-b border-sky-900/40 overflow-hidden shadow-2xl animate-in fade-in zoom-in-95 duration-1000 ease-out">
           
-          {/* Left Column: Text & CTAs */}
-          <div className="lg:col-span-7 flex flex-col gap-6 text-left">
-            <div className="inline-flex items-center gap-2 bg-sky-950/80 border border-sky-400/30 text-sky-300 text-xs px-4 py-1.5 rounded-full backdrop-blur-md w-fit">
-              <GraduationCap className="h-4 w-4 text-cyan-400" />
-              <span className="font-bold uppercase tracking-wider text-[11px]">
-                Over the Sea Overseas Education Portal
-              </span>
-            </div>
+          {/* Animated ambient lighting orbs */}
+          <div className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full bg-sky-500/15 blur-[160px] pointer-events-none animate-pulse" />
+          <div className="absolute bottom-0 left-0 w-[450px] h-[450px] rounded-full bg-cyan-500/10 blur-[140px] pointer-events-none animate-pulse" style={{ animationDuration: "6s" }} />
 
-            <h1 className="font-serif font-black text-3xl sm:text-5xl md:text-6xl text-white leading-tight">
-              Study Abroad with <br />
-              <span className="bg-gradient-to-r from-sky-300 via-cyan-400 to-blue-400 bg-clip-text text-transparent">
-                World-Class Guidance
-              </span>
-            </h1>
-
-            <p className="text-slate-300 text-sm sm:text-base leading-relaxed max-w-2xl font-light">
-              Your gateway to top universities across the USA, UK, Canada, Australia, Germany, and Ireland. End-to-end support for profile evaluation, admissions, SOP/LOR drafting, 100% visa filing, and test coaching.
-            </p>
-
-            <div className="flex flex-wrap gap-4 pt-2">
-              <Button asChild size="lg" className="bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold rounded-full h-12 px-8 shadow-lg shadow-sky-500/25">
-                <a href="#eligibility">
-                  Book Free Counselling <ArrowRight className="h-4 w-4 ml-1" />
-                </a>
-              </Button>
-
-              <Button asChild variant="outline" size="lg" className="border-sky-400/40 text-sky-300 hover:bg-sky-950/50 font-bold rounded-full h-12 px-8">
-                <a href="#destinations">
-                  Explore Destinations
-                </a>
-              </Button>
-            </div>
-
-            {/* Trust Badges */}
-            <div className="pt-6 border-t border-sky-900/40 grid grid-cols-3 gap-4 text-xs font-semibold text-slate-300">
-              <div className="flex items-center gap-2">
-                <ShieldCheck className="h-5 w-5 text-cyan-400 shrink-0" />
-                <span>100% Visa Filing Assistance</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Building className="h-5 w-5 text-cyan-400 shrink-0" />
-                <span>500+ Partner Universities</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <BadgeCheck className="h-5 w-5 text-cyan-400 shrink-0" />
-                <span>15+ Years Excellence</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Right Column: Borderless Rounded Image */}
-          <div className="lg:col-span-5 flex justify-center">
-            <div className="relative w-full max-w-md h-96 sm:h-[450px] rounded-3xl overflow-hidden shadow-2xl">
-              <Image
-                src="/educational-consultancy.png"
-                alt="Educational & Foreign Consultancy"
-                fill
-                className="object-cover"
-                priority
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-transparent to-transparent" />
-              
-              <div className="absolute bottom-8 left-6 right-6 bg-slate-950/80 backdrop-blur-md p-4 rounded-3xl text-center shadow-xl">
-                <span className="text-sm font-extrabold text-cyan-300 block">
-                  🎓 Direct Admissions Gateway
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-20 md:pt-20 md:pb-28 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
+            
+            {/* Left Column: Text & CTAs */}
+            <div className="lg:col-span-7 flex flex-col gap-6 text-left">
+              <div className="inline-flex items-center gap-2 bg-sky-950/80 border border-sky-400/30 text-sky-300 text-xs px-4 py-1.5 rounded-full backdrop-blur-md w-fit shadow-lg">
+                <Sparkles className="h-4 w-4 text-amber-300 animate-spin" style={{ animationDuration: "8s" }} />
+                <span className="font-bold uppercase tracking-wider text-[11px]">
+                  Over the Sea Overseas Education Portal
                 </span>
-                <span className="text-xs text-slate-300">Fast-Track Student Visa & Scholarship Assistance</span>
+              </div>
+
+              <div className="space-y-2">
+                <h1 className="font-serif font-black text-3xl sm:text-5xl md:text-6xl text-white leading-tight">
+                  Study Abroad with <br />
+                  <span className="bg-gradient-to-r from-sky-300 via-cyan-400 to-blue-400 bg-clip-text text-transparent">
+                    World-Class Guidance
+                  </span>
+                </h1>
+
+                {/* Robust Live Animated Phrase Banner (Fits 75% & 100% Zoom) */}
+                <div className="min-h-[42px] flex items-center pt-1">
+                  <div key={heroIndex} className="bg-sky-950/70 border border-sky-400/30 px-3.5 py-1.5 rounded-full backdrop-blur-md text-cyan-300 font-bold text-xs sm:text-sm animate-in fade-in slide-in-from-bottom-2 duration-500 flex items-center gap-2.5 shadow-md max-w-full">
+                    <span className="relative flex h-2.5 w-2.5 shrink-0">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-amber-400"></span>
+                    </span>
+                    <span className="truncate">{heroPhrases[heroIndex]}</span>
+                  </div>
+                </div>
+              </div>
+
+              <p className="text-slate-300 text-sm sm:text-base leading-relaxed max-w-2xl font-light">
+                Your gateway to top universities across the USA, UK, Canada, Australia, Germany, and Ireland. End-to-end support for profile evaluation, admissions, SOP/LOR drafting, 100% visa filing, and test coaching.
+              </p>
+
+              <div className="flex flex-wrap gap-4 pt-2">
+                <Button asChild size="lg" className="bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold rounded-full h-12 px-8 shadow-lg shadow-sky-500/25 transition-all hover:scale-105">
+                  <a href="#eligibility">
+                    Book Free Counselling <ArrowRight className="h-4 w-4 ml-1" />
+                  </a>
+                </Button>
+
+                <Button asChild variant="outline" size="lg" className="border-sky-400/40 text-sky-300 hover:bg-sky-950/50 font-bold rounded-full h-12 px-8 transition-all hover:scale-105">
+                  <a href="#destinations">
+                    Explore Destinations
+                  </a>
+                </Button>
+              </div>
+
+              {/* Trust Badges */}
+              <div className="pt-6 border-t border-sky-900/40 grid grid-cols-3 gap-4 text-xs font-semibold text-slate-300">
+                <div className="flex items-center gap-2">
+                  <ShieldCheck className="h-5 w-5 text-cyan-400 shrink-0" />
+                  <span>100% Visa Filing Assistance</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Building className="h-5 w-5 text-cyan-400 shrink-0" />
+                  <span>500+ Partner Universities</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <BadgeCheck className="h-5 w-5 text-cyan-400 shrink-0" />
+                  <span>15+ Years Excellence</span>
+                </div>
               </div>
             </div>
-          </div>
 
-        </div>
-      </section>
+            {/* Right Column: Animated Image with Anime Floating Cards */}
+            <div className="lg:col-span-5 flex justify-center relative">
+              
+              {/* Anime Floating Badge 1 (Top Right) */}
+              <div className="absolute -top-4 -right-2 sm:right-2 z-20 animate-float-slow bg-slate-950/90 backdrop-blur-md border border-cyan-400/40 px-4 py-2.5 rounded-2xl shadow-2xl flex items-center gap-3">
+                <div className="h-9 w-9 rounded-xl bg-amber-500/20 text-amber-300 flex items-center justify-center font-bold text-lg">
+                  🏆
+                </div>
+                <div>
+                  <p className="text-xs font-black text-white">#1 Overseas Partner</p>
+                  <p className="text-[10px] text-slate-400">10,000+ Placed Students</p>
+                </div>
+              </div>
+
+              {/* Anime Floating Badge 2 (Bottom Left) */}
+              <div className="absolute -bottom-4 -left-2 sm:left-2 z-20 animate-float-reverse bg-slate-950/90 backdrop-blur-md border border-sky-400/40 px-4 py-2.5 rounded-2xl shadow-2xl flex items-center gap-3">
+                <div className="h-9 w-9 rounded-xl bg-emerald-500/20 text-emerald-300 flex items-center justify-center font-bold text-lg">
+                  ⚡
+                </div>
+                <div>
+                  <p className="text-xs font-black text-white">Fast-Track I-20 / CAS</p>
+                  <p className="text-[10px] text-slate-300">Direct University Entry</p>
+                </div>
+              </div>
+
+              {/* Main Hero Stadium Image Container */}
+              <div className="relative w-full max-w-md h-96 sm:h-[450px] rounded-3xl overflow-hidden shadow-2xl border border-sky-500/20 group">
+                <Image
+                  src="/educational-consultancy.png"
+                  alt="Educational & Foreign Consultancy"
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-700"
+                  priority
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-transparent to-transparent" />
+                
+                <div className="absolute bottom-6 left-6 right-6 bg-slate-950/85 backdrop-blur-md p-4 rounded-2xl text-center shadow-xl border border-sky-400/30">
+                  <span className="text-sm font-extrabold text-cyan-300 block mb-0.5">
+                    🎓 Direct Admissions Gateway
+                  </span>
+                  <span className="text-xs text-slate-300">Fast-Track Student Visa & Scholarship Assistance</span>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+        </section>
+      </ScrollAnimate>
 
       {/* ========================================================================= */}
       {/* SERVICES WE ARE PROVIDING (6 CORE SERVICES GRID) */}
