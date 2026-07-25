@@ -90,7 +90,7 @@ export default function Navbar() {
                 Study Destinations
               </Link>
               <Link
-                href="/education#counselling"
+                href="/education#process"
                 className="hover:text-sky-300 transition-colors"
               >
                 Visa Guidance
@@ -99,7 +99,7 @@ export default function Navbar() {
                 href="/education#coaching"
                 className="hover:text-sky-300 transition-colors"
               >
-                IELTS Coaching
+                All Test Prep
               </Link>
               <Link
                 href="/education#eligibility"
@@ -274,7 +274,7 @@ export default function Navbar() {
                       Destinations
                     </Link>
                     <Link
-                      href="/education#counselling"
+                      href="/education#process"
                       onClick={() => setIsOpen(false)}
                       className="flex items-center gap-2 hover:text-cyan-300 transition-colors py-1"
                     >
@@ -286,8 +286,8 @@ export default function Navbar() {
                       onClick={() => setIsOpen(false)}
                       className="flex items-center gap-2 hover:text-cyan-300 transition-colors py-1"
                     >
-                      <BookOpen className="h-3.5 w-3.5 text-sky-400" /> IELTS /
-                      GRE Coaching
+                      <BookOpen className="h-3.5 w-3.5 text-sky-400" /> All Test
+                      Prep (IELTS, GRE, PTE, GMAT)
                     </Link>
                     <Link
                       href="/education#eligibility"

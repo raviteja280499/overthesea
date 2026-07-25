@@ -30,60 +30,159 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import canvasConfetti from "canvas-confetti";
 import ScrollAnimate from "@/components/ui/ScrollAnimate";
 
+const CountryFlagSVG = ({ code }: { code: string }) => {
+  switch (code) {
+    case "US":
+      return (
+        <svg className="w-6 h-4 rounded-sm shadow-sm shrink-0 border border-white/20" viewBox="0 0 640 480">
+          <path fill="#bd3d44" d="M0 0h640v480H0z"/>
+          <path stroke="#fff" strokeWidth="37" d="M0 55.5h640M0 129.5h640M0 203.5h640M0 277.5h640M0 351.5h640M0 425.5h640"/>
+          <path fill="#192f5d" d="M0 0h256v259H0z"/>
+          <g fill="#fff">
+            <path d="M24.5 14.5l1.6 4.9h5.1l-4.1 3 1.6 4.9-4.2-3-4.1 3 1.6-4.9-4.1-3h5.1z"/>
+            <path d="M67.1 14.5l1.6 4.9h5.1l-4.1 3 1.6 4.9-4.2-3-4.1 3 1.6-4.9-4.1-3h5.1z"/>
+            <path d="M109.7 14.5l1.6 4.9h5.1l-4.1 3 1.6 4.9-4.2-3-4.1 3 1.6-4.9-4.1-3h5.1z"/>
+            <path d="M152.3 14.5l1.6 4.9h5.1l-4.1 3 1.6 4.9-4.2-3-4.1 3 1.6-4.9-4.1-3h5.1z"/>
+            <path d="M45.8 57.1l1.6 4.9h5.1l-4.1 3 1.6 4.9-4.2-3-4.1 3 1.6-4.9-4.1-3h5.1z"/>
+            <path d="M88.4 57.1l1.6 4.9h5.1l-4.1 3 1.6 4.9-4.2-3-4.1 3 1.6-4.9-4.1-3h5.1z"/>
+            <path d="M131 57.1l1.6 4.9h5.1l-4.1 3 1.6 4.9-4.2-3-4.1 3 1.6-4.9-4.1-3h5.1z"/>
+          </g>
+        </svg>
+      );
+    case "GB":
+      return (
+        <svg className="w-6 h-4 rounded-sm shadow-sm shrink-0 border border-white/20" viewBox="0 0 640 480">
+          <path fill="#012169" d="M0 0h640v480H0z"/>
+          <path stroke="#fff" strokeWidth="60" d="m0 0 640 480M0 480 640 0"/>
+          <path stroke="#c8102e" strokeWidth="40" d="m0 0 640 480M0 480 640 0"/>
+          <path stroke="#fff" strokeWidth="100" d="M320 0v480M0 240h640"/>
+          <path stroke="#c8102e" strokeWidth="60" d="M320 0v480M0 240h640"/>
+        </svg>
+      );
+    case "CA":
+      return (
+        <svg className="w-6 h-4 rounded-sm shadow-sm shrink-0 border border-white/20" viewBox="0 0 640 480">
+          <path fill="#d80621" d="M0 0h160v480H0zm480 0h160v480H480z"/>
+          <path fill="#fff" d="M160 0h320v480H160z"/>
+          <path fill="#d80621" d="M356 261l31 34-11 8 4 39-26-14-16 23-18-42-18 42-16-23-26 14 4-39-11-8 31-34-31-15 15-4 1-27 25 15 11-20 11 20 25-15 1 27 15 4z"/>
+        </svg>
+      );
+    case "AU":
+      return (
+        <svg className="w-6 h-4 rounded-sm shadow-sm shrink-0 border border-white/20" viewBox="0 0 640 480">
+          <path fill="#00008b" d="M0 0h640v480H0z"/>
+          <path stroke="#fff" strokeWidth="40" d="m0 0 320 240M0 240 320 0"/>
+          <path stroke="#cc0000" strokeWidth="20" d="m0 0 320 240M0 240 320 0"/>
+          <path stroke="#fff" strokeWidth="60" d="M160 0v240M0 120h320"/>
+          <path stroke="#cc0000" strokeWidth="36" d="M160 0v240M0 120h320"/>
+          <g fill="#fff">
+            <path d="M160 360l8 17 18 3-13 13 3 18-16-9-16 9 3-18-13-13 18-3z"/>
+            <path d="M480 120l5 11 12 2-9 9 2 12-10-6-10 6 2-12-9-9 12-2z"/>
+            <path d="M520 220l5 11 12 2-9 9 2 12-10-6-10 6 2-12-9-9 12-2z"/>
+            <path d="M440 280l5 11 12 2-9 9 2 12-10-6-10 6 2-12-9-9 12-2z"/>
+            <path d="M480 380l5 11 12 2-9 9 2 12-10-6-10 6 2-12-9-9 12-2z"/>
+          </g>
+        </svg>
+      );
+    case "DE":
+      return (
+        <svg className="w-6 h-4 rounded-sm shadow-sm shrink-0 border border-white/20" viewBox="0 0 640 480">
+          <path fill="#000" d="M0 0h640v160H0z"/>
+          <path fill="#dd0000" d="M0 160h640v160H0z"/>
+          <path fill="#ffce00" d="M0 320h640v160H0z"/>
+        </svg>
+      );
+    case "IE":
+      return (
+        <svg className="w-6 h-4 rounded-sm shadow-sm shrink-0 border border-white/20" viewBox="0 0 640 480">
+          <path fill="#169b62" d="M0 0h213.3v480H0z"/>
+          <path fill="#fff" d="M213.3 0h213.4v480H213.3z"/>
+          <path fill="#ff883e" d="M426.7 0H640v480H426.7z"/>
+        </svg>
+      );
+    default:
+      return null;
+  }
+};
+
 const destinations = [
   {
     country: "United States (USA)",
-    flag: "🇺🇸",
+    code: "US",
     image: "/destinations/usa.png",
     intakes: "Fall (Aug/Sep), Spring (Jan/Feb)",
     workPermit: "OPT up to 3 Years (STEM), H1-B Pathway",
     popular: "Computer Science, Data Science, MBA, Biotech, Engineering",
-    description: "Home to Ivy League universities and world-renowned research institutions with abundant post-study STEM OPT opportunities."
+    description: "Home to Ivy League universities and world-renowned research institutions with abundant post-study STEM OPT opportunities.",
+    cardGradient: "bg-gradient-to-br from-sky-950/90 via-blue-950/60 to-slate-950",
+    accentText: "text-sky-300",
+    badgeBg: "bg-sky-950/90 border border-sky-400/30 text-sky-300",
+    btnStyle: "bg-sky-500/20 hover:bg-sky-500 text-sky-300 hover:text-slate-950 border border-sky-400/30"
   },
   {
     country: "United Kingdom (UK)",
-    flag: "🇬🇧",
+    code: "GB",
     image: "/destinations/uk.png",
     intakes: "September, January",
     workPermit: "2-Year Graduate Route Post-Study Work Visa",
     popular: "Business Analytics, Finance, Law, AI, Healthcare",
-    description: "1-Year Master's degrees from world top-ranked universities (Oxford, Cambridge, Imperial, LSE) with fast-track career entry."
+    description: "1-Year Master's degrees from world top-ranked universities (Oxford, Cambridge, Imperial, LSE) with fast-track career entry.",
+    cardGradient: "bg-gradient-to-br from-red-950/80 via-sky-950/50 to-slate-950",
+    accentText: "text-red-300",
+    badgeBg: "bg-red-950/90 border border-red-400/30 text-red-300",
+    btnStyle: "bg-red-500/20 hover:bg-red-500 text-red-300 hover:text-slate-950 border border-red-400/30"
   },
   {
     country: "Canada",
-    flag: "🇨🇦",
+    code: "CA",
     image: "/destinations/canada.png",
     intakes: "Fall (September), Winter (January), Summer (May)",
     workPermit: "Post-Graduation Work Permit (PGWP) up to 3 Years",
     popular: "Information Technology, Business Admin, Engineering, Health Sciences",
-    description: "High quality of life, affordable tuition, and structured Express Entry permanent residency pathways for graduates."
+    description: "High quality of life, affordable tuition, and structured Express Entry permanent residency pathways for graduates.",
+    cardGradient: "bg-gradient-to-br from-rose-950/80 via-red-950/50 to-slate-950",
+    accentText: "text-rose-300",
+    badgeBg: "bg-rose-950/90 border border-rose-400/30 text-rose-300",
+    btnStyle: "bg-rose-500/20 hover:bg-rose-500 text-rose-300 hover:text-slate-950 border border-rose-400/30"
   },
   {
     country: "Australia",
-    flag: "🇦🇺",
+    code: "AU",
     image: "/destinations/australia.png",
     intakes: "February, July, November",
     workPermit: "2 to 4-Year Temporary Graduate Visa (Subclass 485)",
     popular: "Cybersecurity, Project Management, Nursing, Public Health",
-    description: "World-class universities (Group of 8), high standard of living, and strong post-graduation employment opportunities."
+    description: "World-class universities (Group of 8), high standard of living, and strong post-graduation employment opportunities.",
+    cardGradient: "bg-gradient-to-br from-amber-950/80 via-emerald-950/50 to-slate-950",
+    accentText: "text-amber-300",
+    badgeBg: "bg-amber-950/90 border border-amber-400/30 text-amber-300",
+    btnStyle: "bg-amber-500/20 hover:bg-amber-500 text-amber-300 hover:text-slate-950 border border-amber-400/30"
   },
   {
     country: "Germany",
-    flag: "🇩🇪",
+    code: "DE",
     image: "/destinations/germany.png",
     intakes: "Winter (October), Summer (April)",
     workPermit: "18-Month Job Seeking Visa Post Graduation",
     popular: "Automotive Engineering, Robotics, Renewable Energy, Tech",
-    description: "Zero or low tuition fees at public universities, world leader in engineering, and robust industrial job market."
+    description: "Zero or low tuition fees at public universities, world leader in engineering, and robust industrial job market.",
+    cardGradient: "bg-gradient-to-br from-yellow-950/80 via-amber-950/40 to-slate-950",
+    accentText: "text-yellow-300",
+    badgeBg: "bg-yellow-950/90 border border-yellow-400/30 text-yellow-300",
+    btnStyle: "bg-yellow-500/20 hover:bg-yellow-500 text-yellow-300 hover:text-slate-950 border border-yellow-400/30"
   },
   {
     country: "Ireland",
-    flag: "🇮🇪",
+    code: "IE",
     image: "/destinations/ireland.png",
     intakes: "September, January",
     workPermit: "2-Year Third Level Graduate Scheme (Stamp 1G)",
     popular: "Software Engineering, Pharmaceuticals, Cloud Computing",
-    description: "European tech hub hosting global giants (Google, Apple, Meta, Pfizer) with attractive stay-back visas."
+    description: "European tech hub hosting global giants (Google, Apple, Meta, Pfizer) with attractive stay-back visas.",
+    cardGradient: "bg-gradient-to-br from-emerald-950/80 via-teal-950/50 to-slate-950",
+    accentText: "text-emerald-300",
+    badgeBg: "bg-emerald-950/90 border border-emerald-400/30 text-emerald-300",
+    btnStyle: "bg-emerald-500/20 hover:bg-emerald-500 text-emerald-300 hover:text-slate-950 border border-emerald-400/30"
   }
 ];
 
@@ -117,6 +216,174 @@ const coreEducationServices = [
     title: "Post Arrival Services",
     description: "As part of our foreign study abroad consultancy, we will take care of all details regarding your arrival in your dream country, including airport pickups, accommodation, and local city orientation.",
     image: "/services/post-arrival.png"
+  }
+];
+
+const allTestPrepCatalog = [
+  {
+    name: "IELTS",
+    fullName: "International English Language Testing System",
+    category: "English Proficiency",
+    format: "Academic & General Training",
+    duration: "4 - 8 Weeks",
+    target: "7.5+ Band Target",
+    description: "Master Listening, Reading, Writing & Speaking with certified master trainers, daily mock tests, and 1-on-1 speaking evaluation.",
+    badge: "Most Popular",
+    cardGradient: "bg-gradient-to-br from-cyan-950/90 via-sky-950/60 to-slate-950 border-cyan-500/40",
+    accentText: "text-cyan-300",
+    badgeStyle: "bg-cyan-950/80 text-cyan-300 border-cyan-400/40",
+    btnStyle: "bg-cyan-500/20 hover:bg-cyan-500 text-cyan-300 hover:text-slate-950 border-cyan-400/40"
+  },
+  {
+    name: "GRE",
+    fullName: "Graduate Record Examinations",
+    category: "Graduate Entrance",
+    format: "Computer-Based Shorter GRE",
+    duration: "6 - 12 Weeks",
+    target: "320+ Score Target",
+    description: "Comprehensive Verbal Reasoning, Quantitative Reasoning & Analytical Writing preparation with adaptive test series.",
+    badge: "Top Rated",
+    cardGradient: "bg-gradient-to-br from-amber-950/90 via-orange-950/60 to-slate-950 border-amber-500/40",
+    accentText: "text-amber-300",
+    badgeStyle: "bg-amber-950/80 text-amber-300 border-amber-400/40",
+    btnStyle: "bg-amber-500/20 hover:bg-amber-500 text-amber-300 hover:text-slate-950 border-amber-400/40"
+  },
+  {
+    name: "TOEFL iBT",
+    fullName: "Test of English as a Foreign Language",
+    category: "English Proficiency",
+    format: "Computer-Delivered Test",
+    duration: "4 - 6 Weeks",
+    target: "100+ Score Target",
+    description: "Intensive training on accent comprehension, structured essay templates, and timed academic listening exercises.",
+    badge: "USA Preferred",
+    cardGradient: "bg-gradient-to-br from-emerald-950/90 via-teal-950/60 to-slate-950 border-emerald-500/40",
+    accentText: "text-emerald-300",
+    badgeStyle: "bg-emerald-950/80 text-emerald-300 border-emerald-400/40",
+    btnStyle: "bg-emerald-500/20 hover:bg-emerald-500 text-emerald-300 hover:text-slate-950 border-emerald-400/40"
+  },
+  {
+    name: "PTE Academic",
+    fullName: "Pearson Test of English Academic",
+    category: "English Proficiency",
+    format: "AI Scored Computer Test",
+    duration: "3 - 5 Weeks",
+    target: "79+ Score Target",
+    description: "AI-scoring algorithm strategies, template mastery, and full-length simulated mock tests with instant score reports.",
+    badge: "Fast Results",
+    cardGradient: "bg-gradient-to-br from-purple-950/90 via-indigo-950/60 to-slate-950 border-purple-500/40",
+    accentText: "text-purple-300",
+    badgeStyle: "bg-purple-950/80 text-purple-300 border-purple-400/40",
+    btnStyle: "bg-purple-500/20 hover:bg-purple-500 text-purple-300 hover:text-slate-950 border-purple-400/40"
+  },
+  {
+    name: "Duolingo (DET)",
+    fullName: "Duolingo English Test",
+    category: "English Proficiency",
+    format: "Online On-Demand Test",
+    duration: "2 - 4 Weeks",
+    target: "125+ Score Target",
+    description: "Fast-track training for 1-hour online exam accepted by 4,000+ top universities across USA, UK, and Canada.",
+    badge: "1-Hour Exam",
+    cardGradient: "bg-gradient-to-br from-lime-950/90 via-emerald-950/60 to-slate-950 border-lime-500/40",
+    accentText: "text-lime-300",
+    badgeStyle: "bg-lime-950/80 text-lime-300 border-lime-400/40",
+    btnStyle: "bg-lime-500/20 hover:bg-lime-500 text-lime-300 hover:text-slate-950 border-lime-400/40"
+  },
+  {
+    name: "GMAT Focus",
+    fullName: "Graduate Management Admission Test",
+    category: "Business School",
+    format: "Focus Edition (2h 15m)",
+    duration: "8 - 12 Weeks",
+    target: "685+ Score Target",
+    description: "Data Insights, Quantitative, and Verbal Reasoning coaching specifically designed for top MBA & Masters admissions.",
+    badge: "MBA Gateway",
+    cardGradient: "bg-gradient-to-br from-rose-950/90 via-pink-950/60 to-slate-950 border-rose-500/40",
+    accentText: "text-rose-300",
+    badgeStyle: "bg-rose-950/80 text-rose-300 border-rose-400/40",
+    btnStyle: "bg-rose-500/20 hover:bg-rose-500 text-rose-300 hover:text-slate-950 border-rose-400/40"
+  },
+  {
+    name: "Digital SAT",
+    fullName: "Scholastic Assessment Test",
+    category: "Undergraduate Entrance",
+    format: "Digital Adaptive Test",
+    duration: "6 - 10 Weeks",
+    target: "1450+ Score Target",
+    description: "Digital SAT Reading & Writing and Math modules training with Desmos calculator strategies and practice drills.",
+    badge: "Undergrad USA",
+    cardGradient: "bg-gradient-to-br from-sky-950/90 via-blue-950/60 to-slate-950 border-sky-500/40",
+    accentText: "text-sky-300",
+    badgeStyle: "bg-sky-950/80 text-sky-300 border-sky-400/40",
+    btnStyle: "bg-sky-500/20 hover:bg-sky-500 text-sky-300 hover:text-slate-950 border-sky-400/40"
+  },
+  {
+    name: "ACT",
+    fullName: "American College Testing",
+    category: "Undergraduate Entrance",
+    format: "Computer-Based Test",
+    duration: "6 - 10 Weeks",
+    target: "32+ Score Target",
+    description: "English, Mathematics, Reading, and Science reasoning section coaching with speed strategies and diagnostic analytics.",
+    badge: "Undergrad Prep",
+    cardGradient: "bg-gradient-to-br from-orange-950/90 via-amber-950/60 to-slate-950 border-orange-500/40",
+    accentText: "text-orange-300",
+    badgeStyle: "bg-orange-950/80 text-orange-300 border-orange-400/40",
+    btnStyle: "bg-orange-500/20 hover:bg-orange-500 text-orange-300 hover:text-slate-950 border-orange-400/40"
+  }
+];
+
+const fivePillarProcess = [
+  {
+    step: "01",
+    title: "Profile Evaluation",
+    icon: Compass,
+    description: "In-depth review of academic transcripts, GPA, test scores & budget to curate a personalized shortlist of target universities.",
+    color: "bg-gradient-to-br from-cyan-950/80 via-sky-950/40 to-slate-950",
+    accent: "text-cyan-300",
+    badgeBg: "bg-cyan-950/90 border border-cyan-400/30 text-cyan-300",
+    highlights: ["Transcript Audit", "Country Match", "Scholarships"]
+  },
+  {
+    step: "02",
+    title: "Admissions & SOP",
+    icon: FileCheck,
+    description: "Professional SOP, LOR, and resume drafting by senior editors to make your profile stand out to admission committees.",
+    color: "bg-gradient-to-br from-sky-950/80 via-blue-950/40 to-slate-950",
+    accent: "text-sky-300",
+    badgeBg: "bg-sky-950/90 border border-sky-400/30 text-sky-300",
+    highlights: ["1-on-1 SOP Writing", "LOR Editing", "Error-free Filing"]
+  },
+  {
+    step: "03",
+    title: "Test Preparation",
+    icon: BookOpen,
+    description: "Structured coaching for IELTS, GRE, TOEFL, PTE, GMAT & Duolingo with daily diagnostic tests and master trainer feedback.",
+    color: "bg-gradient-to-br from-amber-950/80 via-orange-950/40 to-slate-950",
+    accent: "text-amber-300",
+    badgeBg: "bg-amber-950/90 border border-amber-400/30 text-amber-300",
+    highlights: ["Live Classes", "Mock Tests", "Band Booster"]
+  },
+  {
+    step: "04",
+    title: "Student Visa Filing",
+    icon: ShieldCheck,
+    description: "100% guidance on visa forms, financial proofing, I-20 / CAS processing, and realistic 1-on-1 mock visa interview drills.",
+    color: "bg-gradient-to-br from-emerald-950/80 via-teal-950/40 to-slate-950",
+    accent: "text-emerald-300",
+    badgeBg: "bg-emerald-950/90 border border-emerald-400/30 text-emerald-300",
+    highlights: ["DS-160 & CAS Filing", "Financial Audit", "Mock Visa Drills"]
+  },
+  {
+    step: "05",
+    title: "Pre-Departure & Baggage",
+    icon: Plane,
+    description: "Foreign exchange, student travel insurance, housing booking, airport pickup, and discounted excess baggage courier.",
+    color: "bg-gradient-to-br from-purple-950/80 via-indigo-950/40 to-slate-950",
+    accent: "text-purple-300",
+    badgeBg: "bg-purple-950/90 border border-purple-400/30 text-purple-300",
+    highlights: ["Forex & Housing", "Flight Briefing", "Doorstep Baggage"]
   }
 ];
 
@@ -287,85 +554,152 @@ export default function EducationalConsultancyPage() {
       </ScrollAnimate>
 
       {/* ========================================================================= */}
-      {/* 5-PILLAR OVERSEAS EDUCATION PROCESS (CURVED GLASS CARDS) */}
+      {/* 5-PILLAR OVERSEAS EDUCATION PROCESS (CONNECTED MODERN STEP PIPELINE) */}
       {/* ========================================================================= */}
       <ScrollAnimate>
-        <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <Badge className="bg-sky-500/20 text-sky-300 border border-sky-400/30 text-xs px-4 py-1.5 rounded-full font-bold uppercase tracking-wider">
-            Our 5-Pillar Overseas Process
-          </Badge>
-          <h2 className="text-3xl sm:text-5xl font-serif font-black text-white mt-3">
-            From Hyderabad to Top Global Campuses
-          </h2>
-          <p className="text-slate-400 text-sm sm:text-base mt-2">
-            Structured step-by-step roadmap for your dream university admission and student visa.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
-          
-          <div className="glass-ocean p-6 rounded-[32px] border border-sky-500/20 flex flex-col gap-4 hover:border-sky-400/60 transition-all hover:-translate-y-1">
-            <div className="h-12 w-12 rounded-2xl bg-sky-500/20 text-cyan-300 flex items-center justify-center font-bold text-xl">
-              1
-            </div>
-            <h3 className="font-bold text-lg text-white">Profile Evaluation</h3>
-            <p className="text-xs text-slate-300 leading-relaxed">
-              In-depth review of academic transcripts, test scores, work experience, and career goals to shortlist dream universities.
+        <section id="process" className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <Badge className="bg-sky-500/20 text-sky-300 border border-sky-400/30 text-xs px-4 py-1.5 rounded-full font-bold uppercase tracking-wider">
+              Our 5-Pillar Overseas Process
+            </Badge>
+            <h2 className="text-3xl sm:text-5xl font-serif font-black text-white mt-3">
+              From Hyderabad to Top Global Campuses
+            </h2>
+            <p className="text-slate-300 text-sm sm:text-base mt-2 font-light">
+              Structured end-to-end roadmap designed for guaranteed university admissions & student visa approvals.
             </p>
           </div>
 
-          <div className="glass-ocean p-6 rounded-[32px] border border-sky-500/20 flex flex-col gap-4 hover:border-sky-400/60 transition-all hover:-translate-y-1">
-            <div className="h-12 w-12 rounded-2xl bg-sky-500/20 text-cyan-300 flex items-center justify-center font-bold text-xl">
-              2
-            </div>
-            <h3 className="font-bold text-lg text-white">Admissions & SOP</h3>
-            <p className="text-xs text-slate-300 leading-relaxed">
-              Professional crafting & editing of Statement of Purpose (SOP), Letters of Recommendation (LORs), and resume.
-            </p>
-          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6 relative">
+            {/* Desktop Connecting Beam Line */}
+            <div className="hidden lg:block absolute top-12 left-10 right-10 h-0.5 bg-gradient-to-r from-cyan-500 via-emerald-500 to-purple-500 z-0 opacity-40" />
 
-          <div className="glass-ocean p-6 rounded-[32px] border border-sky-500/20 flex flex-col gap-4 hover:border-sky-400/60 transition-all hover:-translate-y-1">
-            <div className="h-12 w-12 rounded-2xl bg-sky-500/20 text-cyan-300 flex items-center justify-center font-bold text-xl">
-              3
-            </div>
-            <h3 className="font-bold text-lg text-white">Student Visa Filing</h3>
-            <p className="text-xs text-slate-300 leading-relaxed">
-              100% guidance on visa documentation, DS-160/CAS processing, financial proofing, and mock visa interview sessions.
-            </p>
-          </div>
+            {fivePillarProcess.map((item, idx) => {
+              const IconComp = item.icon;
+              return (
+                <div
+                  key={idx}
+                  className={`relative z-10 p-6 rounded-2xl ${item.color} flex flex-col justify-between hover:-translate-y-2 transition-all duration-300 shadow-2xl group border-0`}
+                >
+                  <div>
+                    <div className="flex items-center justify-between gap-2 mb-4">
+                      <span className={`text-xs font-extrabold px-3 py-1 rounded-md ${item.badgeBg}`}>
+                        Step {item.step}
+                      </span>
+                      <div className={`h-10 w-10 rounded-xl bg-slate-900/80 flex items-center justify-center ${item.accent} border border-white/10 group-hover:scale-110 transition-transform`}>
+                        <IconComp className="h-5 w-5" />
+                      </div>
+                    </div>
 
-          <div className="glass-ocean p-6 rounded-[32px] border border-sky-500/20 flex flex-col gap-4 hover:border-sky-400/60 transition-all hover:-translate-y-1">
-            <div className="h-12 w-12 rounded-2xl bg-sky-500/20 text-cyan-300 flex items-center justify-center font-bold text-xl">
-              4
-            </div>
-            <h3 className="font-bold text-lg text-white">Test Prep Coaching</h3>
-            <p className="text-xs text-slate-300 leading-relaxed">
-              Expert coaching for IELTS, TOEFL, PTE, GRE, and GMAT with structured study modules and mock exams.
-            </p>
-          </div>
+                    <h3 className={`text-xl font-serif font-bold text-white mb-2 group-hover:${item.accent} transition-colors`}>
+                      {item.title}
+                    </h3>
+                    <p className="text-xs text-slate-300 font-light leading-relaxed mb-4">
+                      {item.description}
+                    </p>
 
-          <div className="glass-ocean p-6 rounded-[32px] border border-sky-500/20 flex flex-col gap-4 hover:border-sky-400/60 transition-all hover:-translate-y-1">
-            <div className="h-12 w-12 rounded-2xl bg-sky-500/20 text-cyan-300 flex items-center justify-center font-bold text-xl">
-              5
-            </div>
-            <h3 className="font-bold text-lg text-white">Baggage & Courier</h3>
-            <p className="text-xs text-slate-300 leading-relaxed">
-              Integrated discounted student excess baggage courier services directly to your overseas university dorm or apartment.
-            </p>
-          </div>
+                    <div className="flex flex-wrap gap-1.5 pt-3 border-t border-white/10">
+                      {item.highlights.map((h, i) => (
+                        <span key={i} className="text-[10px] font-medium text-slate-300 bg-slate-900/60 px-2 py-0.5 rounded-sm border border-white/5">
+                          ✓ {h}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
 
-        </div>
-      </section>
+                  <div className="pt-4 mt-4 border-t border-white/10 flex items-center justify-between text-xs text-slate-400">
+                    <span className="font-semibold group-hover:text-white transition-colors">Phase {idx + 1}</span>
+                    <ArrowRight className={`h-3.5 w-3.5 ${item.accent} group-hover:translate-x-1 transition-transform`} />
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </section>
       </ScrollAnimate>
 
       {/* ========================================================================= */}
-      {/* DESTINATIONS EXPLORER (STADIUM CARDS) */}
+      {/* ALL STUDY ABROAD TEST PREPARATION CATALOG (#coaching - HORIZONTAL AUTO MOVABLE) */}
       {/* ========================================================================= */}
       <ScrollAnimate delay={100}>
-        <section id="destinations" className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto bg-slate-900/60 rounded-[40px] border border-slate-800">
+        <section id="coaching" className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto overflow-hidden">
+          <div className="text-center max-w-3xl mx-auto mb-12">
+            <h2 className="text-3xl sm:text-5xl font-serif font-black text-white mt-3">
+              Test Preparation Coaching Hub
+            </h2>
+            <p className="text-slate-300 text-sm sm:text-base mt-2 font-light">
+              Hover any test card to pause auto-scroll. Master IELTS, GRE, TOEFL, PTE, Duolingo, GMAT, SAT & ACT with certified master trainers.
+            </p>
+          </div>
+
+          {/* Seamless Infinite Auto-Movable Horizontal Track */}
+          <div className="relative w-full overflow-hidden no-scrollbar py-4">
+            {/* Ambient edge fade masks */}
+            <div className="absolute top-0 bottom-0 left-0 w-16 bg-gradient-to-r from-slate-950 to-transparent z-10 pointer-events-none" />
+            <div className="absolute top-0 bottom-0 right-0 w-16 bg-gradient-to-l from-slate-950 to-transparent z-10 pointer-events-none" />
+
+            <div className="animate-marquee-horizontal flex gap-6">
+              {[...allTestPrepCatalog, ...allTestPrepCatalog].map((test, index) => (
+                <div
+                  key={index}
+                  className={`w-[320px] sm:w-[350px] shrink-0 p-6 rounded-3xl ${test.cardGradient} flex flex-col justify-between transition-all duration-300 hover:scale-105 shadow-2xl group`}
+                >
+                  <div>
+                    <div className="flex items-center justify-between gap-2 mb-3">
+                      <span className={`text-xs font-extrabold px-3 py-1 rounded-full ${test.badgeStyle}`}>
+                        {test.badge}
+                      </span>
+                      <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+                        {test.category}
+                      </span>
+                    </div>
+
+                    <h3 className={`text-2xl font-serif font-bold text-white group-hover:${test.accentText} transition-colors`}>
+                      {test.name}
+                    </h3>
+                    <p className={`text-xs font-medium mb-3 ${test.accentText}`}>
+                      {test.fullName}
+                    </p>
+
+                    <p className="text-xs text-slate-300 font-light leading-relaxed mb-4">
+                      {test.description}
+                    </p>
+
+                    <div className="flex flex-col gap-2 text-xs text-slate-300 border-t border-white/10 pt-4">
+                      <div className="flex justify-between">
+                        <span className="text-slate-400">Target Score:</span>
+                        <strong className={test.accentText}>{test.target}</strong>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-slate-400">Duration:</span>
+                        <strong className="text-white">{test.duration}</strong>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-slate-400">Format:</span>
+                        <strong className="text-slate-200">{test.format}</strong>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="pt-6 mt-6 border-t border-white/10">
+                    <Button asChild className={`w-full font-bold rounded-full transition-all text-xs ${test.btnStyle}`}>
+                      <a href="#eligibility">Enroll for {test.name} Coaching</a>
+                    </Button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      </ScrollAnimate>
+
+      {/* ========================================================================= */}
+      {/* DESTINATIONS EXPLORER (STADIUM CARDS WITH SMALL BORDER RADIUS) */}
+      {/* ========================================================================= */}
+      <ScrollAnimate delay={100}>
+        <section id="destinations" className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto bg-slate-900/40 rounded-2xl">
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <Badge className="bg-sky-500/20 text-sky-300 border border-sky-400/30 text-xs px-4 py-1.5 rounded-full font-bold uppercase tracking-wider">
+          <Badge className="bg-sky-500/20 text-sky-300 border border-sky-400/30 text-xs px-4 py-1.5 rounded-md font-bold uppercase tracking-wider">
             Study Destinations
           </Badge>
           <h2 className="text-3xl sm:text-5xl font-serif font-black text-white mt-3">
@@ -380,26 +714,26 @@ export default function EducationalConsultancyPage() {
           {destinations.map((d, index) => (
             <div
               key={index}
-              className="glass-ocean rounded-[36px] overflow-hidden border border-sky-500/20 flex flex-col justify-between hover:border-sky-400/60 transition-all hover:-translate-y-1 shadow-2xl group"
+              className={`rounded-2xl overflow-hidden ${d.cardGradient} flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 shadow-2xl group`}
             >
-              {/* Destination University Image */}
-              <div className="relative w-full h-52 overflow-hidden">
+              {/* Destination University Image with Dedicated Border Radius */}
+              <div className="relative w-full h-52 overflow-hidden rounded-t-2xl">
                 <Image
                   src={d.image}
                   alt={`Study in ${d.country}`}
                   fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  className="object-cover group-hover:scale-105 transition-transform duration-500 rounded-t-2xl"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80" />
-                <div className="absolute top-4 left-4 flex items-center gap-2 bg-slate-950/80 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-sky-400/30 text-white shadow-md">
-                  <span className="text-xl">{d.flag}</span>
+                <div className={`absolute top-4 left-4 flex items-center gap-2 backdrop-blur-md px-3 py-1.5 rounded-md ${d.badgeBg} shadow-md`}>
+                  <CountryFlagSVG code={d.code} />
                   <span className="text-xs font-bold uppercase tracking-wider">{d.country}</span>
                 </div>
               </div>
 
               <div className="p-7 flex flex-col justify-between flex-1">
                 <div>
-                  <h3 className="text-2xl font-serif font-bold text-white mb-2 group-hover:text-cyan-300 transition-colors">
+                  <h3 className={`text-2xl font-serif font-bold text-white mb-2 group-hover:${d.accentText} transition-colors`}>
                     Study in {d.country}
                   </h3>
 
@@ -407,21 +741,21 @@ export default function EducationalConsultancyPage() {
                     {d.description}
                   </p>
 
-                  <div className="flex flex-col gap-2.5 text-xs text-slate-300 border-t border-sky-900/40 pt-4">
+                  <div className="flex flex-col gap-2.5 text-xs text-slate-300 border-t border-white/10 pt-4">
                     <div>
-                      <strong className="text-sky-300">Intakes:</strong> {d.intakes}
+                      <strong className={d.accentText}>Intakes:</strong> {d.intakes}
                     </div>
                     <div>
-                      <strong className="text-sky-300">Work Permit:</strong> {d.workPermit}
+                      <strong className={d.accentText}>Work Permit:</strong> {d.workPermit}
                     </div>
                     <div>
-                      <strong className="text-sky-300">Popular Fields:</strong> {d.popular}
+                      <strong className={d.accentText}>Popular Fields:</strong> {d.popular}
                     </div>
                   </div>
                 </div>
 
-                <div className="pt-6 mt-6 border-t border-sky-900/40">
-                  <Button asChild className="w-full bg-sky-500/20 hover:bg-sky-500 text-sky-300 hover:text-slate-950 font-bold rounded-full border border-sky-400/30 transition-all">
+                <div className="pt-6 mt-6 border-t border-white/10">
+                  <Button asChild className={`w-full font-bold rounded-lg transition-all ${d.btnStyle}`}>
                     <a href="#eligibility">Assess My Eligibility for {d.country}</a>
                   </Button>
                 </div>
