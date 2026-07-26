@@ -313,6 +313,13 @@
   transform: translateY(0);
 }
 
+@media (max-width: 768px) {
+  .reveal-on-scroll {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
 /* Horizontal Auto-Movable Marquee Utilities */
 @keyframes marquee-scroll {
   0% {

@@ -19,6 +19,11 @@ export default function ScrollAnimate({
     const el = ref.current;
     if (!el) return;
 
+    if (typeof IntersectionObserver === "undefined") {
+      el.classList.add("is-revealed");
+      return;
+    }
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -31,14 +36,20 @@ export default function ScrollAnimate({
         });
       },
       {
-        threshold: 0.15,
-        rootMargin: "0px 0px -50px 0px",
+        threshold: 0.01,
+        rootMargin: "100px 0px 100px 0px",
       }
     );
 
     observer.observe(el);
 
+    // Mobile fallback timer to guarantee content visibility
+    const fallbackTimer = setTimeout(() => {
+      if (el) el.classList.add("is-revealed");
+    }, 1000 + delay);
+
     return () => {
+      clearTimeout(fallbackTimer);
       if (el) observer.unobserve(el);
     };
   }, [delay]);

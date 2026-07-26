@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -19,7 +19,8 @@ import {
   Calculator,
   Sparkles,
   PhoneCall,
-  DollarSign
+  DollarSign,
+  BadgeCheck
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -36,6 +37,22 @@ export default function GlobalCourierPage() {
   const [weightKg, setWeightKg] = useState("5");
   const [itemType, setItemType] = useState("medicine");
   const [estimatedCost, setEstimatedCost] = useState<number | null>(3450);
+
+  const [heroIndex, setHeroIndex] = useState(0);
+  const heroPhrases = [
+    "Medicine & Doctor Prescription Shipping 💊",
+    "Student Baggage Excess Weight Express 🧳",
+    "Free Doorstep Pickup Across Hyderabad 🚚",
+    "Vacuum-Sealed Homemade Foods & Sweets 🍲",
+    "190+ Overseas Countries Customs Cleared ✈️"
+  ];
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setHeroIndex((prev) => (prev + 1) % heroPhrases.length);
+    }, 3200);
+    return () => clearInterval(timer);
+  }, []);
 
   const mockTrack = (e: React.FormEvent) => {
     e.preventDefault();
@@ -91,83 +108,141 @@ export default function GlobalCourierPage() {
     <div className="min-h-screen bg-slate-950 text-slate-100">
       
       {/* ========================================================================= */}
-      {/* ULTRA-MODERN HERO SECTION WITH STADIUM CARGO IMAGE */}
+      {/* FULL-WIDTH COURIER HERO SECTION WITH ANIME ENTRANCE & ROTATING BEACON */}
       {/* ========================================================================= */}
-      <section className="relative pt-12 pb-24 md:pt-20 md:pb-32 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto gradient-ocean-hero rounded-b-[40px] md:rounded-b-[80px] shadow-2xl border-b border-amber-900/40 overflow-hidden">
-        
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full bg-amber-500/10 blur-[160px] pointer-events-none" />
-
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
+      <ScrollAnimate delay={0}>
+        <section className="relative w-full gradient-ocean-hero border-b border-amber-900/40 overflow-hidden shadow-2xl animate-in fade-in zoom-in-95 duration-1000 ease-out">
           
-          {/* Left Column: Text & AWB Fast Tracker */}
-          <div className="lg:col-span-7 flex flex-col gap-6 text-left">
-            <div className="inline-flex items-center gap-2 bg-amber-950/80 border border-amber-400/30 text-amber-300 text-xs px-4 py-1.5 rounded-full backdrop-blur-md w-fit">
-              <Package className="h-4 w-4 text-amber-400" />
-              <span className="font-bold uppercase tracking-wider text-[11px]">
-                Worldwide Door-to-Door Courier Engine
-              </span>
-            </div>
+          {/* Animated Ambient Lighting Orbs */}
+          <div className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full bg-amber-500/15 blur-[160px] pointer-events-none animate-pulse" />
+          <div className="absolute bottom-0 left-0 w-[450px] h-[450px] rounded-full bg-yellow-500/10 blur-[140px] pointer-events-none animate-pulse" style={{ animationDuration: "6s" }} />
 
-            <h1 className="font-serif font-black text-3xl sm:text-5xl md:text-6xl text-white leading-tight">
-              Express International <br />
-              <span className="bg-gradient-to-r from-amber-300 via-yellow-400 to-amber-500 bg-clip-text text-transparent">
-                Courier & Logistics
-              </span>
-            </h1>
-
-            <p className="text-slate-300 text-sm sm:text-base leading-relaxed max-w-2xl font-light">
-              Doorstep pickup in Hyderabad ➔ Customs clearance ➔ Overseas doorstep delivery across 190+ countries. Specialized in doctor-prescription medicine shipping, student excess baggage, and vacuum-sealed food parcels.
-            </p>
-
-            {/* Quick Live AWB Tracking Bar */}
-            <form onSubmit={mockTrack} className="glass-ocean p-3 rounded-full border-2 border-amber-400/40 shadow-2xl flex items-center gap-2 max-w-xl">
-              <Search className="h-5 w-5 text-amber-400 ml-3 shrink-0" />
-              <Input
-                placeholder="Enter AWB Number (Try: OTS-12345 or OTS-67890)"
-                value={awbQuery}
-                onChange={(e) => setAwbQuery(e.target.value)}
-                className="bg-transparent border-none text-white placeholder:text-slate-400 focus-visible:ring-0 text-sm"
-              />
-              <Button type="submit" className="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-full px-6 h-11 shrink-0 shadow-lg cursor-pointer">
-                Track AWB
-              </Button>
-            </form>
-
-            <div className="flex items-center gap-4 text-xs text-slate-400 pl-4">
-              <span>Quick Demos:</span>
-              <button type="button" onClick={() => { setAwbQuery("OTS-12345"); setTrackingResult(null); }} className="text-amber-400 hover:underline">
-                OTS-12345 (UK)
-              </button>
-              <span>•</span>
-              <button type="button" onClick={() => { setAwbQuery("OTS-67890"); setTrackingResult(null); }} className="text-amber-400 hover:underline">
-                OTS-67890 (USA)
-              </button>
-            </div>
-          </div>
-
-          {/* Right Column: Borderless Rounded Cargo Image */}
-          <div className="lg:col-span-5 flex justify-center">
-            <div className="relative w-full max-w-md h-96 sm:h-[450px] rounded-3xl overflow-hidden shadow-2xl">
-              <Image
-                src="/global-courier.png"
-                alt="Global Express Courier Services"
-                fill
-                className="object-cover"
-                priority
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-transparent to-transparent" />
-              
-              <div className="absolute bottom-8 left-6 right-6 bg-slate-950/80 backdrop-blur-md p-4 rounded-3xl text-center shadow-xl">
-                <span className="text-sm font-extrabold text-amber-300 block">
-                  ✈️ 190+ Global Express Channels
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-20 md:pt-20 md:pb-28 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
+            
+            {/* Left Column: Text & AWB Fast Tracker */}
+            <div className="lg:col-span-7 flex flex-col gap-6 text-left">
+              <div className="inline-flex items-center gap-2 bg-amber-950/80 border border-amber-400/30 text-amber-300 text-xs px-4 py-1.5 rounded-full backdrop-blur-md w-fit shadow-lg">
+                <Sparkles className="h-4 w-4 text-amber-300 animate-spin" style={{ animationDuration: "8s" }} />
+                <span className="font-bold uppercase tracking-wider text-[11px]">
+                  Worldwide Door-to-Door Courier Engine
                 </span>
-                <span className="text-xs text-slate-300">Customs Clearance & Doorstep Delivery Included</span>
+              </div>
+
+              <div className="space-y-2">
+                <h1 className="font-serif font-black text-3xl sm:text-5xl md:text-6xl text-white leading-tight">
+                  Express International <br />
+                  <span className="bg-gradient-to-r from-amber-300 via-yellow-300 to-amber-500 bg-clip-text text-transparent">
+                    Courier & Logistics
+                  </span>
+                </h1>
+
+                {/* Animated Typewriter Phrase Banner */}
+                <div className="min-h-[42px] flex items-center pt-1">
+                  <div key={heroIndex} className="bg-amber-950/70 border border-amber-400/30 px-3.5 py-1.5 rounded-full backdrop-blur-md text-amber-300 font-bold text-xs sm:text-sm animate-in fade-in slide-in-from-bottom-2 duration-500 flex items-center gap-2.5 shadow-md max-w-full">
+                    <span className="relative flex h-2.5 w-2.5 shrink-0">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-amber-400"></span>
+                    </span>
+                    <span className="truncate">{heroPhrases[heroIndex]}</span>
+                  </div>
+                </div>
+              </div>
+
+              <p className="text-slate-300 text-sm sm:text-base leading-relaxed max-w-2xl font-light">
+                Doorstep pickup in Hyderabad ➔ Express customs clearance ➔ Overseas doorstep delivery across 190+ countries. Specialized in doctor-prescription medicine shipping, student baggage, and vacuum-sealed food parcels.
+              </p>
+
+              {/* Quick Live AWB Tracking Bar */}
+              <form onSubmit={mockTrack} className="glass-ocean p-3 rounded-full border-2 border-amber-400/40 shadow-2xl flex items-center gap-2 max-w-xl">
+                <Search className="h-5 w-5 text-amber-400 ml-3 shrink-0" />
+                <Input
+                  placeholder="Enter AWB Number (Try: OTS-12345 or OTS-67890)"
+                  value={awbQuery}
+                  onChange={(e) => setAwbQuery(e.target.value)}
+                  className="bg-transparent border-none text-white placeholder:text-slate-400 focus-visible:ring-0 text-sm"
+                />
+                <Button type="submit" className="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-full px-6 h-11 shrink-0 shadow-lg cursor-pointer">
+                  Track AWB
+                </Button>
+              </form>
+
+              <div className="flex items-center gap-4 text-xs text-slate-400 pl-4">
+                <span>Quick Demos:</span>
+                <button type="button" onClick={() => { setAwbQuery("OTS-12345"); setTrackingResult(null); }} className="text-amber-400 hover:underline">
+                  OTS-12345 (UK)
+                </button>
+                <span>•</span>
+                <button type="button" onClick={() => { setAwbQuery("OTS-67890"); setTrackingResult(null); }} className="text-amber-400 hover:underline">
+                  OTS-67890 (USA)
+                </button>
+              </div>
+
+              {/* Trust Badges */}
+              <div className="pt-6 border-t border-amber-900/40 grid grid-cols-3 gap-4 text-xs font-semibold text-slate-300">
+                <div className="flex items-center gap-2">
+                  <ShieldCheck className="h-5 w-5 text-amber-400 shrink-0" />
+                  <span>100% Customs Cleared</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Truck className="h-5 w-5 text-amber-400 shrink-0" />
+                  <span>Free Hyderabad Pickups</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <BadgeCheck className="h-5 w-5 text-amber-400 shrink-0" />
+                  <span>190+ Global Express Hubs</span>
+                </div>
               </div>
             </div>
-          </div>
 
-        </div>
-      </section>
+            {/* Right Column: Hero Cargo Image with Anime Floating Cards */}
+            <div className="lg:col-span-5 flex justify-center relative">
+              
+              {/* Anime Floating Badge 1 (Top Right) */}
+              <div className="absolute -top-4 -right-2 sm:right-2 z-20 animate-float-slow bg-slate-950/90 backdrop-blur-md border border-amber-400/40 px-4 py-2.5 rounded-2xl shadow-2xl flex items-center gap-3">
+                <div className="h-9 w-9 rounded-xl bg-amber-500/20 text-amber-300 flex items-center justify-center font-bold text-lg">
+                  📦
+                </div>
+                <div>
+                  <p className="text-xs font-black text-white">190+ Express Hubs</p>
+                  <p className="text-[10px] text-slate-400">FedEx, DHL & Aramex Partner</p>
+                </div>
+              </div>
+
+              {/* Anime Floating Badge 2 (Bottom Left) */}
+              <div className="absolute -bottom-4 -left-2 sm:left-2 z-20 animate-float-reverse bg-slate-950/90 backdrop-blur-md border border-yellow-400/40 px-4 py-2.5 rounded-2xl shadow-2xl flex items-center gap-3">
+                <div className="h-9 w-9 rounded-xl bg-emerald-500/20 text-emerald-300 flex items-center justify-center font-bold text-lg">
+                  ⚡
+                </div>
+                <div>
+                  <p className="text-xs font-black text-white">24-72 Hours Delivery</p>
+                  <p className="text-[10px] text-slate-300">USA, UK, Gulf & Australia</p>
+                </div>
+              </div>
+
+              {/* Main Cargo Image Container */}
+              <div className="relative w-full max-w-md h-96 sm:h-[450px] rounded-3xl overflow-hidden shadow-2xl border border-amber-500/20 group">
+                <Image
+                  src="/global-courier.png"
+                  alt="Global Express Courier Services"
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-700"
+                  priority
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-transparent to-transparent" />
+                
+                <div className="absolute bottom-6 left-6 right-6 bg-slate-950/85 backdrop-blur-md p-4 rounded-2xl text-center shadow-xl border border-amber-400/30">
+                  <span className="text-sm font-extrabold text-amber-300 block mb-0.5">
+                    ✈️ 190+ Global Express Channels
+                  </span>
+                  <span className="text-xs text-slate-300">Customs Clearance & Free Doorstep Pickup</span>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+        </section>
+      </ScrollAnimate>
 
       {/* ========================================================================= */}
       {/* LIVE AWB TRACKING RESULT MODAL/CARD */}

@@ -573,12 +573,6 @@ const fivePillarProcess = [
 ];
 
 export default function EducationalConsultancyPage() {
-  const [studentName, setStudentName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [email, setEmail] = useState("");
-  const [targetCountry, setTargetCountry] = useState("");
-  const [bookingSuccess, setBookingSuccess] = useState(false);
-
   const [heroIndex, setHeroIndex] = useState(0);
   const heroPhrases = [
     "Study in USA, UK & Canada ✈️",
@@ -594,18 +588,6 @@ export default function EducationalConsultancyPage() {
     }, 3200);
     return () => clearInterval(timer);
   }, []);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!studentName || !phone || !targetCountry) return;
-
-    setBookingSuccess(true);
-    canvasConfetti({
-      particleCount: 70,
-      spread: 70,
-      origin: { y: 0.7 }
-    });
-  };
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100">
@@ -657,8 +639,12 @@ export default function EducationalConsultancyPage() {
 
               <div className="flex flex-wrap gap-4 pt-2">
                 <Button asChild size="lg" className="bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold rounded-full h-12 px-8 shadow-lg shadow-sky-500/25 transition-all hover:scale-105">
-                  <a href="#eligibility">
-                    Book Free Counselling <ArrowRight className="h-4 w-4 ml-1" />
+                  <a
+                    href="https://wa.me/919052703561?text=Hi%20Over%20The%20Sea!%20I%20want%20to%20Check%20My%20Eligibility%20for%20studying%20abroad."
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Check My Eligibility <ArrowRight className="h-4 w-4 ml-1" />
                   </a>
                 </Button>
 
@@ -974,9 +960,9 @@ export default function EducationalConsultancyPage() {
                 </div>
               </div>
 
-              <div className="p-7 flex flex-col justify-between flex-1">
+              <div className="p-5 sm:p-7 flex flex-col justify-between flex-1">
                 <div>
-                  <h3 className={`text-2xl font-serif font-bold text-white mb-2 group-hover:${d.accentText} transition-colors`}>
+                  <h3 className={`text-xl sm:text-2xl font-serif font-bold text-white mb-2 group-hover:${d.accentText} transition-colors`}>
                     Study in {d.country}
                   </h3>
 
@@ -997,113 +983,20 @@ export default function EducationalConsultancyPage() {
                   </div>
                 </div>
 
-                <div className="pt-6 mt-6 border-t border-white/10">
-                  <Button asChild className={`w-full font-bold rounded-lg transition-all ${d.btnStyle}`}>
-                    <a href="#eligibility">Assess My Eligibility for {d.country}</a>
+                <div className="pt-5 mt-5 border-t border-white/10">
+                  <Button asChild className={`w-full font-bold rounded-lg transition-all text-xs sm:text-sm ${d.btnStyle}`}>
+                    <a
+                      href={`https://wa.me/919052703561?text=${encodeURIComponent(`Hi Over The Sea! I want to Check My Eligibility for studying in ${d.country}. Please guide me.`)}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Check My Eligibility
+                    </a>
                   </Button>
                 </div>
               </div>
             </div>
           ))}
-        </div>
-      </section>
-      </ScrollAnimate>
-
-      {/* ========================================================================= */}
-      {/* FREE OVERSEAS ELIGIBILITY CHECK FORM (GLASS MORPHISM) */}
-      {/* ========================================================================= */}
-      <ScrollAnimate delay={100}>
-        <section id="eligibility" className="py-20 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
-        <div className="glass-ocean p-8 sm:p-12 rounded-[48px] border-2 border-sky-500/30 shadow-2xl relative overflow-hidden">
-          
-          <div className="absolute top-0 right-0 w-80 h-80 rounded-full bg-sky-500/10 blur-[100px] pointer-events-none" />
-
-          <div className="text-center max-w-2xl mx-auto mb-8">
-            <Badge className="bg-sky-500/20 text-sky-300 border border-sky-400/30 text-xs px-4 py-1.5 rounded-full font-bold uppercase tracking-wider">
-              Free Eligibility Assessment
-            </Badge>
-            <h2 className="text-3xl sm:text-4xl font-serif font-black text-white mt-3">
-              Get Your Overseas Study Plan
-            </h2>
-            <p className="text-slate-300 text-xs sm:text-sm mt-2">
-              Fill in your details to receive a free profile evaluation and university shortlist from our senior counsellors.
-            </p>
-          </div>
-
-          {bookingSuccess ? (
-            <div className="bg-sky-950/90 border border-sky-400/40 rounded-3xl p-8 text-center flex flex-col items-center gap-4 animate-in fade-in zoom-in duration-300">
-              <CheckCircle2 className="h-16 w-16 text-cyan-400" />
-              <h3 className="text-2xl font-bold text-white">Assessment Request Received!</h3>
-              <p className="text-slate-300 text-sm max-w-md">
-                Thank you, <strong className="text-cyan-300">{studentName}</strong>. Our senior overseas education consultant will call you shortly at <strong className="text-cyan-300">{phone}</strong> for your profile review.
-              </p>
-              <Button onClick={() => setBookingSuccess(false)} variant="outline" className="border-sky-400/40 text-sky-300 hover:bg-sky-900 rounded-full font-bold mt-2">
-                Submit Another Request
-              </Button>
-            </div>
-          ) : (
-            <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="flex flex-col gap-1.5">
-                  <label className="text-xs font-bold text-sky-300 uppercase tracking-wider">Student Name *</label>
-                  <Input
-                    required
-                    placeholder="e.g. Rahul Sharma"
-                    value={studentName}
-                    onChange={(e) => setStudentName(e.target.value)}
-                    className="bg-slate-900/80 border-sky-800/80 text-white rounded-2xl h-12 text-sm focus:border-sky-400"
-                  />
-                </div>
-
-                <div className="flex flex-col gap-1.5">
-                  <label className="text-xs font-bold text-sky-300 uppercase tracking-wider">Phone Number *</label>
-                  <Input
-                    required
-                    type="tel"
-                    placeholder="+91 98765 43210"
-                    value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
-                    className="bg-slate-900/80 border-sky-800/80 text-white rounded-2xl h-12 text-sm focus:border-sky-400"
-                  />
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="flex flex-col gap-1.5">
-                  <label className="text-xs font-bold text-sky-300 uppercase tracking-wider">Email Address</label>
-                  <Input
-                    type="email"
-                    placeholder="rahul@example.com"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="bg-slate-900/80 border-sky-800/80 text-white rounded-2xl h-12 text-sm focus:border-sky-400"
-                  />
-                </div>
-
-                <div className="flex flex-col gap-1.5">
-                  <label className="text-xs font-bold text-sky-300 uppercase tracking-wider">Preferred Study Country *</label>
-                  <Select onValueChange={setTargetCountry} required>
-                    <SelectTrigger className="bg-slate-900/80 border-sky-800/80 text-white rounded-2xl h-12 text-sm">
-                      <SelectValue placeholder="Select Target Country" />
-                    </SelectTrigger>
-                    <SelectContent className="bg-slate-900 text-white border-slate-800">
-                      <SelectItem value="USA">United States (USA)</SelectItem>
-                      <SelectItem value="UK">United Kingdom (UK)</SelectItem>
-                      <SelectItem value="Canada">Canada</SelectItem>
-                      <SelectItem value="Australia">Australia</SelectItem>
-                      <SelectItem value="Germany">Germany</SelectItem>
-                      <SelectItem value="Ireland">Ireland</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-              </div>
-
-              <Button type="submit" size="lg" className="w-full bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold rounded-full h-14 text-base shadow-lg shadow-sky-500/25 mt-4 cursor-pointer">
-                Submit Free Profile Assessment <Send className="h-5 w-5 ml-2" />
-              </Button>
-            </form>
-          )}
-
         </div>
       </section>
       </ScrollAnimate>

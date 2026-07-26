@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Ship, Mail, Phone, MapPin, Clock, GraduationCap, Package, Globe } from "lucide-react";
+import { Ship, Mail, Phone, MapPin, Clock, GraduationCap, Package, Globe, Compass } from "lucide-react";
 
 const FacebookIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
@@ -24,11 +24,18 @@ const LinkedinIcon = (props: React.SVGProps<SVGSVGElement>) => (
   </svg>
 );
 
+const WhatsAppIcon = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" {...props}>
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414-.074-.124-.272-.198-.57-.347z" />
+    <path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.986-1.309A9.954 9.954 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18c-1.634 0-3.155-.447-4.46-1.222l-.32-.19-2.96.777.79-2.887-.208-.332A7.954 7.954 0 014 12c0-4.411 3.589-8 8-8s8 3.589 8 8-3.589 8-8 8z" />
+  </svg>
+);
+
 export default function Footer() {
   return (
     <footer className="bg-slate-950 text-slate-300 border-t border-slate-900 pt-16 pb-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 pb-12 border-b border-slate-900">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-slate-900">
           
           {/* Brand Column */}
           <div className="flex flex-col gap-6">
@@ -47,12 +54,12 @@ export default function Footer() {
                   OVER THE SEA
                 </span>
                 <span className="font-sans text-[10px] tracking-[0.14em] uppercase text-primary font-semibold mt-0.5">
-                  Courier & Foreign Consultancy
+                  Courier, Education & Tourism
                 </span>
               </div>
             </Link>
             <p className="text-sm text-slate-400 leading-relaxed">
-              Over the sea provides worldwide express courier logistics alongside premier foreign education consultancy, student admissions, and visa guidance.
+              Over the sea provides worldwide express courier logistics, premier foreign education consultancy, student admissions, and international tourist visa services.
             </p>
             <div className="flex items-center gap-3">
               <a href="https://www.facebook.com/share/18eHnTG3RA/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" className="p-2.5 rounded-full bg-slate-900 hover:bg-primary hover:text-white transition-all text-slate-400" aria-label="Facebook">
@@ -80,17 +87,17 @@ export default function Footer() {
               </li>
               <li>
                 <Link href="/courier#medicine" className="hover:text-amber-400 transition-colors text-slate-400">
-                  Medicine & Doctor Prescription Courier
+                  Medicine & Doctor Prescription
                 </Link>
               </li>
               <li>
                 <Link href="/courier#baggage" className="hover:text-amber-400 transition-colors text-slate-400">
-                  Student Baggage Express Shipping
+                  Student Baggage Express
                 </Link>
               </li>
               <li>
                 <Link href="/courier#food" className="hover:text-amber-400 transition-colors text-slate-400">
-                  Household Foods & Sweets Shipping
+                  Household Foods & Sweets
                 </Link>
               </li>
               <li>
@@ -128,8 +135,42 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/education#eligibility" className="hover:text-sky-400 transition-colors text-slate-400">
-                  Free Study Eligibility Assessment
+                <a href="https://wa.me/919052703561?text=Hi%20Over%20The%20Sea!%20I%20want%20to%20Check%20My%20Eligibility%20for%20studying%20abroad." target="_blank" rel="noopener noreferrer" className="hover:text-sky-400 transition-colors text-slate-400">
+                  Free Study Eligibility Check
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          {/* Tourism & Travel Links */}
+          <div className="flex flex-col gap-6">
+            <h3 className="text-white font-bold text-base tracking-wide relative after:content-[''] after:absolute after:bottom-[-8px] after:left-0 after:w-12 after:h-0.5 after:bg-emerald-500 flex items-center gap-2">
+              <Compass className="h-4 w-4 text-emerald-500" /> Tourism & Travel
+            </h3>
+            <ul className="flex flex-col gap-3 text-sm">
+              <li>
+                <Link href="/tourism#destinations" className="hover:text-emerald-400 transition-colors text-slate-400">
+                  Express Tourist e-Visas
+                </Link>
+              </li>
+              <li>
+                <Link href="/tourism#destinations" className="hover:text-emerald-400 transition-colors text-slate-400">
+                  Thailand & Dubai 24-Hr Visas
+                </Link>
+              </li>
+              <li>
+                <Link href="/tourism#destinations" className="hover:text-emerald-400 transition-colors text-slate-400">
+                  Schengen & Japan Tourist Visas
+                </Link>
+              </li>
+              <li>
+                <Link href="/tourism#destinations" className="hover:text-emerald-400 transition-colors text-slate-400">
+                  12 Global Holiday Destinations
+                </Link>
+              </li>
+              <li>
+                <Link href="/tourism#apply-visa" className="hover:text-emerald-400 transition-colors text-slate-400">
+                  Customized Tour Packages
                 </Link>
               </li>
             </ul>
@@ -154,8 +195,8 @@ export default function Footer() {
                 </a>
               </div>
               <div className="flex items-center gap-2.5">
-                <span className="text-emerald-400 text-sm font-bold">💬</span>
-                <a href="https://wa.me/919052703561" target="_blank" rel="noopener noreferrer" className="hover:text-emerald-300 transition-colors">
+                <WhatsAppIcon className="h-4 w-4 text-[#25D366] shrink-0" />
+                <a href="https://wa.me/919052703561" target="_blank" rel="noopener noreferrer" className="hover:text-emerald-300 transition-colors font-medium">
                   WhatsApp: +91 90527 03561
                 </a>
               </div>
@@ -178,8 +219,8 @@ export default function Footer() {
 
         {/* Bottom Bar */}
         <div className="pt-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-slate-500">
-          <p>© {new Date().getFullYear()} Over the Sea Courier & Educational Consultancy. All rights reserved.</p>
-          <div className="flex items-center gap-6">
+          <p>© {new Date().getFullYear()} Over the Sea Courier, Education & Tourism. All rights reserved.</p>
+          <div className="flex flex-wrap items-center gap-4 sm:gap-6">
             <Link href="/about" className="hover:text-slate-300 transition-colors">
               About Us
             </Link>
@@ -194,6 +235,10 @@ export default function Footer() {
             <span>•</span>
             <Link href="/courier" className="hover:text-slate-300 transition-colors">
               Global Courier Services
+            </Link>
+            <span>•</span>
+            <Link href="/tourism" className="hover:text-slate-300 transition-colors">
+              Tourism & Travel
             </Link>
           </div>
         </div>
