@@ -240,6 +240,10 @@ export default function Footer() {
             <Link href="/tourism" className="hover:text-slate-300 transition-colors">
               Tourism & Travel
             </Link>
+            <span>•</span>
+            <Link href="/admin" className="text-cyan-400/80 hover:text-cyan-300 transition-colors font-medium">
+              🔒 Admin Portal
+            </Link>
           </div>
         </div>
       </div>
