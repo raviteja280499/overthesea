@@ -1,11 +1,14 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { GraduationCap, Plane, CheckCircle2, ArrowRight } from "lucide-react";
 import ScrollAnimate from "@/components/ui/ScrollAnimate";
+import QuickInquiryModal from "@/components/forms/QuickInquiryModal";
+import { ServiceCategory } from "@/lib/types/inquiry";
 
 const coreEducationServices = [
   {
@@ -41,6 +44,20 @@ const coreEducationServices = [
 ];
 
 export default function ServicesPage() {
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalService, setModalService] = useState("Overseas Education");
+  const [modalCategory, setModalCategory] = useState<ServiceCategory>("Overseas Education");
+
+  const handleOpenModal = (serviceTitle: string) => {
+    setModalService(serviceTitle);
+    if (serviceTitle.toLowerCase().includes("test")) {
+      setModalCategory("Test Preparation Coaching");
+    } else {
+      setModalCategory("Overseas Education");
+    }
+    setModalOpen(true);
+  };
+
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto flex flex-col gap-16">
       
@@ -103,8 +120,12 @@ export default function ServicesPage() {
                   </div>
 
                   <div className="pt-4 border-t border-sky-900/40">
-                    <Button asChild size="sm" className="w-full bg-sky-500/20 hover:bg-sky-500 text-sky-300 hover:text-slate-950 font-bold rounded-full border border-sky-400/30 transition-all">
-                      <Link href="/education#eligibility">Enquire About {service.title}</Link>
+                    <Button
+                      onClick={() => handleOpenModal(service.title)}
+                      size="sm"
+                      className="w-full bg-sky-500/20 hover:bg-sky-500 text-sky-300 hover:text-slate-950 font-bold rounded-full border border-sky-400/30 transition-all cursor-pointer"
+                    >
+                      Enquire About {service.title}
                     </Button>
                   </div>
                 </div>
@@ -174,6 +195,16 @@ export default function ServicesPage() {
 
         </div>
       </ScrollAnimate>
+
+      <QuickInquiryModal
+        isOpen={modalOpen}
+        onClose={() => setModalOpen(false)}
+        defaultCategory={modalCategory}
+        defaultSubject={`Inquiry for ${modalService}`}
+        presetMetadata={{ service_title: modalService }}
+        title={`Enquire About ${modalService}`}
+        subtitle="Submit your contact details and our educational advisor will get in touch with you."
+      />
 
     </div>
   );

@@ -29,6 +29,8 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import canvasConfetti from "canvas-confetti";
 import ScrollAnimate from "@/components/ui/ScrollAnimate";
+import QuickInquiryModal from "@/components/forms/QuickInquiryModal";
+import { ServiceCategory } from "@/lib/types/inquiry";
 
 const CountryFlagSVG = ({ code }: { code: string }) => {
   switch (code) {
@@ -574,6 +576,14 @@ const fivePillarProcess = [
 
 export default function EducationalConsultancyPage() {
   const [heroIndex, setHeroIndex] = useState(0);
+
+  // Inquiry modal state
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalCategory, setModalCategory] = useState<ServiceCategory>("Overseas Education");
+  const [modalSubject, setModalSubject] = useState("Study Abroad Profile Evaluation");
+  const [modalTitle, setModalTitle] = useState("Overseas Education Counseling");
+  const [modalMetadata, setModalMetadata] = useState<Record<string, any>>({});
+
   const heroPhrases = [
     "Study in USA, UK & Canada ✈️",
     "100% Student Visa Approval Rate 🛡️",
@@ -911,8 +921,22 @@ export default function EducationalConsultancyPage() {
                   </div>
 
                   <div className="pt-6 mt-6 border-t border-white/10">
-                    <Button asChild className={`w-full font-bold rounded-full transition-all text-xs ${test.btnStyle}`}>
-                      <a href="#eligibility">Enroll for {test.name} Coaching</a>
+                    <Button
+                      onClick={() => {
+                        setModalCategory("Test Preparation Coaching");
+                        setModalTitle(`Enroll for ${test.name} Coaching`);
+                        setModalSubject(`${test.name} (${test.fullName}) Coaching Enrollment`);
+                        setModalMetadata({
+                          test_name: test.name,
+                          test_full_name: test.fullName,
+                          target_score: test.target,
+                          duration: test.duration,
+                        });
+                        setIsModalOpen(true);
+                      }}
+                      className={`w-full font-bold rounded-full transition-all text-xs cursor-pointer ${test.btnStyle}`}
+                    >
+                      Enroll for {test.name} Coaching
                     </Button>
                   </div>
                 </div>
@@ -984,14 +1008,21 @@ export default function EducationalConsultancyPage() {
                 </div>
 
                 <div className="pt-5 mt-5 border-t border-white/10">
-                  <Button asChild className={`w-full font-bold rounded-lg transition-all text-xs sm:text-sm ${d.btnStyle}`}>
-                    <a
-                      href={`https://wa.me/919052703561?text=${encodeURIComponent(`Hi Over The Sea! I want to Check My Eligibility for studying in ${d.country}. Please guide me.`)}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Check My Eligibility
-                    </a>
+                  <Button
+                    onClick={() => {
+                      setModalCategory("Overseas Education");
+                      setModalTitle(`Profile Evaluation for ${d.country}`);
+                      setModalSubject(`Eligibility & Admission Check for ${d.country}`);
+                      setModalMetadata({
+                        destination_country: d.country,
+                        intakes: d.intakes,
+                        popular_fields: d.popular,
+                      });
+                      setIsModalOpen(true);
+                    }}
+                    className={`w-full font-bold rounded-lg transition-all text-xs sm:text-sm cursor-pointer ${d.btnStyle}`}
+                  >
+                    Check My Eligibility
                   </Button>
                 </div>
               </div>
@@ -1000,6 +1031,17 @@ export default function EducationalConsultancyPage() {
         </div>
       </section>
       </ScrollAnimate>
+
+      {/* Quick Lead / Profile Evaluation Inquiry Modal */}
+      <QuickInquiryModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        defaultCategory={modalCategory}
+        defaultSubject={modalSubject}
+        presetMetadata={modalMetadata}
+        title={modalTitle}
+        subtitle="Submit your contact details and academic background. Our certified overseas education counselor in S.R Nagar, Hyderabad will reach out."
+      />
 
     </div>
   );

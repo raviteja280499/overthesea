@@ -19,7 +19,8 @@ import {
   PhoneCall,
   Globe,
   Award,
-  Users
+  Users,
+  Loader2
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -321,6 +322,8 @@ export default function TourismPage() {
   const [email, setEmail] = useState("");
   const [targetDestination, setTargetDestination] = useState("");
   const [bookingSuccess, setBookingSuccess] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
 
   const [heroIndex, setHeroIndex] = useState(0);
   const heroPhrases = [
@@ -339,16 +342,49 @@ export default function TourismPage() {
     return () => clearInterval(timer);
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!passengerName || !phone || !targetDestination) return;
 
-    setBookingSuccess(true);
-    canvasConfetti({
-      particleCount: 80,
-      spread: 80,
-      origin: { y: 0.7 }
-    });
+    setLoading(true);
+    setErrorMsg("");
+
+    try {
+      const res = await fetch("/api/inquiries", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          full_name: passengerName,
+          phone,
+          email: email || null,
+          service_category: "Tourism & Visa",
+          subject: `Tourist Visa Application for ${targetDestination}`,
+          message: `Tourist visa application request for ${targetDestination}. Passenger: ${passengerName}, Contact: ${phone}.`,
+          metadata: {
+            destination_country: targetDestination,
+            source_page: "/tourism",
+          },
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok || !data.success) {
+        throw new Error(data.error || "Failed to submit tourist visa inquiry.");
+      }
+
+      setBookingSuccess(true);
+      try {
+        canvasConfetti({
+          particleCount: 80,
+          spread: 80,
+          origin: { y: 0.7 }
+        });
+      } catch {}
+    } catch (err: any) {
+      setErrorMsg(err.message || "Failed to submit. Please call our visa desk directly.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -674,6 +710,12 @@ export default function TourismPage() {
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-6">
+                {errorMsg && (
+                  <div className="p-3 rounded-xl bg-rose-950/80 border border-rose-500/40 text-rose-200 text-xs">
+                    {errorMsg}
+                  </div>
+                )}
+
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   <div className="space-y-2 text-left">
                     <Label className="text-xs font-bold text-slate-200">Full Name *</Label>
@@ -728,10 +770,19 @@ export default function TourismPage() {
 
                 <Button
                   type="submit"
+                  disabled={loading}
                   size="lg"
-                  className="w-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold rounded-xl h-12 text-sm shadow-xl shadow-emerald-500/25"
+                  className="w-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold rounded-xl h-12 text-sm shadow-xl shadow-emerald-500/25 cursor-pointer"
                 >
-                  <Send className="h-4 w-4 mr-2" /> Request Express Tourist Visa Callback
+                  {loading ? (
+                    <>
+                      <Loader2 className="h-4 w-4 mr-2 animate-spin" /> Submitting to Database...
+                    </>
+                  ) : (
+                    <>
+                      <Send className="h-4 w-4 mr-2" /> Request Express Tourist Visa Callback
+                    </>
+                  )}
                 </Button>
               </form>
             )}

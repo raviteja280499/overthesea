@@ -27,10 +27,16 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import ScrollAnimate from "@/components/ui/ScrollAnimate";
+import QuickInquiryModal from "@/components/forms/QuickInquiryModal";
 
 export default function GlobalCourierPage() {
   const [awbQuery, setAwbQuery] = useState("");
   const [trackingResult, setTrackingResult] = useState<any | null>(null);
+
+  // Booking modal state
+  const [isBookingOpen, setIsBookingOpen] = useState(false);
+  const [modalSubject, setModalSubject] = useState("Courier Doorstep Pickup Request");
+  const [modalMetadata, setModalMetadata] = useState<Record<string, any>>({});
 
   // Rate calculator state
   const [destCountry, setDestCountry] = useState("USA");
@@ -362,8 +368,21 @@ export default function GlobalCourierPage() {
                   ₹{estimatedCost.toLocaleString()} <span className="text-xs font-sans text-slate-300">(All Inclusive)</span>
                 </h3>
               </div>
-              <Button asChild size="lg" className="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-full px-8 h-12 cursor-pointer shadow-lg">
-                <Link href="/contact?service=courier">Book Pickup Now <ArrowRight className="h-4 w-4 ml-1" /></Link>
+              <Button
+                onClick={() => {
+                  setModalSubject(`Doorstep Pickup Booking for ${destCountry} (${itemType})`);
+                  setModalMetadata({
+                    destination_country: destCountry,
+                    weight_kg: Number(weightKg),
+                    parcel_type: itemType,
+                    estimated_cost: estimatedCost,
+                  });
+                  setIsBookingOpen(true);
+                }}
+                size="lg"
+                className="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-full px-8 h-12 cursor-pointer shadow-lg"
+              >
+                Book Pickup Now <ArrowRight className="h-4 w-4 ml-1" />
               </Button>
             </div>
           )}
@@ -400,8 +419,16 @@ export default function GlobalCourierPage() {
                 <li className="flex items-center gap-2"><CheckCircle2 className="h-4 w-4 text-amber-400" /> Original Pharmacy Invoice Packing</li>
               </ul>
             </div>
-            <Button asChild variant="outline" className="mt-6 border-amber-400/30 text-amber-300 hover:bg-amber-900 rounded-full font-bold">
-              <Link href="/contact?type=medicine">Ship Medicine</Link>
+            <Button
+              onClick={() => {
+                setModalSubject("Doctor Prescription Medicine Courier Service");
+                setModalMetadata({ item_type: "medicine", specialized_channel: true });
+                setIsBookingOpen(true);
+              }}
+              variant="outline"
+              className="mt-6 border-amber-400/30 text-amber-300 hover:bg-amber-900 rounded-full font-bold cursor-pointer"
+            >
+              Ship Medicine Pickup
             </Button>
           </div>
 
@@ -417,8 +444,16 @@ export default function GlobalCourierPage() {
                 <li className="flex items-center gap-2"><CheckCircle2 className="h-4 w-4 text-amber-400" /> Direct Dorm / Apartment Handover</li>
               </ul>
             </div>
-            <Button asChild variant="outline" className="mt-6 border-amber-400/30 text-amber-300 hover:bg-amber-900 rounded-full font-bold">
-              <Link href="/contact?type=baggage">Ship Baggage</Link>
+            <Button
+              onClick={() => {
+                setModalSubject("Student Excess Baggage Worldwide Shipping");
+                setModalMetadata({ item_type: "student_baggage", specialized_channel: true });
+                setIsBookingOpen(true);
+              }}
+              variant="outline"
+              className="mt-6 border-amber-400/30 text-amber-300 hover:bg-amber-900 rounded-full font-bold cursor-pointer"
+            >
+              Ship Baggage Pickup
             </Button>
           </div>
 
@@ -434,14 +469,33 @@ export default function GlobalCourierPage() {
                 <li className="flex items-center gap-2"><CheckCircle2 className="h-4 w-4 text-amber-400" /> International Customs Clearance</li>
               </ul>
             </div>
-            <Button asChild variant="outline" className="mt-6 border-amber-400/30 text-amber-300 hover:bg-amber-900 rounded-full font-bold">
-              <Link href="/contact?type=food">Ship Homemade Foods</Link>
+            <Button
+              onClick={() => {
+                setModalSubject("Vacuum Sealed Homemade Foods Shipping");
+                setModalMetadata({ item_type: "food_sweets", specialized_channel: true });
+                setIsBookingOpen(true);
+              }}
+              variant="outline"
+              className="mt-6 border-amber-400/30 text-amber-300 hover:bg-amber-900 rounded-full font-bold cursor-pointer"
+            >
+              Ship Homemade Foods
             </Button>
           </div>
 
         </div>
       </section>
       </ScrollAnimate>
+
+      {/* Quick Courier Lead / Pickup Inquiry Modal */}
+      <QuickInquiryModal
+        isOpen={isBookingOpen}
+        onClose={() => setIsBookingOpen(false)}
+        defaultCategory="Courier Logistics"
+        defaultSubject={modalSubject}
+        presetMetadata={modalMetadata}
+        title="Book Global Courier Pickup"
+        subtitle="Provide your Hyderabad pickup address or contact number. Our pickup executive will reach out to schedule doorstep collection."
+      />
 
     </div>
   );
