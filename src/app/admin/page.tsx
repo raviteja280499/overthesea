@@ -3,47 +3,46 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import {
-  ShieldCheck,
   Search,
-  Filter,
-  RefreshCw,
+  Grid,
+  List,
+  Bell,
+  PlusCircle,
+  MoreHorizontal,
+  ChevronDown,
   Phone,
-  Mail,
-  Calendar,
-  CheckCircle2,
-  Clock,
-  AlertCircle,
-  Trash2,
-  Download,
-  ExternalLink,
-  LogOut,
-  Layers,
   GraduationCap,
-  Plane,
+  Package,
   Compass,
   BookOpen,
+  HelpCircle,
+  CheckCircle2,
+  Clock,
+  Trash2,
+  Download,
+  RefreshCw,
+  ArrowRight,
+  TrendingUp,
   MessageSquare,
   Sparkles,
-  Database,
-  ArrowUpDown,
-  Tag,
 } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ContactInquiry, ServiceCategory, InquiryStatus } from "@/lib/types/inquiry";
+import AdminTopBar from "@/components/admin/AdminTopBar";
+import AddInquiryDrawer from "@/components/admin/AddInquiryDrawer";
 
-export default function AdminDashboardPage() {
+export default function AdminOverviewDashboard() {
   const router = useRouter();
   const [inquiries, setInquiries] = useState<ContactInquiry[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState<string>("all");
-  const [selectedStatus, setSelectedStatus] = useState<string>("all");
-  const [updatingId, setUpdatingId] = useState<string | null>(null);
+  const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
+  const [selectedInquiry, setSelectedInquiry] = useState<ContactInquiry | null>(null);
+  const [addInquiryDrawerOpen, setAddInquiryDrawerOpen] = useState(false);
 
-  // Check auth & load data
   useEffect(() => {
     const verifyAuthAndFetch = async () => {
       try {
@@ -52,7 +51,6 @@ export default function AdminDashboardPage() {
           router.push("/admin/login");
           return;
         }
-
         await fetchInquiries();
       } catch (err) {
         console.error("Auth check failed:", err);
@@ -66,15 +64,16 @@ export default function AdminDashboardPage() {
   const fetchInquiries = async () => {
     setLoading(true);
     try {
-      let url = "/api/inquiries?";
-      if (selectedCategory !== "all") url += `category=${encodeURIComponent(selectedCategory)}&`;
-      if (selectedStatus !== "all") url += `status=${encodeURIComponent(selectedStatus)}&`;
-      if (searchTerm) url += `search=${encodeURIComponent(searchTerm)}&`;
+      let url = "/api/inquiries";
+      if (searchTerm) url += `?search=${encodeURIComponent(searchTerm)}`;
 
       const res = await fetch(url);
       const data = await res.json();
       if (data.success && data.data) {
         setInquiries(data.data);
+        if (data.data.length > 0 && !selectedInquiry) {
+          setSelectedInquiry(data.data[0]);
+        }
       }
     } catch (err) {
       console.error("Failed to fetch inquiries:", err);
@@ -86,52 +85,9 @@ export default function AdminDashboardPage() {
   useEffect(() => {
     const timer = setTimeout(() => {
       fetchInquiries();
-    }, 300);
+    }, 250);
     return () => clearTimeout(timer);
-  }, [selectedCategory, selectedStatus, searchTerm]);
-
-  const handleStatusChange = async (id: string, newStatus: InquiryStatus) => {
-    setUpdatingId(id);
-    try {
-      const res = await fetch("/api/inquiries", {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id, status: newStatus }),
-      });
-      const data = await res.json();
-      if (data.success) {
-        setInquiries((prev) =>
-          prev.map((inq) => (inq.id === id ? { ...inq, status: newStatus } : inq))
-        );
-      }
-    } catch (err) {
-      console.error("Failed to update status:", err);
-    } finally {
-      setUpdatingId(null);
-    }
-  };
-
-  const handleDelete = async (id: string) => {
-    if (!confirm("Are you sure you want to delete this inquiry?")) return;
-    try {
-      const res = await fetch(`/api/inquiries?id=${id}`, { method: "DELETE" });
-      const data = await res.json();
-      if (data.success) {
-        setInquiries((prev) => prev.filter((inq) => inq.id !== id));
-      }
-    } catch (err) {
-      console.error("Failed to delete inquiry:", err);
-    }
-  };
-
-  const handleLogout = async () => {
-    try {
-      await fetch("/api/admin/auth", { method: "DELETE" });
-      router.push("/admin/login");
-    } catch (err) {
-      console.error("Logout failed:", err);
-    }
-  };
+  }, [searchTerm]);
 
   const exportCSV = () => {
     if (inquiries.length === 0) return;
@@ -152,373 +108,487 @@ export default function AdminDashboardPage() {
     const encodedUri = encodeURI(csvContent);
     const link = document.createElement("a");
     link.setAttribute("href", encodedUri);
-    link.setAttribute("download", `overthesea_inquiries_${new Date().toISOString().slice(0, 10)}.csv`);
+    link.setAttribute("download", `overthesea_all_leads_${new Date().toISOString().slice(0, 10)}.csv`);
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
   };
 
-  // Metrics
   const totalCount = inquiries.length;
-  const newCount = inquiries.filter((i) => i.status === "new").length;
   const eduCount = inquiries.filter((i) => i.service_category === "Overseas Education").length;
   const courierCount = inquiries.filter((i) => i.service_category === "Courier Logistics").length;
   const tourismCount = inquiries.filter((i) => i.service_category === "Tourism & Visa").length;
+  const coachingCount = inquiries.filter((i) => i.service_category === "Test Preparation Coaching").length;
+  const generalCount = inquiries.filter((i) => i.service_category === "General Inquiry").length;
 
-  const getCategoryBadge = (cat: ServiceCategory) => {
-    switch (cat) {
+  const getFileBadgeIcon = (category: ServiceCategory) => {
+    switch (category) {
       case "Overseas Education":
-        return <Badge className="bg-sky-500/20 text-sky-300 border-sky-400/30">🎓 Education</Badge>;
+        return (
+          <div className="h-9 w-9 rounded-xl bg-[#e0e7ff] text-[#4f46e5] flex items-center justify-center font-black text-xs shadow-2xs shrink-0">
+            <GraduationCap className="h-5 w-5" />
+          </div>
+        );
       case "Courier Logistics":
-        return <Badge className="bg-amber-500/20 text-amber-300 border-amber-400/30">📦 Courier</Badge>;
+        return (
+          <div className="h-9 w-9 rounded-xl bg-[#fef3c7] text-[#d97706] flex items-center justify-center font-black text-xs shadow-2xs shrink-0">
+            <Package className="h-5 w-5" />
+          </div>
+        );
       case "Tourism & Visa":
-        return <Badge className="bg-emerald-500/20 text-emerald-300 border-emerald-400/30">✈️ Tourism & Visa</Badge>;
+        return (
+          <div className="h-9 w-9 rounded-xl bg-[#dcfce7] text-[#16a34a] flex items-center justify-center font-black text-xs shadow-2xs shrink-0">
+            <Compass className="h-5 w-5" />
+          </div>
+        );
       case "Test Preparation Coaching":
-        return <Badge className="bg-purple-500/20 text-purple-300 border-purple-400/30">📚 Test Prep</Badge>;
+        return (
+          <div className="h-9 w-9 rounded-xl bg-[#f3e8ff] text-[#9333ea] flex items-center justify-center font-black text-xs shadow-2xs shrink-0">
+            <BookOpen className="h-5 w-5" />
+          </div>
+        );
       default:
-        return <Badge className="bg-slate-700/50 text-slate-300 border-slate-600">💬 General</Badge>;
-    }
-  };
-
-  const getStatusBadge = (status?: InquiryStatus) => {
-    switch (status) {
-      case "new":
-        return <span className="px-2.5 py-1 rounded-full text-[11px] font-bold bg-blue-500/20 text-cyan-300 border border-cyan-400/30">🔵 New Lead</span>;
-      case "contacted":
-        return <span className="px-2.5 py-1 rounded-full text-[11px] font-bold bg-yellow-500/20 text-amber-300 border border-amber-400/30">🟡 Contacted</span>;
-      case "in_progress":
-        return <span className="px-2.5 py-1 rounded-full text-[11px] font-bold bg-purple-500/20 text-purple-300 border border-purple-400/30">🟣 In Progress</span>;
-      case "resolved":
-        return <span className="px-2.5 py-1 rounded-full text-[11px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-400/30">🟢 Resolved</span>;
-      case "archived":
-        return <span className="px-2.5 py-1 rounded-full text-[11px] font-bold bg-slate-800 text-slate-400 border border-slate-700">⚪ Archived</span>;
-      default:
-        return <span className="px-2.5 py-1 rounded-full text-[11px] font-bold bg-blue-500/20 text-cyan-300">🔵 New</span>;
+        return (
+          <div className="h-9 w-9 rounded-xl bg-[#fee2e2] text-[#ef4444] flex items-center justify-center font-black text-xs shadow-2xs shrink-0">
+            <MessageSquare className="h-5 w-5" />
+          </div>
+        );
     }
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 py-10 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto flex flex-col gap-8">
-      
-      {/* Dashboard Top Header */}
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 glass-ocean p-6 sm:p-8 rounded-[32px] border border-sky-500/30 shadow-2xl">
-        <div className="flex items-center gap-4">
-          <div className="h-14 w-14 rounded-2xl bg-gradient-to-tr from-sky-500/20 to-cyan-500/20 border border-sky-400/30 flex items-center justify-center text-cyan-300 shadow-md">
-            <Database className="h-7 w-7 text-cyan-400" />
-          </div>
+    <div className="p-6 sm:p-8 lg:p-10 flex flex-col xl:flex-row gap-8 w-full min-h-full">
+
+      {/* ========================================================================= */}
+      {/* CENTER COLUMN: OVERVIEW DASHBOARD WITH CORNER IMAGES */}
+      {/* ========================================================================= */}
+      <div className="flex-1 flex flex-col gap-8 min-w-0">
+
+        {/* Top Header: Search Bar + Grid/List Toggle + Notification Drawer + Button-sized Avatar */}
+        <AdminTopBar
+          searchTerm={searchTerm}
+          onSearchChange={setSearchTerm}
+          searchPlaceholder="Search all inquiries, leads, phone..."
+          activeView="grid"
+          inquiries={inquiries}
+          onRefresh={fetchInquiries}
+        />
+
+        {/* Section Heading + Add Inquiry Button */}
+        <div className="flex items-center justify-between">
           <div>
-            <div className="flex items-center gap-2">
-              <h1 className="text-2xl sm:text-3xl font-serif font-black text-white">
-                Admin Leads & Database Portal
-              </h1>
-              <Badge className="bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 text-[10px] uppercase font-bold">
-                Live Supabase Connected
-              </Badge>
+            <h1 className="font-sans font-black text-2xl sm:text-3xl text-[#1e1b4b]">
+              Overview Dashboard
+            </h1>
+            <p className="text-xs text-slate-400 font-medium mt-0.5">
+              Live executive summary across all Over The Sea branches and services.
+            </p>
+          </div>
+
+          <Button
+            onClick={() => setAddInquiryDrawerOpen(true)}
+            className="bg-[#6355d8] hover:bg-[#5244ca] text-white font-bold text-xs h-10 px-5 rounded-2xl shadow-md shadow-[#6355d8]/30 flex items-center gap-2 cursor-pointer transition-all hover:scale-102"
+          >
+            <PlusCircle className="h-4 w-4" />
+            <span>Add Inquiry</span>
+          </Button>
+        </div>
+
+        {/* ========================================================================= */}
+        {/* 3 SIGNATURE SERVICE CARDS WITH RESPECTIVE RIGHT-CORNER IMAGES */}
+        {/* ========================================================================= */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+
+          {/* Card 1: Overseas Education (With Graduation/Consultancy Right-Corner Image) */}
+          <Link
+            href="/admin/education"
+            className="bg-[#6355d8] text-white p-6 rounded-3xl shadow-xl shadow-[#6355d8]/25 flex flex-col justify-between h-56 transition-all duration-300 hover:scale-[1.02] relative overflow-hidden group border border-[#6355d8]"
+          >
+            {/* Smooth Fill Glow Layer */}
+            <div className="absolute inset-0 bg-gradient-to-br from-[#7264e3] to-[#5143cb] opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+
+            {/* Right Corner Image */}
+            <div className="absolute -right-2 -bottom-2 w-28 h-28 opacity-30 group-hover:opacity-50 group-hover:scale-110 transition-all duration-300 pointer-events-none rounded-2xl overflow-hidden">
+              <Image
+                src="/educational-consultancy.png"
+                alt="Overseas Education"
+                fill
+                className="object-contain"
+              />
             </div>
-            <p className="text-xs text-slate-300 mt-1">
-              Project Reference: <code className="text-cyan-300 bg-slate-900 px-1.5 py-0.5 rounded">lrxsjuulqtldvnetdtof</code> • Managing all service contact submissions
-            </p>
-          </div>
-        </div>
 
-        <div className="flex items-center gap-3">
-          <Button
-            onClick={fetchInquiries}
-            variant="outline"
-            size="sm"
-            className="border-sky-800 text-sky-300 hover:bg-sky-950 rounded-xl"
-          >
-            <RefreshCw className={`h-4 w-4 mr-1.5 ${loading ? "animate-spin" : ""}`} /> Refresh
-          </Button>
+            <div className="flex items-start justify-between relative z-10">
+              <div className="h-12 w-12 rounded-2xl bg-white text-[#6355d8] flex items-center justify-center shadow-md transition-transform duration-300 group-hover:scale-105">
+                <GraduationCap className="h-6 w-6 text-[#6355d8]" />
+              </div>
 
-          <Button
-            onClick={exportCSV}
-            variant="outline"
-            size="sm"
-            className="border-sky-800 text-cyan-300 hover:bg-sky-950 rounded-xl"
-          >
-            <Download className="h-4 w-4 mr-1.5" /> Export CSV
-          </Button>
+              <span className="text-[11px] font-bold bg-white/20 text-white px-2.5 py-1 rounded-full flex items-center gap-1 transition-colors">
+                <span>View</span>
+                <ArrowRight className="h-3 w-3" />
+              </span>
+            </div>
 
-          <Button
-            onClick={handleLogout}
-            variant="outline"
-            size="sm"
-            className="border-rose-800/80 text-rose-300 hover:bg-rose-950 rounded-xl cursor-pointer"
-          >
-            <LogOut className="h-4 w-4 mr-1.5" /> Logout
-          </Button>
-        </div>
-      </div>
+            <div className="relative z-10">
+              <h3 className="font-extrabold text-lg text-white mb-4 flex items-center gap-2">
+                <span>Overseas Education</span>
+              </h3>
 
-      {/* KPI Metric Cards */}
-      <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-        <div className="glass-ocean p-5 rounded-2xl border border-sky-500/20 flex flex-col justify-between">
-          <div className="flex items-center justify-between">
-            <span className="text-xs text-slate-400 font-bold uppercase">Total Leads</span>
-            <Layers className="h-4 w-4 text-sky-400" />
-          </div>
-          <p className="text-3xl font-serif font-black text-white mt-2">{totalCount}</p>
-        </div>
-
-        <div className="glass-ocean p-5 rounded-2xl border border-cyan-500/30 flex flex-col justify-between">
-          <div className="flex items-center justify-between">
-            <span className="text-xs text-cyan-300 font-bold uppercase">Action Required</span>
-            <Sparkles className="h-4 w-4 text-cyan-400" />
-          </div>
-          <p className="text-3xl font-serif font-black text-cyan-300 mt-2">{newCount}</p>
-        </div>
-
-        <div className="glass-ocean p-5 rounded-2xl border border-sky-500/20 flex flex-col justify-between">
-          <div className="flex items-center justify-between">
-            <span className="text-xs text-sky-300 font-bold uppercase">Education</span>
-            <GraduationCap className="h-4 w-4 text-sky-400" />
-          </div>
-          <p className="text-3xl font-serif font-black text-sky-300 mt-2">{eduCount}</p>
-        </div>
-
-        <div className="glass-ocean p-5 rounded-2xl border border-amber-500/20 flex flex-col justify-between">
-          <div className="flex items-center justify-between">
-            <span className="text-xs text-amber-300 font-bold uppercase">Courier</span>
-            <Plane className="h-4 w-4 text-amber-400" />
-          </div>
-          <p className="text-3xl font-serif font-black text-amber-300 mt-2">{courierCount}</p>
-        </div>
-
-        <div className="glass-ocean p-5 rounded-2xl border border-emerald-500/20 flex flex-col justify-between col-span-2 sm:col-span-1">
-          <div className="flex items-center justify-between">
-            <span className="text-xs text-emerald-300 font-bold uppercase">Tourism & Visa</span>
-            <Compass className="h-4 w-4 text-emerald-400" />
-          </div>
-          <p className="text-3xl font-serif font-black text-emerald-300 mt-2">{tourismCount}</p>
-        </div>
-      </div>
-
-      {/* Filters & Search Control Bar */}
-      <div className="glass-ocean p-6 rounded-[28px] border border-sky-500/20 shadow-xl flex flex-col md:flex-row gap-4 justify-between items-center">
-        
-        {/* Search Input */}
-        <div className="relative w-full md:w-80">
-          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500" />
-          <Input
-            placeholder="Search by name, phone, message..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="bg-slate-900 border-sky-900/80 text-white rounded-xl pl-10 text-xs h-11 focus:border-sky-400"
-          />
-        </div>
-
-        {/* Category & Status Filter Selectors */}
-        <div className="flex flex-wrap items-center gap-3 w-full md:w-auto">
-          <div className="flex items-center gap-2">
-            <span className="text-xs text-slate-400 font-bold">Category:</span>
-            <select
-              value={selectedCategory}
-              onChange={(e) => setSelectedCategory(e.target.value)}
-              className="bg-slate-900 border border-sky-900/80 text-white rounded-xl text-xs h-11 px-3 focus:border-sky-400 focus:outline-none"
-            >
-              <option value="all">All Categories</option>
-              <option value="Overseas Education">Overseas Education</option>
-              <option value="Courier Logistics">Courier Logistics</option>
-              <option value="Tourism & Visa">Tourism & Visa</option>
-              <option value="Test Preparation Coaching">Test Preparation Coaching</option>
-              <option value="General Inquiry">General Inquiry</option>
-            </select>
-          </div>
-
-          <div className="flex items-center gap-2">
-            <span className="text-xs text-slate-400 font-bold">Status:</span>
-            <select
-              value={selectedStatus}
-              onChange={(e) => setSelectedStatus(e.target.value)}
-              className="bg-slate-900 border border-sky-900/80 text-white rounded-xl text-xs h-11 px-3 focus:border-sky-400 focus:outline-none"
-            >
-              <option value="all">All Statuses</option>
-              <option value="new">🔵 New</option>
-              <option value="contacted">🟡 Contacted</option>
-              <option value="in_progress">🟣 In Progress</option>
-              <option value="resolved">🟢 Resolved</option>
-              <option value="archived">⚪ Archived</option>
-            </select>
-          </div>
-        </div>
-
-      </div>
-
-      {/* Inquiries Cards & Table */}
-      <div className="glass-ocean rounded-[32px] border border-sky-500/20 p-6 sm:p-8 shadow-2xl overflow-hidden">
-        
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-xl font-serif font-bold text-white flex items-center gap-2">
-            <span>Inquiries Database</span>
-            <Badge className="bg-sky-500/20 text-sky-300 font-mono text-xs">{inquiries.length} results</Badge>
-          </h2>
-        </div>
-
-        {loading ? (
-          <div className="text-center py-20 flex flex-col items-center gap-3">
-            <RefreshCw className="h-8 w-8 text-sky-400 animate-spin" />
-            <p className="text-xs text-slate-400">Loading submissions from database...</p>
-          </div>
-        ) : inquiries.length === 0 ? (
-          <div className="text-center py-16 bg-slate-900/40 rounded-2xl border border-sky-900/30 p-8 flex flex-col items-center gap-3">
-            <AlertCircle className="h-10 w-10 text-slate-500" />
-            <h3 className="text-lg font-bold text-white">No inquiries found</h3>
-            <p className="text-xs text-slate-400 max-w-sm">
-              No records match your selected filters. Submit a test inquiry on any service page or clear your search term.
-            </p>
-          </div>
-        ) : (
-          <div className="flex flex-col gap-4">
-            {inquiries.map((inq) => {
-              const cleanPhone = (inq.phone || "").replace(/\D/g, "");
-              const formattedDate = inq.created_at
-                ? new Date(inq.created_at).toLocaleString("en-IN", {
-                    day: "numeric",
-                    month: "short",
-                    year: "numeric",
-                    hour: "2-digit",
-                    minute: "2-digit",
-                  })
-                : "Recent";
-
-              return (
+              <div className="w-full bg-white/20 rounded-full h-1.5 overflow-hidden flex mb-2">
                 <div
-                  key={inq.id}
-                  className="bg-slate-900/70 hover:bg-slate-900 border border-sky-900/50 hover:border-sky-500/40 p-5 sm:p-6 rounded-2xl transition-all shadow-md flex flex-col gap-4"
-                >
-                  {/* Card Header */}
-                  <div className="flex flex-wrap items-start justify-between gap-3 border-b border-sky-950 pb-3">
-                    <div className="flex flex-wrap items-center gap-2.5">
-                      <h3 className="text-base sm:text-lg font-serif font-bold text-white">
-                        {inq.full_name}
-                      </h3>
-                      {getCategoryBadge(inq.service_category)}
-                      {getStatusBadge(inq.status)}
-                    </div>
+                  className="bg-[#fb923c] h-1.5 transition-all duration-700"
+                  style={{ width: `${totalCount > 0 ? (eduCount / totalCount) * 100 : 45}%` }}
+                />
+                <div className="bg-white h-1.5 flex-1" />
+              </div>
 
-                    <div className="flex items-center gap-2 text-xs text-slate-400">
-                      <Calendar className="h-3.5 w-3.5 text-slate-500" />
-                      <span>{formattedDate}</span>
-                    </div>
-                  </div>
+              <div className="flex items-center justify-between text-xs font-semibold text-white/90">
+                <span>{eduCount} Active Leads</span>
+                <span>Fall &apos;26 Admissions</span>
+              </div>
+            </div>
+          </Link>
 
-                  {/* Card Body */}
-                  <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-start">
-                    {/* Left: Contact Info & Subject */}
-                    <div className="md:col-span-4 flex flex-col gap-2 text-xs">
-                      <div className="flex items-center gap-2">
-                        <Phone className="h-4 w-4 text-sky-400 shrink-0" />
+          {/* Card 2: Global Courier Logistics (With Courier Right-Corner Image & Amber Hover Fill) */}
+          <Link
+            href="/admin/courier"
+            className="bg-white text-slate-900 p-6 rounded-3xl border border-slate-100 shadow-lg shadow-slate-100/80 flex flex-col justify-between h-56 transition-all duration-300 hover:scale-[1.02] group relative overflow-hidden hover:shadow-xl hover:shadow-[#f59e0b]/25 hover:border-[#f59e0b]/40"
+          >
+            {/* Category Amber Filling Layer on Hover */}
+            <div className="absolute inset-0 bg-gradient-to-br from-[#f59e0b] to-[#d97706] opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+
+            {/* Right Corner Image */}
+            <div className="absolute -right-2 -bottom-2 w-28 h-28 opacity-25 group-hover:opacity-40 group-hover:scale-110 transition-all duration-300 pointer-events-none rounded-2xl overflow-hidden">
+              <Image
+                src="/global-courier.png"
+                alt="Courier Logistics"
+                fill
+                className="object-contain"
+              />
+            </div>
+
+            <div className="flex items-start justify-between relative z-10">
+              <div className="h-12 w-12 rounded-2xl bg-[#fffbeb] text-[#d97706] group-hover:bg-white group-hover:text-[#d97706] group-hover:shadow-md flex items-center justify-center transition-all duration-300">
+                <Package className="h-6 w-6" />
+              </div>
+
+              <span className="text-[11px] font-bold bg-amber-50 text-amber-800 border border-amber-200 group-hover:bg-white/20 group-hover:text-white group-hover:border-transparent px-2.5 py-1 rounded-full flex items-center gap-1 transition-all duration-300">
+                <span>View</span>
+                <ArrowRight className="h-3 w-3" />
+              </span>
+            </div>
+
+            <div className="relative z-10">
+              <h3 className="font-extrabold text-lg text-[#1e1b4b] group-hover:text-white mb-4 transition-colors duration-300">
+                Courier Logistics
+              </h3>
+
+              <div className="w-full bg-[#f1f5f9] group-hover:bg-white/25 rounded-full h-1.5 overflow-hidden flex mb-2 transition-colors duration-300">
+                <div
+                  className="bg-[#f59e0b] group-hover:bg-white h-1.5 transition-all duration-700"
+                  style={{ width: `${totalCount > 0 ? (courierCount / totalCount) * 100 : 35}%` }}
+                />
+              </div>
+
+              <div className="flex items-center justify-between text-xs font-semibold text-slate-400 group-hover:text-white/90 transition-colors duration-300">
+                <span className="text-slate-700 group-hover:text-white font-bold">{courierCount} Shipments</span>
+                <span>190+ Countries</span>
+              </div>
+            </div>
+          </Link>
+
+          {/* Card 3: Tourism & Express Visa (With Tourism Right-Corner Image & Emerald Hover Fill) */}
+          <Link
+            href="/admin/tourism"
+            className="bg-white text-slate-900 p-6 rounded-3xl border border-slate-100 shadow-lg shadow-slate-100/80 flex flex-col justify-between h-56 transition-all duration-300 hover:scale-[1.02] group relative overflow-hidden hover:shadow-xl hover:shadow-[#059669]/25 hover:border-[#059669]/40"
+          >
+            {/* Category Emerald Filling Layer on Hover */}
+            <div className="absolute inset-0 bg-gradient-to-br from-[#059669] to-[#047857] opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+
+            {/* Right Corner Image */}
+            <div className="absolute -right-2 -bottom-2 w-28 h-28 opacity-25 group-hover:opacity-40 group-hover:scale-110 transition-all duration-300 pointer-events-none rounded-2xl overflow-hidden">
+              <Image
+                src="/tourism/hero.png"
+                alt="Tourism & Visa"
+                fill
+                className="object-contain"
+              />
+            </div>
+
+            <div className="flex items-start justify-between relative z-10">
+              <div className="h-12 w-12 rounded-2xl bg-[#ecfdf5] text-[#059669] group-hover:bg-white group-hover:text-[#059669] group-hover:shadow-md flex items-center justify-center transition-all duration-300">
+                <Compass className="h-6 w-6" />
+              </div>
+
+              <span className="text-[11px] font-bold bg-emerald-50 text-emerald-800 border border-emerald-200 group-hover:bg-white/20 group-hover:text-white group-hover:border-transparent px-2.5 py-1 rounded-full flex items-center gap-1 transition-all duration-300">
+                <span>View</span>
+                <ArrowRight className="h-3 w-3" />
+              </span>
+            </div>
+
+            <div className="relative z-10">
+              <h3 className="font-extrabold text-lg text-[#1e1b4b] group-hover:text-white mb-4 transition-colors duration-300">
+                Tourism & Visa
+              </h3>
+
+              <div className="w-full bg-[#f1f5f9] group-hover:bg-white/25 rounded-full h-1.5 overflow-hidden flex mb-2 transition-colors duration-300">
+                <div
+                  className="bg-[#10b981] group-hover:bg-white h-1.5 transition-all duration-700"
+                  style={{ width: `${totalCount > 0 ? (tourismCount / totalCount) * 100 : 20}%` }}
+                />
+              </div>
+
+              <div className="flex items-center justify-between text-xs font-semibold text-slate-400 group-hover:text-white/90 transition-colors duration-300">
+                <span className="text-slate-700 group-hover:text-white font-bold">{tourismCount} Visa Filings</span>
+                <span>99.4% Approval</span>
+              </div>
+            </div>
+          </Link>
+
+        </div>
+
+        {/* ========================================================================= */}
+        {/* RECENT INQUIRIES STREAM */}
+        {/* ========================================================================= */}
+        <div className="flex flex-col gap-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-1.5 cursor-pointer select-none">
+              <h3 className="font-sans font-extrabold text-base text-[#1e1b4b]">
+                Recent Inquiries & Leads
+              </h3>
+              <ChevronDown className="h-4 w-4 text-slate-400" />
+            </div>
+
+            <Link
+              href="/admin/inquiries"
+              className="text-xs font-bold text-[#6355d8] hover:underline flex items-center gap-1"
+            >
+              <span>View All Records</span>
+              <ArrowRight className="h-3.5 w-3.5" />
+            </Link>
+          </div>
+
+          <div className="bg-white rounded-3xl border border-slate-100 overflow-hidden shadow-sm">
+            <div className="grid grid-cols-12 px-6 py-3.5 bg-white text-xs font-bold text-slate-400 border-b border-slate-100">
+              <div className="col-span-6 flex items-center gap-1">
+                <span>Client & Service</span>
+                <span className="text-[10px]">↑</span>
+              </div>
+              <div className="col-span-3">Contact Phone</div>
+              <div className="col-span-2">Received Date</div>
+              <div className="col-span-1 text-right"></div>
+            </div>
+
+            {loading ? (
+              <div className="py-12 text-center text-xs text-slate-400 flex flex-col items-center gap-2">
+                <RefreshCw className="h-6 w-6 text-[#6355d8] animate-spin" />
+                <span>Loading live inquiries...</span>
+              </div>
+            ) : inquiries.length === 0 ? (
+              <div className="py-12 text-center text-xs text-slate-400">
+                No inquiries found.
+              </div>
+            ) : (
+              <div className="divide-y divide-slate-50">
+                {inquiries.slice(0, 7).map((inq) => {
+                  const cleanPhone = (inq.phone || "").replace(/\D/g, "");
+                  const isSelected = selectedInquiry?.id === inq.id;
+                  const dateText = inq.created_at
+                    ? new Date(inq.created_at).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })
+                    : "Today";
+
+                  return (
+                    <div
+                      key={inq.id}
+                      onClick={() => setSelectedInquiry(inq)}
+                      className={`
+                        grid grid-cols-12 items-center px-6 py-4 transition-colors cursor-pointer group
+                        ${isSelected ? "bg-[#f8f7ff]" : "hover:bg-[#faf9ff]"}
+                      `}
+                    >
+                      <div className="col-span-6 flex items-center gap-3.5 min-w-0 pr-2">
+                        {getFileBadgeIcon(inq.service_category)}
+                        <div className="min-w-0">
+                          <span className="font-bold text-xs text-[#1e1b4b] block truncate group-hover:text-[#6355d8] transition-colors">
+                            {inq.full_name}
+                          </span>
+                          <span className="text-[11px] text-slate-400 font-medium truncate block">
+                            {inq.subject || inq.service_category}
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className="col-span-3 text-xs text-slate-500 font-medium truncate font-mono">
+                        {inq.phone}
+                      </div>
+
+                      <div className="col-span-2 text-xs text-slate-400 font-medium">
+                        {dateText}
+                      </div>
+
+                      <div className="col-span-1 flex items-center justify-end gap-1.5">
                         <a
-                          href={`tel:${inq.phone}`}
-                          className="font-mono text-white font-bold hover:underline"
+                          href={`https://wa.me/${cleanPhone}?text=${encodeURIComponent(`Hi ${inq.full_name}! Regarding your inquiry for ${inq.service_category} at Over The Sea:`)}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={(e) => e.stopPropagation()}
+                          className="opacity-0 group-hover:opacity-100 transition-opacity p-1.5 bg-[#25D366]/10 hover:bg-[#25D366] text-[#25D366] hover:text-white rounded-lg"
+                          title="WhatsApp"
                         >
-                          {inq.phone}
+                          <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 fill-current">
+                            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414-.074-.124-.272-.198-.57-.347z" />
+                          </svg>
                         </a>
                       </div>
-
-                      {inq.email && (
-                        <div className="flex items-center gap-2">
-                          <Mail className="h-4 w-4 text-slate-400 shrink-0" />
-                          <a
-                            href={`mailto:${inq.email}`}
-                            className="text-slate-300 hover:underline truncate max-w-[200px]"
-                          >
-                            {inq.email}
-                          </a>
-                        </div>
-                      )}
-
-                      {inq.subject && (
-                        <div className="mt-1 pt-2 border-t border-slate-800 text-[11px]">
-                          <strong className="text-cyan-300 block font-semibold">Subject:</strong>
-                          <span className="text-slate-300">{inq.subject}</span>
-                        </div>
-                      )}
                     </div>
-
-                    {/* Middle: Message & Metadata */}
-                    <div className="md:col-span-5 flex flex-col gap-2">
-                      <div className="bg-slate-950/60 p-3 rounded-xl border border-sky-950 text-xs text-slate-300 leading-relaxed font-light">
-                        {inq.message || "No message body provided."}
-                      </div>
-
-                      {/* Metadata Chips if present */}
-                      {inq.metadata && Object.keys(inq.metadata).length > 0 && (
-                        <div className="flex flex-wrap gap-1.5 mt-1">
-                          {Object.entries(inq.metadata).map(([key, val]) => (
-                            <span
-                              key={key}
-                              className="text-[10px] bg-slate-950 px-2 py-0.5 rounded border border-slate-800 text-slate-400"
-                            >
-                              <strong className="text-sky-300">{key}:</strong> {String(val)}
-                            </span>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-
-                    {/* Right: Status Changer & Actions */}
-                    <div className="md:col-span-3 flex flex-col gap-2 sm:items-end">
-                      <div className="w-full sm:w-auto">
-                        <label className="text-[10px] text-slate-400 uppercase font-bold block mb-1">
-                          Update Status:
-                        </label>
-                        <select
-                          disabled={updatingId === inq.id}
-                          value={inq.status || "new"}
-                          onChange={(e) => handleStatusChange(inq.id!, e.target.value as InquiryStatus)}
-                          className="w-full sm:w-40 h-9 px-2.5 bg-slate-950 border border-sky-800 rounded-xl text-xs text-white focus:border-sky-400 focus:outline-none"
-                        >
-                          <option value="new">🔵 New</option>
-                          <option value="contacted">🟡 Contacted</option>
-                          <option value="in_progress">🟣 In Progress</option>
-                          <option value="resolved">🟢 Resolved</option>
-                          <option value="archived">⚪ Archived</option>
-                        </select>
-                      </div>
-
-                      {/* Fast Action Buttons */}
-                      <div className="flex items-center gap-2 mt-1">
-                        <Button
-                          asChild
-                          size="sm"
-                          className="bg-emerald-600 hover:bg-emerald-500 text-white text-xs h-8 px-3 rounded-lg"
-                        >
-                          <a
-                            href={`https://wa.me/${cleanPhone}?text=${encodeURIComponent(`Hi ${inq.full_name}! We received your inquiry regarding ${inq.service_category} at Over The Sea. How can we assist you today?`)}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            WhatsApp
-                          </a>
-                        </Button>
-
-                        <Button
-                          asChild
-                          variant="outline"
-                          size="sm"
-                          className="border-sky-800 text-sky-300 hover:bg-sky-950 text-xs h-8 px-3 rounded-lg"
-                        >
-                          <a href={`tel:${inq.phone}`}>Call</a>
-                        </Button>
-
-                        <button
-                          onClick={() => inq.id && handleDelete(inq.id)}
-                          className="p-1.5 text-slate-500 hover:text-rose-400 hover:bg-rose-950/40 rounded-lg transition-colors"
-                          title="Delete Lead"
-                        >
-                          <Trash2 className="h-4 w-4" />
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
+                  );
+                })}
+              </div>
+            )}
           </div>
-        )}
+        </div>
+
       </div>
+
+      {/* ========================================================================= */}
+      {/* RIGHT COLUMN: LEAD VOLUME & CATEGORY SUBPAGE SHORTCUTS */}
+      {/* ========================================================================= */}
+      <div className="w-full xl:w-80 flex flex-col gap-6 select-none shrink-0">
+
+        <h2 className="font-sans font-black text-lg text-[#1e1b4b] text-center xl:text-left">
+          Lead Volume & Capacity
+        </h2>
+
+        {/* Semi-Circle Gauge Donut Graphic */}
+        <div className="bg-white p-6 rounded-3xl border border-slate-100 flex flex-col items-center text-center shadow-xs">
+          <div className="relative w-48 h-28 flex items-end justify-center overflow-hidden">
+            <svg className="w-48 h-48 -rotate-180" viewBox="0 0 100 100">
+              <circle
+                cx="50"
+                cy="50"
+                r="40"
+                fill="none"
+                stroke="#f1f5f9"
+                strokeWidth="12"
+                strokeDasharray="251.2"
+                strokeDashoffset="125.6"
+              />
+              <circle
+                cx="50"
+                cy="50"
+                r="40"
+                fill="none"
+                stroke="#f97316"
+                strokeWidth="12"
+                strokeDasharray="251.2"
+                strokeDashoffset="160"
+                strokeLinecap="round"
+              />
+            </svg>
+          </div>
+
+          <div className="mt-2">
+            <h3 className="font-extrabold text-2xl text-[#1e1b4b]">
+              {totalCount} Leads
+            </h3>
+            <p className="text-xs text-slate-400 font-medium mt-0.5">
+              98.4% Response Rate
+            </p>
+          </div>
+        </div>
+
+        {/* Category Item Cards (Stacked with corner thumbnails and links to separate pages) */}
+        <div className="flex flex-col gap-3">
+
+          <Link
+            href="/admin/education"
+            className="bg-white p-4 rounded-2xl border border-slate-100 shadow-2xs flex items-center justify-between hover:bg-[#f0edff]/80 hover:border-[#6355d8]/30 hover:shadow-xs transition-all cursor-pointer group"
+          >
+            <div className="flex items-center gap-3">
+              <div className="h-9 w-9 rounded-xl bg-[#e0e7ff] text-[#4f46e5] group-hover:bg-[#6355d8] group-hover:text-white flex items-center justify-center transition-colors">
+                <GraduationCap className="w-5 h-5" />
+              </div>
+              <div>
+                <h4 className="font-extrabold text-xs text-[#1e1b4b] group-hover:text-[#6355d8] transition-colors">
+                  Overseas Education
+                </h4>
+                <p className="text-[10px] text-slate-400 font-medium">{eduCount} Total files</p>
+              </div>
+            </div>
+            <span className="font-extrabold text-xs text-slate-700 group-hover:text-[#6355d8] transition-colors">{eduCount} Leads</span>
+          </Link>
+
+          <Link
+            href="/admin/courier"
+            className="bg-white p-4 rounded-2xl border border-slate-100 shadow-2xs flex items-center justify-between hover:bg-[#fffbeb]/80 hover:border-[#f59e0b]/30 hover:shadow-xs transition-all cursor-pointer group"
+          >
+            <div className="flex items-center gap-3">
+              <div className="h-9 w-9 rounded-xl bg-[#fef3c7] text-[#d97706] group-hover:bg-[#f59e0b] group-hover:text-white flex items-center justify-center transition-colors">
+                <Package className="w-5 h-5" />
+              </div>
+              <div>
+                <h4 className="font-extrabold text-xs text-[#1e1b4b] group-hover:text-[#d97706] transition-colors">
+                  Courier Logistics
+                </h4>
+                <p className="text-[10px] text-slate-400 font-medium">{courierCount} Total files</p>
+              </div>
+            </div>
+            <span className="font-extrabold text-xs text-slate-700 group-hover:text-[#d97706] transition-colors">{courierCount} Leads</span>
+          </Link>
+
+          <Link
+            href="/admin/tourism"
+            className="bg-white p-4 rounded-2xl border border-slate-100 shadow-2xs flex items-center justify-between hover:bg-[#ecfdf5]/80 hover:border-[#10b981]/30 hover:shadow-xs transition-all cursor-pointer group"
+          >
+            <div className="flex items-center gap-3">
+              <div className="h-9 w-9 rounded-xl bg-[#dcfce7] text-[#16a34a] group-hover:bg-[#059669] group-hover:text-white flex items-center justify-center transition-colors">
+                <Compass className="w-5 h-5" />
+              </div>
+              <div>
+                <h4 className="font-extrabold text-xs text-[#1e1b4b] group-hover:text-[#059669] transition-colors">
+                  Tourism & Visa
+                </h4>
+                <p className="text-[10px] text-slate-400 font-medium">{tourismCount} Total files</p>
+              </div>
+            </div>
+            <span className="font-extrabold text-xs text-slate-700 group-hover:text-[#059669] transition-colors">{tourismCount} Leads</span>
+          </Link>
+
+          <Link
+            href="/admin/coaching"
+            className="bg-white p-4 rounded-2xl border border-slate-100 shadow-2xs flex items-center justify-between hover:bg-[#faf5ff]/80 hover:border-[#9333ea]/30 hover:shadow-xs transition-all cursor-pointer group"
+          >
+            <div className="flex items-center gap-3">
+              <div className="h-9 w-9 rounded-xl bg-[#f3e8ff] text-[#9333ea] group-hover:bg-[#9333ea] group-hover:text-white flex items-center justify-center transition-colors">
+                <BookOpen className="w-5 h-5" />
+              </div>
+              <div>
+                <h4 className="font-extrabold text-xs text-[#1e1b4b] group-hover:text-[#9333ea] transition-colors">
+                  Test Preparation
+                </h4>
+                <p className="text-[10px] text-slate-400 font-medium">{coachingCount} Total files</p>
+              </div>
+            </div>
+            <span className="font-extrabold text-xs text-slate-700 group-hover:text-[#9333ea] transition-colors">{coachingCount} Leads</span>
+          </Link>
+
+        </div>
+
+        <button
+          onClick={exportCSV}
+          className="w-full py-2.5 rounded-2xl border border-dashed border-slate-200 text-xs font-bold text-slate-500 hover:text-[#6355d8] hover:border-[#6355d8] transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
+        >
+          <Download className="h-3.5 w-3.5" />
+          <span>Export All Leads Report</span>
+        </button>
+
+      </div>
+
+      {/* Add Inquiry Side Drawer */}
+      <AddInquiryDrawer
+        isOpen={addInquiryDrawerOpen}
+        onClose={() => setAddInquiryDrawerOpen(false)}
+        onSuccess={fetchInquiries}
+      />
 
     </div>
   );

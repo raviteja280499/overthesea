@@ -350,31 +350,42 @@
 }
 
 /* ========================================================================= */
-/* MODERN GLOBAL OCEAN SCROLLBAR */
+/* MODERN SLIM ELEGANT SCROLLBAR */
 /* ========================================================================= */
 ::-webkit-scrollbar {
-  width: 9px;
-  height: 9px;
+  width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #020617;
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #38bdf8, #0284c7);
+  background: rgba(148, 163, 184, 0.35);
   border-radius: 9999px;
-  border: 2px solid #020617;
+  transition: background 0.2s ease;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, #7dd3fc, #38bdf8);
-  box-shadow: 0 0 12px rgba(56, 189, 248, 0.8);
+  background: rgba(99, 85, 216, 0.6);
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: rgba(56, 189, 248, 0.6);
 }
 
 * {
   scrollbar-width: thin;
-  scrollbar-color: #0284c7 #020617;
+  scrollbar-color: rgba(148, 163, 184, 0.35) transparent;
+}
+
+.dark * {
+  scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
 }
 
 /* Float Animations for Anime Hero Effects */
@@ -402,4 +413,20 @@
 
 .animate-float-reverse {
   animation: float-reverse 5.5s ease-in-out infinite;
+}
+
+/* Material / Modern UI Ripple Animation */
+@keyframes ripple-wave {
+  0% {
+    transform: scale(0);
+    opacity: 0.55;
+  }
+  100% {
+    transform: scale(2.6);
+    opacity: 0;
+  }
+}
+
+.animate-ripple {
+  animation: ripple-wave 0.65s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
 }
