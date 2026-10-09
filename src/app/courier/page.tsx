@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import {
   Package,
   Search,
@@ -30,8 +31,8 @@ import ScrollAnimate from "@/components/ui/ScrollAnimate";
 import QuickInquiryModal from "@/components/forms/QuickInquiryModal";
 
 export default function GlobalCourierPage() {
+  const router = useRouter();
   const [awbQuery, setAwbQuery] = useState("");
-  const [trackingResult, setTrackingResult] = useState<any | null>(null);
 
   // Booking modal state
   const [isBookingOpen, setIsBookingOpen] = useState(false);
@@ -60,38 +61,11 @@ export default function GlobalCourierPage() {
     return () => clearInterval(timer);
   }, []);
 
-  const mockTrack = (e: React.FormEvent) => {
+  const handleTrack = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!awbQuery) return;
-
-    if (awbQuery.toUpperCase() === "OTS-12345") {
-      setTrackingResult({
-        awb: "OTS-12345",
-        status: "Out for Delivery",
-        origin: "Hyderabad, India",
-        destination: "London, UK",
-        eta: "Today by 6:00 PM",
-        timeline: [
-          { status: "Shipment Picked Up - Begumpet Hub", time: "Jul 22, 10:30 AM", done: true },
-          { status: "Customs Cleared - RGI Airport", time: "Jul 23, 04:15 PM", done: true },
-          { status: "In Transit - Heathrow Hub", time: "Jul 24, 09:00 AM", done: true },
-          { status: "Out for Delivery - London Depot", time: "Jul 25, 08:30 AM", done: true }
-        ]
-      });
-    } else {
-      setTrackingResult({
-        awb: awbQuery.toUpperCase(),
-        status: "In Transit",
-        origin: "Hyderabad, India",
-        destination: "Dallas, Texas, USA",
-        eta: "Jul 27, 2026",
-        timeline: [
-          { status: "Shipment Picked Up - Hyderabad", time: "Jul 24, 11:00 AM", done: true },
-          { status: "Customs Clearance In Progress", time: "Jul 25, 02:00 PM", done: true },
-          { status: "Departed International Hub", time: "Pending", done: false }
-        ]
-      });
-    }
+    const awb = awbQuery.trim();
+    if (!awb) return;
+    router.push(`/tracking?awb=${encodeURIComponent(awb)}`);
   };
 
   const calculateRates = (e: React.FormEvent) => {
@@ -159,10 +133,10 @@ export default function GlobalCourierPage() {
               </p>
 
               {/* Quick Live AWB Tracking Bar */}
-              <form onSubmit={mockTrack} className="glass-ocean p-3 rounded-full border-2 border-amber-400/40 shadow-2xl flex items-center gap-2 max-w-xl">
+              <form onSubmit={handleTrack} className="glass-ocean p-3 rounded-full border-2 border-amber-400/40 shadow-2xl flex items-center gap-2 max-w-xl">
                 <Search className="h-5 w-5 text-amber-400 ml-3 shrink-0" />
                 <Input
-                  placeholder="Enter AWB Number (Try: OTS-12345 or OTS-67890)"
+                  placeholder="Enter AWB Number"
                   value={awbQuery}
                   onChange={(e) => setAwbQuery(e.target.value)}
                   className="bg-transparent border-none text-white placeholder:text-slate-400 focus-visible:ring-0 text-sm"
@@ -172,16 +146,6 @@ export default function GlobalCourierPage() {
                 </Button>
               </form>
 
-              <div className="flex items-center gap-4 text-xs text-slate-400 pl-4">
-                <span>Quick Demos:</span>
-                <button type="button" onClick={() => { setAwbQuery("OTS-12345"); setTrackingResult(null); }} className="text-amber-400 hover:underline">
-                  OTS-12345 (UK)
-                </button>
-                <span>•</span>
-                <button type="button" onClick={() => { setAwbQuery("OTS-67890"); setTrackingResult(null); }} className="text-amber-400 hover:underline">
-                  OTS-67890 (USA)
-                </button>
-              </div>
 
               {/* Trust Badges */}
               <div className="pt-6 border-t border-amber-900/40 grid grid-cols-3 gap-4 text-xs font-semibold text-slate-300">
@@ -250,52 +214,6 @@ export default function GlobalCourierPage() {
         </section>
       </ScrollAnimate>
 
-      {/* ========================================================================= */}
-      {/* LIVE AWB TRACKING RESULT MODAL/CARD */}
-      {/* ========================================================================= */}
-      {trackingResult && (
-        <section className="py-10 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
-          <div className="glass-ocean p-8 rounded-[36px] border-2 border-amber-400/50 shadow-2xl animate-in fade-in zoom-in duration-300">
-            <div className="flex flex-wrap justify-between items-center gap-4 pb-6 border-b border-amber-900/40">
-              <div>
-                <span className="text-xs text-amber-300 font-bold uppercase tracking-wider">Consignment Number</span>
-                <h3 className="text-2xl font-black text-white">{trackingResult.awb}</h3>
-              </div>
-              <Badge className="bg-amber-500 text-slate-950 font-bold text-sm px-4 py-1.5 rounded-full">
-                {trackingResult.status}
-              </Badge>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 py-6 border-b border-amber-900/40 text-xs">
-              <div>
-                <span className="text-slate-400">Origin:</span>
-                <p className="font-bold text-white text-sm">{trackingResult.origin}</p>
-              </div>
-              <div>
-                <span className="text-slate-400">Destination:</span>
-                <p className="font-bold text-white text-sm">{trackingResult.destination}</p>
-              </div>
-              <div>
-                <span className="text-slate-400">Estimated Delivery:</span>
-                <p className="font-bold text-amber-300 text-sm">{trackingResult.eta}</p>
-              </div>
-            </div>
-
-            <div className="pt-6">
-              <h4 className="font-bold text-sm text-white mb-4">Milestone Timeline</h4>
-              <div className="flex flex-col gap-3">
-                {trackingResult.timeline.map((step: any, idx: number) => (
-                  <div key={idx} className="flex items-center gap-3 text-xs">
-                    <CheckCircle2 className={`h-5 w-5 ${step.done ? "text-amber-400" : "text-slate-600"}`} />
-                    <span className={step.done ? "text-white font-medium" : "text-slate-500"}>{step.status}</span>
-                    <span className="ml-auto text-slate-400">{step.time}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-      )}
 
       {/* ========================================================================= */}
       {/* SHIPPING RATE CALCULATOR (GLASS MORPHISM CARD) */}
