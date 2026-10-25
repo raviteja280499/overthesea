@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
+import { signOut } from "@/lib/auth/actions";
 import { useRouter } from "next/navigation";
 import {
   User,
@@ -40,12 +41,7 @@ export default function AdminAvatarButton() {
   }, [menuOpen]);
 
   const handleLogout = async () => {
-    try {
-      await fetch("/api/admin/auth", { method: "DELETE" });
-    } catch (e) {
-      console.error(e);
-    }
-    router.push("/admin/login");
+    await signOut();
   };
 
   return (

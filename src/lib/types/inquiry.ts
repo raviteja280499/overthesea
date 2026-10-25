@@ -25,6 +25,10 @@ export interface ContactInquiry {
   notes?: string | null;
   created_at?: string;
   updated_at?: string;
+  /** Set once this inquiry has been promoted into a CRM lead. */
+  converted_lead_id?: string | null;
+  converted_at?: string | null;
+  converted_by?: string | null;
 }
 
 export interface InquiryResponse {

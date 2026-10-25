@@ -1,10 +1,6 @@
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans, Playfair_Display, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
-import BottomNav from "@/components/layout/BottomNav";
-import FloatingCall from "@/components/layout/FloatingCall";
 
 const sans = Plus_Jakarta_Sans({
   variable: "--font-sans",
@@ -26,9 +22,17 @@ const mono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Over the Sea | Foreign Education Consultancy & Global Courier",
-  description: "Premium domestic and international courier, cargo, and specialized foreign education consultancy services.",
+  description:
+    "Premium domestic and international courier, cargo, and specialized foreign education consultancy services.",
 };
 
+/**
+ * Document shell only: fonts and global CSS.
+ *
+ * The public navbar/footer and the dark theme live in (site)/layout.tsx, so
+ * the admin and agent areas render neither. Body styling is intentionally
+ * minimal here — each area paints its own background.
+ */
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -39,14 +43,7 @@ export default function RootLayout({
       lang="en"
       className={`${sans.variable} ${serif.variable} ${mono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-[rgb(1_7_34)] text-slate-100 pb-16 lg:pb-0">
-        <Navbar />
-        <main className="flex-grow">{children}</main>
-        <Footer />
-        <BottomNav />
-        <FloatingCall />
-      </body>
+      <body className="min-h-full bg-white">{children}</body>
     </html>
   );
 }
-
