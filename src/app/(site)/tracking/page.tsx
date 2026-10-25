@@ -2,7 +2,7 @@
 
 import { Suspense, useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Search, Package, CheckCircle2, MapPin, ArrowRight, Loader2, AlertCircle, Truck, Scale, User, CalendarDays } from "lucide-react";
+import { Search, Package, CheckCircle2, MapPin, ArrowRight, Loader2, AlertCircle, Truck, CalendarDays } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
@@ -126,8 +126,6 @@ function TrackingContent() {
                 value={[result.service, result.carrierAwb && `${result.carrier} AWB: ${result.carrierAwb}`].filter(Boolean).join(" · ")}
               />
             )}
-            {result.weight && <Detail icon={Scale} label="Weight" value={`${parseFloat(result.weight)} kg`} />}
-            {result.consignee && <Detail icon={User} label="Consignee" value={titleCase(result.consignee)} />}
             {result.receiverName && <Detail icon={Package} label="Received By" value={result.receiverName} />}
           </div>
 
