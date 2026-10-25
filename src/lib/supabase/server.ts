@@ -13,6 +13,20 @@ import type { SupabaseClient } from "@supabase/supabase-js";
  * the handful of provisioning calls that genuinely need it.
  */
 export async function createServerSupabase(): Promise<SupabaseClient> {
+  // Read cookies FIRST, before validating configuration.
+  //
+  // Order matters at build time. cookies() is a request-time API, and
+  // touching it is what marks the route dynamic. When the env check threw
+  // first, a deploy with missing variables never reached this line, so Next
+  // still believed the route was static and turned a configuration problem
+  // into a hard prerender failure:
+  //   Error occurred prerendering page "/admin/agents"
+  // Reading cookies first means a misconfigured deploy fails at request time
+  // with a legible 500 instead of breaking the build.
+  //
+  // Next 16: cookies() is async-only — synchronous access was removed.
+  const cookieStore = await cookies();
+
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const key =
     process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ??
@@ -23,9 +37,6 @@ export async function createServerSupabase(): Promise<SupabaseClient> {
       "Supabase is not configured: set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY."
     );
   }
-
-  // Next 16: cookies() is async-only — synchronous access was removed.
-  const cookieStore = await cookies();
 
   return createServerClient(url, key, {
     cookies: {

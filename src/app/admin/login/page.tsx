@@ -3,6 +3,9 @@ import { redirect } from "next/navigation";
 import { AdminLoginForm } from "@/components/admin/AdminLoginForm";
 import { verifySession } from "@/lib/auth/dal";
 
+// Reads the session cookie to skip the form when already signed in.
+export const dynamic = "force-dynamic";
+
 export const metadata = { title: "Sign in · Over The Sea Admin" };
 
 /**
