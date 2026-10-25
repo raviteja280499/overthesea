@@ -2,33 +2,23 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
-  Package,
   Search,
   Truck,
-  Plane,
   ShieldCheck,
   HeartPulse,
   Apple,
-  FileText,
   CheckCircle2,
-  Clock,
-  MapPin,
-  ArrowRight,
-  Calculator,
   Sparkles,
-  PhoneCall,
-  DollarSign,
   BadgeCheck
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import ScrollAnimate from "@/components/ui/ScrollAnimate";
 import QuickInquiryModal from "@/components/forms/QuickInquiryModal";
+import RateCalculator from "@/components/courier/RateCalculator";
 
 export default function GlobalCourierPage() {
   const router = useRouter();
@@ -37,13 +27,7 @@ export default function GlobalCourierPage() {
   // Booking modal state
   const [isBookingOpen, setIsBookingOpen] = useState(false);
   const [modalSubject, setModalSubject] = useState("Courier Doorstep Pickup Request");
-  const [modalMetadata, setModalMetadata] = useState<Record<string, any>>({});
-
-  // Rate calculator state
-  const [destCountry, setDestCountry] = useState("USA");
-  const [weightKg, setWeightKg] = useState("5");
-  const [itemType, setItemType] = useState("medicine");
-  const [estimatedCost, setEstimatedCost] = useState<number | null>(3450);
+  const [modalMetadata, setModalMetadata] = useState<Record<string, unknown>>({});
 
   const [heroIndex, setHeroIndex] = useState(0);
   const heroPhrases = [
@@ -66,22 +50,6 @@ export default function GlobalCourierPage() {
     const awb = awbQuery.trim();
     if (!awb) return;
     router.push(`/tracking?awb=${encodeURIComponent(awb)}`);
-  };
-
-  const calculateRates = (e: React.FormEvent) => {
-    e.preventDefault();
-    const weight = parseFloat(weightKg) || 1;
-    let baseRate = 850; // per kg
-
-    if (destCountry === "USA") baseRate = 950;
-    if (destCountry === "UK") baseRate = 780;
-    if (destCountry === "Canada") baseRate = 920;
-    if (destCountry === "Australia") baseRate = 1050;
-
-    if (itemType === "medicine") baseRate += 200;
-    if (itemType === "food") baseRate += 150;
-
-    setEstimatedCost(Math.round(weight * baseRate));
   };
 
   return (
@@ -219,93 +187,14 @@ export default function GlobalCourierPage() {
       {/* SHIPPING RATE CALCULATOR (GLASS MORPHISM CARD) */}
       {/* ========================================================================= */}
       <ScrollAnimate>
-        <section id="estimator" className="py-20 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
-        <div className="glass-ocean p-8 sm:p-12 rounded-[48px] border-2 border-amber-500/30 shadow-2xl relative overflow-hidden">
-          
-          <div className="text-center max-w-2xl mx-auto mb-10">
-            <Badge className="bg-amber-500/20 text-amber-300 border border-amber-400/30 text-xs px-4 py-1.5 rounded-full font-bold uppercase tracking-wider">
-              Instant Rate Estimator
-            </Badge>
-            <h2 className="text-3xl sm:text-4xl font-serif font-black text-white mt-3">
-              Calculate Shipping Costs
-            </h2>
-            <p className="text-slate-300 text-xs sm:text-sm mt-2">
-              Select destination and consignment weight to get instant door-to-door courier rates.
-            </p>
-          </div>
-
-          <form onSubmit={calculateRates} className="grid grid-cols-1 md:grid-cols-3 gap-6 items-end">
-            <div className="flex flex-col gap-2">
-              <label className="text-xs font-bold text-amber-300 uppercase tracking-wider">Destination Country</label>
-              <select
-                value={destCountry}
-                onChange={(e) => setDestCountry(e.target.value)}
-                className="bg-slate-900 border border-amber-800/80 text-white rounded-2xl h-12 px-4 text-sm focus:border-amber-400"
-              >
-                <option value="USA">United States (USA)</option>
-                <option value="UK">United Kingdom (UK)</option>
-                <option value="Canada">Canada</option>
-                <option value="Australia">Australia</option>
-                <option value="Germany">Germany</option>
-                <option value="UAE">UAE / Dubai</option>
-              </select>
-            </div>
-
-            <div className="flex flex-col gap-2">
-              <label className="text-xs font-bold text-amber-300 uppercase tracking-wider">Weight (kg)</label>
-              <Input
-                type="number"
-                min="0.5"
-                step="0.5"
-                value={weightKg}
-                onChange={(e) => setWeightKg(e.target.value)}
-                className="bg-slate-900 border border-amber-800/80 text-white rounded-2xl h-12 text-sm focus:border-amber-400"
-              />
-            </div>
-
-            <div className="flex flex-col gap-2">
-              <label className="text-xs font-bold text-amber-300 uppercase tracking-wider">Parcel Type</label>
-              <select
-                value={itemType}
-                onChange={(e) => setItemType(e.target.value)}
-                className="bg-slate-900 border border-amber-800/80 text-white rounded-2xl h-12 px-4 text-sm focus:border-amber-400"
-              >
-                <option value="medicine">Prescription Medicine</option>
-                <option value="baggage">Student Baggage</option>
-                <option value="food">Vacuum Packed Foods</option>
-                <option value="general">General Documents / Parcel</option>
-              </select>
-            </div>
-          </form>
-
-          {estimatedCost && (
-            <div className="mt-8 pt-8 border-t border-amber-900/40 flex flex-wrap justify-between items-center gap-4 bg-slate-900/60 p-6 rounded-3xl">
-              <div>
-                <span className="text-xs text-slate-400 font-medium">Estimated Door-to-Door Price:</span>
-                <h3 className="text-3xl font-serif font-black text-amber-400">
-                  ₹{estimatedCost.toLocaleString()} <span className="text-xs font-sans text-slate-300">(All Inclusive)</span>
-                </h3>
-              </div>
-              <Button
-                onClick={() => {
-                  setModalSubject(`Doorstep Pickup Booking for ${destCountry} (${itemType})`);
-                  setModalMetadata({
-                    destination_country: destCountry,
-                    weight_kg: Number(weightKg),
-                    parcel_type: itemType,
-                    estimated_cost: estimatedCost,
-                  });
-                  setIsBookingOpen(true);
-                }}
-                size="lg"
-                className="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-full px-8 h-12 cursor-pointer shadow-lg"
-              >
-                Book Pickup Now <ArrowRight className="h-4 w-4 ml-1" />
-              </Button>
-            </div>
-          )}
-
-        </div>
+        <section id="estimator" className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+          <RateCalculator
+            onBookRate={({ subject, metadata }) => {
+              setModalSubject(subject);
+              setModalMetadata(metadata);
+              setIsBookingOpen(true);
+            }}
+          />
       </section>
       </ScrollAnimate>
 
