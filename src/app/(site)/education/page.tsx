@@ -346,19 +346,6 @@ const destinations = [
     btnStyle: "bg-amber-500/20 hover:bg-amber-500 text-amber-300 hover:text-slate-950 border border-amber-400/30"
   },
   {
-    country: "Russia",
-    code: "RU",
-    image: "/destinations/russia.png",
-    intakes: "September, October",
-    workPermit: "Student Work Rights + 3-Year Specialist Visa",
-    popular: "MBBS General Medicine, Aerospace Engineering, Nuclear Physics",
-    description: "Affordable WHO/NMC recognized medical degrees (Moscow State, Kazan) with zero entrance exam requirements.",
-    cardGradient: "bg-gradient-to-br from-blue-950/80 via-red-950/40 to-slate-950",
-    accentText: "text-sky-300",
-    badgeBg: "bg-blue-950/90 border border-sky-400/30 text-sky-300",
-    btnStyle: "bg-sky-500/20 hover:bg-sky-500 text-sky-300 hover:text-slate-950 border border-sky-400/30"
-  },
-  {
     country: "European Union (EU Region)",
     code: "EU",
     image: "/destinations/eu.png",
@@ -619,7 +606,7 @@ export default function EducationalConsultancyPage() {
               <div className="inline-flex items-center gap-2 bg-sky-950/80 border border-sky-400/30 text-sky-300 text-xs px-4 py-1.5 rounded-full backdrop-blur-md w-fit shadow-lg">
                 <Sparkles className="h-4 w-4 text-amber-300 animate-spin" style={{ animationDuration: "8s" }} />
                 <span className="font-bold uppercase tracking-wider text-[11px]">
-                  Over the Sea Overseas Education Portal
+                  Over the Sea Educational Consultancy Services
                 </span>
               </div>
 
